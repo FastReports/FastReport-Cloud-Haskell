@@ -1,0 +1,9 @@
+.openapi-generator-ignore
+LICENSE
+README.md
+Setup.hs
+VERSION
+fastreport-cloud.cabal
+lib/FastReportCloud/API.hs
+lib/FastReportCloud/Types.hs
+stack.yaml

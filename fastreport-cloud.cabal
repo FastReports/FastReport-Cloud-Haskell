@@ -1,0 +1,41 @@
+name:                fastreport-cloud
+version:             1.0.0.0
+synopsis:            Auto-generated API bindings for fastreport-cloud
+description:         Please see README.md
+homepage:            https://github.com/FastReports/FastReport-Cloud-Haskell
+author:              Fast Reports
+maintainer:          support@fast-report.com
+copyright:           2021 - Fast Reports
+category:            Web
+build-type:          Simple
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      lib
+  exposed-modules:     FastReportCloud.API
+                     , FastReportCloud.Types
+  ghc-options:         -Wall
+  build-depends:       base
+                     , aeson
+                     , text
+                     , containers
+                     , exceptions
+                     , network-uri
+                     , servant
+                     , http-api-data
+                     , servant
+                     , servant-client
+                     , servant-client-core
+                     , servant-server
+                     , servant
+                     , wai
+                     , warp
+                     , transformers
+                     , mtl
+                     , time
+                     , http-client
+                     , http-client-tls
+                     , http-types
+                     , swagger2
+                     , uuid
+  default-language:    Haskell2010
