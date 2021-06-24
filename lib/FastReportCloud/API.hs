@@ -121,99 +121,7 @@ formatSeparatedQueryList char = T.intercalate (T.singleton char) . map toQueryPa
 
 -- | Servant type-level API, generated from the OpenAPI spec for FastReportCloud.
 type FastReportCloudAPI
-    =    "api" :> "admin" :> "v1" :> "ApiKeys" :> Capture "userId" Text :> ReqBody '[JSON] CreateApiKeyVM :> Verb 'POST 200 '[JSON] ApiKeyVM -- 'adminApiKeysCreateApiKey' route
-    :<|> "api" :> "admin" :> "v1" :> "ApiKeys" :> Capture "userId" Text :> ReqBody '[JSON] DeleteApiKeyVM :> Verb 'DELETE 200 '[JSON] () -- 'adminApiKeysDeleteApiKey' route
-    :<|> "api" :> "admin" :> "v1" :> "ApiKeys" :> Capture "userId" Text :> Verb 'GET 200 '[JSON] ApiKeysVM -- 'adminApiKeysGetApiKeys' route
-    :<|> "api" :> "admin" :> "v1" :> "DataSource" :> ReqBody '[JSON] CreateDataSourceAdminVM :> Verb 'POST 200 '[JSON] DataSourceVM -- 'adminDataSourceCreateDataSource' route
-    :<|> "api" :> "admin" :> "v1" :> "DataSource" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'adminDataSourceDeleteDataSource' route
-    :<|> "api" :> "admin" :> "v1" :> "DataSource" :> Capture "id" Text :> "fetch" :> Verb 'GET 200 '[JSON] () -- 'adminDataSourceFetchData' route
-    :<|> "api" :> "admin" :> "v1" :> "DataSource" :> Capture "id" Text :> Verb 'GET 200 '[JSON] DataSourceVM -- 'adminDataSourceGetDataSource' route
-    :<|> "api" :> "admin" :> "v1" :> "DataSource" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] DataSourcesVM -- 'adminDataSourceGetDataSources' route
-    :<|> "api" :> "admin" :> "v1" :> "DataSource" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] DataSourcePermissionsVM -- 'adminDataSourceGetPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "DataSource" :> Capture "id" Text :> ReqBody '[JSON] UpdateDataSourceVM :> Verb 'PUT 200 '[JSON] DataSourceVM -- 'adminDataSourceUpdateDataSource' route
-    :<|> "api" :> "admin" :> "v1" :> "DataSource" :> Capture "dataSourceId" Text :> "permissions" :> ReqBody '[JSON] UpdateDataSourcePermissionsVM :> Verb 'POST 200 '[JSON] () -- 'adminDataSourceUpdatePermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "ExportFolders" :> Capture "id" Text :> QueryParam "recursive" Bool :> Verb 'DELETE 200 '[JSON] () -- 'adminExportFoldersDeleteFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "ExportFolders" :> Capture "id" Text :> Verb 'GET 200 '[JSON] FileVM -- 'adminExportFoldersGetFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "ExportFolders" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] FilesVM -- 'adminExportFoldersGetFolders' route
-    :<|> "api" :> "admin" :> "v1" :> "ExportFolders" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'adminExportFoldersGetPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "ExportFolders" :> ReqBody '[JSON] AdminExportFolderCreateVM :> Verb 'POST 200 '[JSON] FileVM -- 'adminExportFoldersPostFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "ExportFolders" :> Capture "id" Text :> ReqBody '[JSON] FileUpdateVM :> Verb 'PUT 200 '[JSON] FileVM -- 'adminExportFoldersUpdateFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "ExportFolders" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 200 '[JSON] () -- 'adminExportFoldersUpdatePermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Exports" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'adminExportsDeleteFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Exports" :> Capture "id" Text :> Verb 'GET 200 '[JSON] ExportVM -- 'adminExportsGetFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Exports" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] ExportsVM -- 'adminExportsGetFiles' route
-    :<|> "api" :> "admin" :> "v1" :> "Exports" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'adminExportsGetPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Exports" :> Capture "id" Text :> ReqBody '[JSON] FileUpdateVM :> Verb 'PUT 200 '[JSON] ExportVM -- 'adminExportsUpdateFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Exports" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 200 '[JSON] () -- 'adminExportsUpdatePermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Exports" :> ReqBody '[JSON] ExportCreateAdminVM :> Verb 'POST 200 '[JSON] ExportVM -- 'adminExportsUploadFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Groups" :> ReqBody '[JSON] CreateGroupAdminVM :> Verb 'POST 200 '[JSON] GroupVM -- 'adminGroupsCreateGroup' route
-    :<|> "api" :> "admin" :> "v1" :> "Groups" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'adminGroupsDeleteGroup' route
-    :<|> "api" :> "admin" :> "v1" :> "Groups" :> Capture "id" Text :> Verb 'GET 200 '[JSON] GroupVM -- 'adminGroupsGetGroup' route
-    :<|> "api" :> "admin" :> "v1" :> "Groups" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] GroupsVM -- 'adminGroupsGetGroups' route
-    :<|> "api" :> "admin" :> "v1" :> "Groups" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] GroupPermissionsVM -- 'adminGroupsGetPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Groups" :> Capture "id" Text :> ReqBody '[JSON] UpdateGroupVM :> Verb 'PUT 200 '[JSON] GroupVM -- 'adminGroupsUpdateGroup' route
-    :<|> "api" :> "admin" :> "v1" :> "Groups" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateGroupPermissionsVM :> Verb 'POST 200 '[JSON] () -- 'adminGroupsUpdatePermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "HealthCheck" :> Verb 'GET 200 '[JSON] () -- 'adminHealthCheckAdminGet' route
-    :<|> "api" :> "admin" :> "v1" :> "ReportFolders" :> Capture "id" Text :> QueryParam "recursive" Bool :> Verb 'DELETE 200 '[JSON] () -- 'adminReportFoldersDeleteFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "ReportFolders" :> Capture "id" Text :> Verb 'GET 200 '[JSON] FileVM -- 'adminReportFoldersGetFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "ReportFolders" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] FilesVM -- 'adminReportFoldersGetFolders' route
-    :<|> "api" :> "admin" :> "v1" :> "ReportFolders" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'adminReportFoldersGetPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "ReportFolders" :> ReqBody '[JSON] AdminReportFolderCreateVM :> Verb 'POST 200 '[JSON] FileVM -- 'adminReportFoldersPostFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "ReportFolders" :> Capture "id" Text :> ReqBody '[JSON] FileUpdateVM :> Verb 'PUT 200 '[JSON] FileVM -- 'adminReportFoldersUpdateFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "ReportFolders" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 200 '[JSON] () -- 'adminReportFoldersUpdatePermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Reports" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'adminReportsDeleteFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Reports" :> Capture "id" Text :> Verb 'GET 200 '[JSON] ReportVM -- 'adminReportsGetFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Reports" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] ReportsVM -- 'adminReportsGetFiles' route
-    :<|> "api" :> "admin" :> "v1" :> "Reports" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'adminReportsGetPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Reports" :> Capture "id" Text :> ReqBody '[JSON] FileUpdateVM :> Verb 'PUT 200 '[JSON] ReportVM -- 'adminReportsUpdateFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Reports" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 200 '[JSON] () -- 'adminReportsUpdatePermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Reports" :> ReqBody '[JSON] ReportCreateAdminVM :> Verb 'POST 200 '[JSON] ReportVM -- 'adminReportsUploadFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Analytics" :> "Subscriptions" :> Capture "subscriptionId" Text :> "AnonCheck" :> Verb 'GET 200 '[JSON] AnalysisResultsVM -- 'adminSubscriptionAnalyticsCheckAnonPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Analytics" :> "Subscriptions" :> Capture "subscriptionId" Text :> "OtherCheck" :> Verb 'GET 200 '[JSON] AnalysisResultsVM -- 'adminSubscriptionAnalyticsCheckOtherPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Analytics" :> "Subscriptions" :> "DeadSubsInUsers" :> Verb 'GET 200 '[JSON] AnalysisResultsVM -- 'adminSubscriptionAnalyticsGetDeadSubsInUsers' route
-    :<|> "api" :> "admin" :> "v1" :> "Analytics" :> "Subscriptions" :> "EmptySubs" :> Verb 'GET 200 '[JSON] AnalysisResultsVM -- 'adminSubscriptionAnalyticsGetEmptySubs' route
-    :<|> "api" :> "admin" :> "v1" :> "Analytics" :> "Subscriptions" :> "LostFileChunks" :> Verb 'GET 200 '[JSON] AnalysisResultsVM -- 'adminSubscriptionAnalyticsGetLostFileChunks' route
-    :<|> "api" :> "admin" :> "v1" :> "Analytics" :> "Subscriptions" :> "UnrelatedDocuments" :> Verb 'GET 200 '[JSON] AnalysisResultsVM -- 'adminSubscriptionAnalyticsGetUnrelatedDocuments' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "invite" :> ReqBody '[JSON] CreateSubscriptionInviteVM :> Verb 'POST 200 '[JSON] SubscriptionInviteVM -- 'adminSubscriptionInvitesCreateInvite' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "invite" :> Capture "accesstoken" Text :> Verb 'DELETE 200 '[JSON] () -- 'adminSubscriptionInvitesDeleteInvite' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "invites" :> Verb 'GET 200 '[JSON] SubscriptionInvitesVM -- 'adminSubscriptionInvitesGetInvites' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> Capture "id" Text :> "Renew" :> ReqBody '[JSON] CreateSubscriptionPeriodVM :> Verb 'POST 200 '[JSON] SubscriptionVM -- 'adminSubscriptionPeriodRenewSubscription' route
-    :<|> "api" :> "admin" :> "v1" :> "SubscriptionPlans" :> ReqBody '[JSON] CreateSubscriptionPlanVM :> Verb 'POST 200 '[JSON] SubscriptionPlanVM -- 'adminSubscriptionPlansCreateSubscriptionPlan' route
-    :<|> "api" :> "admin" :> "v1" :> "SubscriptionPlans" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'adminSubscriptionPlansDeleteSubscriptionPlan' route
-    :<|> "api" :> "admin" :> "v1" :> "SubscriptionPlans" :> Capture "id" Text :> Verb 'GET 200 '[JSON] SubscriptionPlanVM -- 'adminSubscriptionPlansGetSubscriptionPlan' route
-    :<|> "api" :> "admin" :> "v1" :> "SubscriptionPlans" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] SubscriptionPlansVM -- 'adminSubscriptionPlansGetSubscriptionPlans' route
-    :<|> "api" :> "admin" :> "v1" :> "SubscriptionPlans" :> Capture "id" Text :> ReqBody '[JSON] UpdateSubscriptionPlanVM :> Verb 'PUT 200 '[JSON] SubscriptionPlanVM -- 'adminSubscriptionPlansUpdateSubscriptionPlan' route
-    :<|> "api" :> "admin" :> "v1" :> "Analytics" :> "Solve" :> ReqBody '[JSON] AnalysisResultsVM :> Verb 'POST 200 '[JSON] () -- 'adminSubscriptionProblemSolvingSolveProblems' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> ReqBody '[JSON] CreateSubscriptionVM :> Verb 'POST 200 '[JSON] AdminSubscriptionVM -- 'adminSubscriptionsCreateSubscription' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'adminSubscriptionsDeleteSubscription' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> "stat" :> "new" :> Capture "from" UTCTime :> Capture "to" UTCTime :> Verb 'GET 200 '[JSON] ((Map.Map String Int)) -- 'adminSubscriptionsGetNewSibscriptionsPerMonth' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] SubscriptionPermissionsVM -- 'adminSubscriptionsGetPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> Capture "id" Text :> Verb 'GET 200 '[JSON] AdminSubscriptionVM -- 'adminSubscriptionsGetSubscription' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] AdminSubscriptionsVM -- 'adminSubscriptionsGetSubscriptions' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> Capture "id" Text :> "recount" :> Verb 'GET 200 '[JSON] () -- 'adminSubscriptionsReCountSubscription' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateSubscriptionPermissionsVM :> Verb 'POST 200 '[JSON] () -- 'adminSubscriptionsUpdatePermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Subscriptions" :> Capture "id" Text :> ReqBody '[JSON] UpdateSubscriptionVM :> Verb 'PUT 200 '[JSON] AdminSubscriptionVM -- 'adminSubscriptionsUpdateSubscription' route
-    :<|> "api" :> "admin" :> "v1" :> "TemplateFolders" :> Capture "id" Text :> QueryParam "recursive" Bool :> Verb 'DELETE 200 '[JSON] () -- 'adminTemplateFoldersDeleteFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "TemplateFolders" :> Capture "id" Text :> Verb 'GET 200 '[JSON] FileVM -- 'adminTemplateFoldersGetFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "TemplateFolders" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] FilesVM -- 'adminTemplateFoldersGetFolders' route
-    :<|> "api" :> "admin" :> "v1" :> "TemplateFolders" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'adminTemplateFoldersGetPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "TemplateFolders" :> ReqBody '[JSON] AdminTemplateFolderCreateVM :> Verb 'POST 200 '[JSON] FileVM -- 'adminTemplateFoldersPostFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "TemplateFolders" :> Capture "id" Text :> ReqBody '[JSON] FileUpdateVM :> Verb 'PUT 200 '[JSON] FileVM -- 'adminTemplateFoldersUpdateFolder' route
-    :<|> "api" :> "admin" :> "v1" :> "TemplateFolders" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 200 '[JSON] () -- 'adminTemplateFoldersUpdatePermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Templates" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'adminTemplatesDeleteFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Templates" :> Capture "id" Text :> Verb 'GET 200 '[JSON] TemplateVM -- 'adminTemplatesGetFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Templates" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] TemplatesVM -- 'adminTemplatesGetFiles' route
-    :<|> "api" :> "admin" :> "v1" :> "Templates" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'adminTemplatesGetPermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Templates" :> Capture "id" Text :> ReqBody '[JSON] FileUpdateVM :> Verb 'PUT 200 '[JSON] TemplateVM -- 'adminTemplatesUpdateFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Templates" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 200 '[JSON] () -- 'adminTemplatesUpdatePermissions' route
-    :<|> "api" :> "admin" :> "v1" :> "Templates" :> ReqBody '[JSON] TemplateCreateAdminVM :> Verb 'POST 200 '[JSON] TemplateVM -- 'adminTemplatesUploadFile' route
-    :<|> "api" :> "admin" :> "v1" :> "Users" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'adminUsersDeleteUser' route
-    :<|> "api" :> "admin" :> "v1" :> "Users" :> "stat" :> "new" :> Capture "from" UTCTime :> Capture "to" UTCTime :> Verb 'GET 200 '[JSON] ((Map.Map String Int)) -- 'adminUsersGetNewUsersPerMonth' route
-    :<|> "api" :> "admin" :> "v1" :> "Users" :> Capture "id" Text :> Verb 'GET 200 '[JSON] UserVM -- 'adminUsersGetUser' route
-    :<|> "api" :> "admin" :> "v1" :> "Users" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] UsersVM -- 'adminUsersGetUsers' route
-    :<|> "api" :> "admin" :> "v1" :> "Users" :> ReqBody '[JSON] RegisterUserVM :> Verb 'POST 200 '[JSON] UserVM -- 'adminUsersRegisterUser' route
-    :<|> "api" :> "admin" :> "v1" :> "Users" :> Capture "id" Text :> ReqBody '[JSON] UpdateUserVM :> Verb 'PUT 200 '[JSON] UserVM -- 'adminUsersUpdateUser' route
-    :<|> "api" :> "manage" :> "v1" :> "ApiKeys" :> ReqBody '[JSON] CreateApiKeyVM :> Verb 'POST 200 '[JSON] ApiKeyVM -- 'apiKeysCreateApiKey' route
+    =    "api" :> "manage" :> "v1" :> "ApiKeys" :> ReqBody '[JSON] CreateApiKeyVM :> Verb 'POST 200 '[JSON] ApiKeyVM -- 'apiKeysCreateApiKey' route
     :<|> "api" :> "manage" :> "v1" :> "ApiKeys" :> ReqBody '[JSON] DeleteApiKeyVM :> Verb 'DELETE 200 '[JSON] () -- 'apiKeysDeleteApiKey' route
     :<|> "api" :> "manage" :> "v1" :> "ApiKeys" :> Verb 'GET 200 '[JSON] ApiKeysVM -- 'apiKeysGetApiKeys' route
     :<|> "api" :> "data" :> "v1" :> "DataSources" :> ReqBody '[JSON] CreateDataSourceVM :> Verb 'POST 200 '[JSON] DataSourceVM -- 'dataSourcesCreateDataSource' route
@@ -272,10 +180,7 @@ type FastReportCloudAPI
     :<|> "api" :> "manage" :> "v1" :> "Groups" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] GroupPermissionsVM -- 'groupsGetPermissions' route
     :<|> "api" :> "manage" :> "v1" :> "Groups" :> Capture "id" Text :> "rename" :> ReqBody '[JSON] RenameGroupVM :> Verb 'PUT 200 '[JSON] GroupVM -- 'groupsRenameGroup' route
     :<|> "api" :> "manage" :> "v1" :> "Groups" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateGroupPermissionsVM :> Verb 'POST 200 '[JSON] () -- 'groupsUpdatePermissions' route
-    :<|> "api" :> "data" :> "v1" :> "HealthCheck" :> Verb 'GET 200 '[JSON] () -- 'healthCheckDataGet' route
-    :<|> "api" :> "manage" :> "v1" :> "HealthCheck" :> Verb 'GET 200 '[JSON] () -- 'healthCheckManagementGet' route
-    :<|> "api" :> "rp" :> "v1" :> "HealthCheck" :> Verb 'GET 200 '[JSON] () -- 'healthCheckReportProcessorGet' route
-    :<|> "download" :> "v{version}" :> "HealthCheck" :> Verb 'GET 200 '[JSON] () -- 'healthCheckResultsProviderGet' route
+    :<|> "api" :> "backend" :> "v1" :> "HealthCheck" :> Verb 'GET 200 '[JSON] () -- 'healthCheckDataGet' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'reportFolderAndFileGetCount' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] FilesVM -- 'reportFolderAndFileGetFoldersAndFiles' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] FileVM -- 'reportFoldersCopyFolder' route
@@ -307,7 +212,7 @@ type FastReportCloudAPI
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "File" :> ReqBody '[JSON] ReportCreateVM :> Verb 'POST 200 '[JSON] ReportVM -- 'reportsUploadFile' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "groups" :> QueryParam "userId" Text :> Verb 'GET 200 '[JSON] GroupsVM -- 'subscriptionGroupsGetGroupsList' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "invite" :> Capture "accessToken" Text :> "accept" :> Verb 'GET 200 '[JSON] () -- 'subscriptionInvitesAcceptInvite' route
-    :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "invite" :> ReqBody '[JSON] CreateSubscriptionInviteVM :> Verb 'POST 200 '[JSON] SubscriptionVM -- 'subscriptionInvitesCreateInvite' route
+    :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "invite" :> ReqBody '[JSON] CreateSubscriptionInviteVM :> Verb 'POST 200 '[JSON] SubscriptionInviteVM -- 'subscriptionInvitesCreateInvite' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "invite" :> Capture "accesstoken" Text :> Verb 'DELETE 200 '[JSON] () -- 'subscriptionInvitesDeleteInvite' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "invites" :> Verb 'GET 200 '[JSON] SubscriptionInvitesVM -- 'subscriptionInvitesGetInvites' route
     :<|> "api" :> "manage" :> "v1" :> "SubscriptionPlans" :> Capture "id" Text :> Verb 'GET 200 '[JSON] SubscriptionPlanVM -- 'subscriptionPlansGetSubscriptionPlan' route
@@ -356,7 +261,9 @@ type FastReportCloudAPI
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "File" :> ReqBody '[JSON] TemplateCreateVM :> Verb 'POST 200 '[JSON] TemplateVM -- 'templatesUploadFile' route
     :<|> "api" :> "manage" :> "v1" :> "UserProfile" :> Verb 'GET 200 '[JSON] UserProfileVM -- 'userProfileGetMyProfile' route
     :<|> "api" :> "manage" :> "v1" :> "UserProfile" :> Capture "userId" Text :> Verb 'GET 200 '[JSON] UserProfileVM -- 'userProfileGetUserProfile' route
-    :<|> "api" :> "manage" :> "v1" :> "UserProfile" :> ReqBody '[JSON] UserProfileUpdateVM :> Verb 'PUT 200 '[JSON] () -- 'userProfileUpdateMyProfile' route
+    :<|> "api" :> "manage" :> "v1" :> "UserProfile" :> ReqBody '[JSON] UpdateUserProfileVM :> Verb 'PUT 200 '[JSON] () -- 'userProfileUpdateMyProfile' route
+    :<|> "api" :> "manage" :> "v1" :> "UserSettings" :> Verb 'GET 200 '[JSON] UserSettingsVM -- 'userSettingsGetCurrentUserSettings' route
+    :<|> "api" :> "manage" :> "v1" :> "UserSettings" :> ReqBody '[JSON] UpdateUserSettingsVM :> Verb 'PUT 200 '[JSON] UserSettingsVM -- 'userSettingsUpdateMySettings' route
     :<|> Raw 
 
 
@@ -377,99 +284,7 @@ newtype FastReportCloudClientError = FastReportCloudClientError ClientError
 -- is a backend that executes actions by sending HTTP requests (see @createFastReportCloudClient@). Alternatively, provided
 -- a backend, the API can be served using @runFastReportCloudMiddlewareServer@.
 data FastReportCloudBackend m = FastReportCloudBackend
-  { adminApiKeysCreateApiKey :: Text -> CreateApiKeyVM -> m ApiKeyVM{- ^  -}
-  , adminApiKeysDeleteApiKey :: Text -> DeleteApiKeyVM -> m (){- ^  -}
-  , adminApiKeysGetApiKeys :: Text -> m ApiKeysVM{- ^ Always work, it should make only 200 response. -}
-  , adminDataSourceCreateDataSource :: CreateDataSourceAdminVM -> m DataSourceVM{- ^  -}
-  , adminDataSourceDeleteDataSource :: Text -> m (){- ^  -}
-  , adminDataSourceFetchData :: Text -> m (){- ^  -}
-  , adminDataSourceGetDataSource :: Text -> m DataSourceVM{- ^  -}
-  , adminDataSourceGetDataSources :: Maybe Int -> Maybe Int -> Maybe Text -> m DataSourcesVM{- ^  -}
-  , adminDataSourceGetPermissions :: Text -> m DataSourcePermissionsVM{- ^  -}
-  , adminDataSourceUpdateDataSource :: Text -> UpdateDataSourceVM -> m DataSourceVM{- ^  -}
-  , adminDataSourceUpdatePermissions :: Text -> UpdateDataSourcePermissionsVM -> m (){- ^  -}
-  , adminExportFoldersDeleteFolder :: Text -> Maybe Bool -> m (){- ^ User with Delete permission can access the method. -}
-  , adminExportFoldersGetFolder :: Text -> m FileVM{- ^  -}
-  , adminExportFoldersGetFolders :: Maybe Int -> Maybe Int -> Maybe Text -> m FilesVM{- ^ If no folders, then the endpoint will return empty list -}
-  , adminExportFoldersGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
-  , adminExportFoldersPostFolder :: AdminExportFolderCreateVM -> m FileVM{- ^ User with a Create File permisison can access this method. -}
-  , adminExportFoldersUpdateFolder :: Text -> FileUpdateVM -> m FileVM{- ^ User with Create File permission can access this method. -}
-  , adminExportFoldersUpdatePermissions :: Text -> UpdateFilePermissionsVM -> m (){- ^  -}
-  , adminExportsDeleteFile :: Text -> m (){- ^ User with Delete permission can access the method. -}
-  , adminExportsGetFile :: Text -> m ExportVM{- ^  -}
-  , adminExportsGetFiles :: Maybe Int -> Maybe Int -> Maybe Text -> m ExportsVM{- ^ If no files, then the endpoint will return empty list -}
-  , adminExportsGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
-  , adminExportsUpdateFile :: Text -> FileUpdateVM -> m ExportVM{- ^ User with Create Entity permission can access this method. -}
-  , adminExportsUpdatePermissions :: Text -> UpdateFilePermissionsVM -> m (){- ^  -}
-  , adminExportsUploadFile :: ExportCreateAdminVM -> m ExportVM{- ^ User with Create Entity permission can access this method. -}
-  , adminGroupsCreateGroup :: CreateGroupAdminVM -> m GroupVM{- ^  -}
-  , adminGroupsDeleteGroup :: Text -> m (){- ^  -}
-  , adminGroupsGetGroup :: Text -> m GroupVM{- ^  -}
-  , adminGroupsGetGroups :: Maybe Int -> Maybe Int -> Maybe Text -> m GroupsVM{- ^ If no groups, then the endpoint will return empty list -}
-  , adminGroupsGetPermissions :: Text -> m GroupPermissionsVM{- ^  -}
-  , adminGroupsUpdateGroup :: Text -> UpdateGroupVM -> m GroupVM{- ^  -}
-  , adminGroupsUpdatePermissions :: Text -> UpdateGroupPermissionsVM -> m (){- ^  -}
-  , adminHealthCheckAdminGet :: m (){- ^  -}
-  , adminReportFoldersDeleteFolder :: Text -> Maybe Bool -> m (){- ^ User with Delete permission can access the method. -}
-  , adminReportFoldersGetFolder :: Text -> m FileVM{- ^  -}
-  , adminReportFoldersGetFolders :: Maybe Int -> Maybe Int -> Maybe Text -> m FilesVM{- ^ If no folders, then the endpoint will return empty list -}
-  , adminReportFoldersGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
-  , adminReportFoldersPostFolder :: AdminReportFolderCreateVM -> m FileVM{- ^ User with a Create File permisison can access this method. -}
-  , adminReportFoldersUpdateFolder :: Text -> FileUpdateVM -> m FileVM{- ^ User with Create File permission can access this method. -}
-  , adminReportFoldersUpdatePermissions :: Text -> UpdateFilePermissionsVM -> m (){- ^  -}
-  , adminReportsDeleteFile :: Text -> m (){- ^ User with Delete permission can access the method. -}
-  , adminReportsGetFile :: Text -> m ReportVM{- ^  -}
-  , adminReportsGetFiles :: Maybe Int -> Maybe Int -> Maybe Text -> m ReportsVM{- ^ If no files, then the endpoint will return empty list -}
-  , adminReportsGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
-  , adminReportsUpdateFile :: Text -> FileUpdateVM -> m ReportVM{- ^ User with Create Entity permission can access this method. -}
-  , adminReportsUpdatePermissions :: Text -> UpdateFilePermissionsVM -> m (){- ^  -}
-  , adminReportsUploadFile :: ReportCreateAdminVM -> m ReportVM{- ^ User with Create Entity permission can access this method. -}
-  , adminSubscriptionAnalyticsCheckAnonPermissions :: Text -> m AnalysisResultsVM{- ^  -}
-  , adminSubscriptionAnalyticsCheckOtherPermissions :: Text -> m AnalysisResultsVM{- ^  -}
-  , adminSubscriptionAnalyticsGetDeadSubsInUsers :: m AnalysisResultsVM{- ^  -}
-  , adminSubscriptionAnalyticsGetEmptySubs :: m AnalysisResultsVM{- ^  -}
-  , adminSubscriptionAnalyticsGetLostFileChunks :: m AnalysisResultsVM{- ^  -}
-  , adminSubscriptionAnalyticsGetUnrelatedDocuments :: m AnalysisResultsVM{- ^  -}
-  , adminSubscriptionInvitesCreateInvite :: Text -> CreateSubscriptionInviteVM -> m SubscriptionInviteVM{- ^  -}
-  , adminSubscriptionInvitesDeleteInvite :: Text -> Text -> m (){- ^  -}
-  , adminSubscriptionInvitesGetInvites :: Text -> m SubscriptionInvitesVM{- ^  -}
-  , adminSubscriptionPeriodRenewSubscription :: Text -> CreateSubscriptionPeriodVM -> m SubscriptionVM{- ^  -}
-  , adminSubscriptionPlansCreateSubscriptionPlan :: CreateSubscriptionPlanVM -> m SubscriptionPlanVM{- ^  -}
-  , adminSubscriptionPlansDeleteSubscriptionPlan :: Text -> m (){- ^  -}
-  , adminSubscriptionPlansGetSubscriptionPlan :: Text -> m SubscriptionPlanVM{- ^  -}
-  , adminSubscriptionPlansGetSubscriptionPlans :: Maybe Int -> Maybe Int -> m SubscriptionPlansVM{- ^ If no active subscription plans, then the endpoint will return empty list -}
-  , adminSubscriptionPlansUpdateSubscriptionPlan :: Text -> UpdateSubscriptionPlanVM -> m SubscriptionPlanVM{- ^  -}
-  , adminSubscriptionProblemSolvingSolveProblems :: AnalysisResultsVM -> m (){- ^  -}
-  , adminSubscriptionsCreateSubscription :: CreateSubscriptionVM -> m AdminSubscriptionVM{- ^  -}
-  , adminSubscriptionsDeleteSubscription :: Text -> m (){- ^  -}
-  , adminSubscriptionsGetNewSibscriptionsPerMonth :: UTCTime -> UTCTime -> m ((Map.Map String Int)){- ^ If no subscriptions, then the endpoint will return empty dic -}
-  , adminSubscriptionsGetPermissions :: Text -> m SubscriptionPermissionsVM{- ^  -}
-  , adminSubscriptionsGetSubscription :: Text -> m AdminSubscriptionVM{- ^  -}
-  , adminSubscriptionsGetSubscriptions :: Maybe Int -> Maybe Int -> m AdminSubscriptionsVM{- ^  -}
-  , adminSubscriptionsReCountSubscription :: Text -> m (){- ^  -}
-  , adminSubscriptionsUpdatePermissions :: Text -> UpdateSubscriptionPermissionsVM -> m (){- ^  -}
-  , adminSubscriptionsUpdateSubscription :: Text -> UpdateSubscriptionVM -> m AdminSubscriptionVM{- ^  -}
-  , adminTemplateFoldersDeleteFolder :: Text -> Maybe Bool -> m (){- ^ User with Delete permission can access the method. -}
-  , adminTemplateFoldersGetFolder :: Text -> m FileVM{- ^  -}
-  , adminTemplateFoldersGetFolders :: Maybe Int -> Maybe Int -> Maybe Text -> m FilesVM{- ^ If no folders, then the endpoint will return empty list -}
-  , adminTemplateFoldersGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
-  , adminTemplateFoldersPostFolder :: AdminTemplateFolderCreateVM -> m FileVM{- ^ User with a Create File permisison can access this method. -}
-  , adminTemplateFoldersUpdateFolder :: Text -> FileUpdateVM -> m FileVM{- ^ User with Create File permission can access this method. -}
-  , adminTemplateFoldersUpdatePermissions :: Text -> UpdateFilePermissionsVM -> m (){- ^  -}
-  , adminTemplatesDeleteFile :: Text -> m (){- ^ User with Delete permission can access the method. -}
-  , adminTemplatesGetFile :: Text -> m TemplateVM{- ^  -}
-  , adminTemplatesGetFiles :: Maybe Int -> Maybe Int -> Maybe Text -> m TemplatesVM{- ^ If no files, then the endpoint will return empty list -}
-  , adminTemplatesGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
-  , adminTemplatesUpdateFile :: Text -> FileUpdateVM -> m TemplateVM{- ^ User with Create Entity permission can access this method. -}
-  , adminTemplatesUpdatePermissions :: Text -> UpdateFilePermissionsVM -> m (){- ^  -}
-  , adminTemplatesUploadFile :: TemplateCreateAdminVM -> m TemplateVM{- ^ User with Create Entity permission can access this method. -}
-  , adminUsersDeleteUser :: Text -> m (){- ^  -}
-  , adminUsersGetNewUsersPerMonth :: UTCTime -> UTCTime -> m ((Map.Map String Int)){- ^ If no users, then the endpoint will return empty dic -}
-  , adminUsersGetUser :: Text -> m UserVM{- ^  -}
-  , adminUsersGetUsers :: Maybe Int -> Maybe Int -> m UsersVM{- ^ If no users, then the endpoint will return empty list -}
-  , adminUsersRegisterUser :: RegisterUserVM -> m UserVM{- ^  -}
-  , adminUsersUpdateUser :: Text -> UpdateUserVM -> m UserVM{- ^  -}
-  , apiKeysCreateApiKey :: CreateApiKeyVM -> m ApiKeyVM{- ^  -}
+  { apiKeysCreateApiKey :: CreateApiKeyVM -> m ApiKeyVM{- ^  -}
   , apiKeysDeleteApiKey :: DeleteApiKeyVM -> m (){- ^  -}
   , apiKeysGetApiKeys :: m ApiKeysVM{- ^ Always work, it should make only 200 response (except if user is not authorized). -}
   , dataSourcesCreateDataSource :: CreateDataSourceVM -> m DataSourceVM{- ^  -}
@@ -529,9 +344,6 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , groupsRenameGroup :: Text -> RenameGroupVM -> m GroupVM{- ^  -}
   , groupsUpdatePermissions :: Text -> UpdateGroupPermissionsVM -> m (){- ^  -}
   , healthCheckDataGet :: m (){- ^  -}
-  , healthCheckManagementGet :: m (){- ^  -}
-  , healthCheckReportProcessorGet :: m (){- ^  -}
-  , healthCheckResultsProviderGet :: m (){- ^  -}
   , reportFolderAndFileGetCount :: Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
   , reportFolderAndFileGetFoldersAndFiles :: Text -> Maybe Int -> Maybe Int -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , reportFoldersCopyFolder :: Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
@@ -563,7 +375,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , reportsUploadFile :: Text -> ReportCreateVM -> m ReportVM{- ^  -}
   , subscriptionGroupsGetGroupsList :: Text -> Maybe Text -> m GroupsVM{- ^  -}
   , subscriptionInvitesAcceptInvite :: Text -> Text -> m (){- ^  -}
-  , subscriptionInvitesCreateInvite :: Text -> CreateSubscriptionInviteVM -> m SubscriptionVM{- ^  -}
+  , subscriptionInvitesCreateInvite :: Text -> CreateSubscriptionInviteVM -> m SubscriptionInviteVM{- ^  -}
   , subscriptionInvitesDeleteInvite :: Text -> Text -> m (){- ^  -}
   , subscriptionInvitesGetInvites :: Text -> m SubscriptionInvitesVM{- ^  -}
   , subscriptionPlansGetSubscriptionPlan :: Text -> m SubscriptionPlanVM{- ^  -}
@@ -612,7 +424,9 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , templatesUploadFile :: Text -> TemplateCreateVM -> m TemplateVM{- ^ User with Create Entity permission can access this method. -}
   , userProfileGetMyProfile :: m UserProfileVM{- ^  -}
   , userProfileGetUserProfile :: Text -> m UserProfileVM{- ^  -}
-  , userProfileUpdateMyProfile :: UserProfileUpdateVM -> m (){- ^ This method is only allowed for local sign in via intranet -}
+  , userProfileUpdateMyProfile :: UpdateUserProfileVM -> m (){- ^ This method is only allowed for local sign in via intranet -}
+  , userSettingsGetCurrentUserSettings :: m UserSettingsVM{- ^  -}
+  , userSettingsUpdateMySettings :: UpdateUserSettingsVM -> m UserSettingsVM{- ^  -}
   }
 
 newtype FastReportCloudClient a = FastReportCloudClient
@@ -636,99 +450,7 @@ instance MonadIO FastReportCloudClient where
 createFastReportCloudClient :: FastReportCloudBackend FastReportCloudClient
 createFastReportCloudClient = FastReportCloudBackend{..}
   where
-    ((coerce -> adminApiKeysCreateApiKey) :<|>
-     (coerce -> adminApiKeysDeleteApiKey) :<|>
-     (coerce -> adminApiKeysGetApiKeys) :<|>
-     (coerce -> adminDataSourceCreateDataSource) :<|>
-     (coerce -> adminDataSourceDeleteDataSource) :<|>
-     (coerce -> adminDataSourceFetchData) :<|>
-     (coerce -> adminDataSourceGetDataSource) :<|>
-     (coerce -> adminDataSourceGetDataSources) :<|>
-     (coerce -> adminDataSourceGetPermissions) :<|>
-     (coerce -> adminDataSourceUpdateDataSource) :<|>
-     (coerce -> adminDataSourceUpdatePermissions) :<|>
-     (coerce -> adminExportFoldersDeleteFolder) :<|>
-     (coerce -> adminExportFoldersGetFolder) :<|>
-     (coerce -> adminExportFoldersGetFolders) :<|>
-     (coerce -> adminExportFoldersGetPermissions) :<|>
-     (coerce -> adminExportFoldersPostFolder) :<|>
-     (coerce -> adminExportFoldersUpdateFolder) :<|>
-     (coerce -> adminExportFoldersUpdatePermissions) :<|>
-     (coerce -> adminExportsDeleteFile) :<|>
-     (coerce -> adminExportsGetFile) :<|>
-     (coerce -> adminExportsGetFiles) :<|>
-     (coerce -> adminExportsGetPermissions) :<|>
-     (coerce -> adminExportsUpdateFile) :<|>
-     (coerce -> adminExportsUpdatePermissions) :<|>
-     (coerce -> adminExportsUploadFile) :<|>
-     (coerce -> adminGroupsCreateGroup) :<|>
-     (coerce -> adminGroupsDeleteGroup) :<|>
-     (coerce -> adminGroupsGetGroup) :<|>
-     (coerce -> adminGroupsGetGroups) :<|>
-     (coerce -> adminGroupsGetPermissions) :<|>
-     (coerce -> adminGroupsUpdateGroup) :<|>
-     (coerce -> adminGroupsUpdatePermissions) :<|>
-     (coerce -> adminHealthCheckAdminGet) :<|>
-     (coerce -> adminReportFoldersDeleteFolder) :<|>
-     (coerce -> adminReportFoldersGetFolder) :<|>
-     (coerce -> adminReportFoldersGetFolders) :<|>
-     (coerce -> adminReportFoldersGetPermissions) :<|>
-     (coerce -> adminReportFoldersPostFolder) :<|>
-     (coerce -> adminReportFoldersUpdateFolder) :<|>
-     (coerce -> adminReportFoldersUpdatePermissions) :<|>
-     (coerce -> adminReportsDeleteFile) :<|>
-     (coerce -> adminReportsGetFile) :<|>
-     (coerce -> adminReportsGetFiles) :<|>
-     (coerce -> adminReportsGetPermissions) :<|>
-     (coerce -> adminReportsUpdateFile) :<|>
-     (coerce -> adminReportsUpdatePermissions) :<|>
-     (coerce -> adminReportsUploadFile) :<|>
-     (coerce -> adminSubscriptionAnalyticsCheckAnonPermissions) :<|>
-     (coerce -> adminSubscriptionAnalyticsCheckOtherPermissions) :<|>
-     (coerce -> adminSubscriptionAnalyticsGetDeadSubsInUsers) :<|>
-     (coerce -> adminSubscriptionAnalyticsGetEmptySubs) :<|>
-     (coerce -> adminSubscriptionAnalyticsGetLostFileChunks) :<|>
-     (coerce -> adminSubscriptionAnalyticsGetUnrelatedDocuments) :<|>
-     (coerce -> adminSubscriptionInvitesCreateInvite) :<|>
-     (coerce -> adminSubscriptionInvitesDeleteInvite) :<|>
-     (coerce -> adminSubscriptionInvitesGetInvites) :<|>
-     (coerce -> adminSubscriptionPeriodRenewSubscription) :<|>
-     (coerce -> adminSubscriptionPlansCreateSubscriptionPlan) :<|>
-     (coerce -> adminSubscriptionPlansDeleteSubscriptionPlan) :<|>
-     (coerce -> adminSubscriptionPlansGetSubscriptionPlan) :<|>
-     (coerce -> adminSubscriptionPlansGetSubscriptionPlans) :<|>
-     (coerce -> adminSubscriptionPlansUpdateSubscriptionPlan) :<|>
-     (coerce -> adminSubscriptionProblemSolvingSolveProblems) :<|>
-     (coerce -> adminSubscriptionsCreateSubscription) :<|>
-     (coerce -> adminSubscriptionsDeleteSubscription) :<|>
-     (coerce -> adminSubscriptionsGetNewSibscriptionsPerMonth) :<|>
-     (coerce -> adminSubscriptionsGetPermissions) :<|>
-     (coerce -> adminSubscriptionsGetSubscription) :<|>
-     (coerce -> adminSubscriptionsGetSubscriptions) :<|>
-     (coerce -> adminSubscriptionsReCountSubscription) :<|>
-     (coerce -> adminSubscriptionsUpdatePermissions) :<|>
-     (coerce -> adminSubscriptionsUpdateSubscription) :<|>
-     (coerce -> adminTemplateFoldersDeleteFolder) :<|>
-     (coerce -> adminTemplateFoldersGetFolder) :<|>
-     (coerce -> adminTemplateFoldersGetFolders) :<|>
-     (coerce -> adminTemplateFoldersGetPermissions) :<|>
-     (coerce -> adminTemplateFoldersPostFolder) :<|>
-     (coerce -> adminTemplateFoldersUpdateFolder) :<|>
-     (coerce -> adminTemplateFoldersUpdatePermissions) :<|>
-     (coerce -> adminTemplatesDeleteFile) :<|>
-     (coerce -> adminTemplatesGetFile) :<|>
-     (coerce -> adminTemplatesGetFiles) :<|>
-     (coerce -> adminTemplatesGetPermissions) :<|>
-     (coerce -> adminTemplatesUpdateFile) :<|>
-     (coerce -> adminTemplatesUpdatePermissions) :<|>
-     (coerce -> adminTemplatesUploadFile) :<|>
-     (coerce -> adminUsersDeleteUser) :<|>
-     (coerce -> adminUsersGetNewUsersPerMonth) :<|>
-     (coerce -> adminUsersGetUser) :<|>
-     (coerce -> adminUsersGetUsers) :<|>
-     (coerce -> adminUsersRegisterUser) :<|>
-     (coerce -> adminUsersUpdateUser) :<|>
-     (coerce -> apiKeysCreateApiKey) :<|>
+    ((coerce -> apiKeysCreateApiKey) :<|>
      (coerce -> apiKeysDeleteApiKey) :<|>
      (coerce -> apiKeysGetApiKeys) :<|>
      (coerce -> dataSourcesCreateDataSource) :<|>
@@ -788,9 +510,6 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> groupsRenameGroup) :<|>
      (coerce -> groupsUpdatePermissions) :<|>
      (coerce -> healthCheckDataGet) :<|>
-     (coerce -> healthCheckManagementGet) :<|>
-     (coerce -> healthCheckReportProcessorGet) :<|>
-     (coerce -> healthCheckResultsProviderGet) :<|>
      (coerce -> reportFolderAndFileGetCount) :<|>
      (coerce -> reportFolderAndFileGetFoldersAndFiles) :<|>
      (coerce -> reportFoldersCopyFolder) :<|>
@@ -872,6 +591,8 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> userProfileGetMyProfile) :<|>
      (coerce -> userProfileGetUserProfile) :<|>
      (coerce -> userProfileUpdateMyProfile) :<|>
+     (coerce -> userSettingsGetCurrentUserSettings) :<|>
+     (coerce -> userSettingsUpdateMySettings) :<|>
      _) = client (Proxy :: Proxy FastReportCloudAPI)
 
 -- | Run requests in the FastReportCloudClient monad.
@@ -919,99 +640,7 @@ runFastReportCloudMiddlewareServer Config{..} middleware backend = do
   liftIO $ Warp.runSettings warpSettings $ middleware $ serve (Proxy :: Proxy FastReportCloudAPI) (serverFromBackend backend)
   where
     serverFromBackend FastReportCloudBackend{..} =
-      (coerce adminApiKeysCreateApiKey :<|>
-       coerce adminApiKeysDeleteApiKey :<|>
-       coerce adminApiKeysGetApiKeys :<|>
-       coerce adminDataSourceCreateDataSource :<|>
-       coerce adminDataSourceDeleteDataSource :<|>
-       coerce adminDataSourceFetchData :<|>
-       coerce adminDataSourceGetDataSource :<|>
-       coerce adminDataSourceGetDataSources :<|>
-       coerce adminDataSourceGetPermissions :<|>
-       coerce adminDataSourceUpdateDataSource :<|>
-       coerce adminDataSourceUpdatePermissions :<|>
-       coerce adminExportFoldersDeleteFolder :<|>
-       coerce adminExportFoldersGetFolder :<|>
-       coerce adminExportFoldersGetFolders :<|>
-       coerce adminExportFoldersGetPermissions :<|>
-       coerce adminExportFoldersPostFolder :<|>
-       coerce adminExportFoldersUpdateFolder :<|>
-       coerce adminExportFoldersUpdatePermissions :<|>
-       coerce adminExportsDeleteFile :<|>
-       coerce adminExportsGetFile :<|>
-       coerce adminExportsGetFiles :<|>
-       coerce adminExportsGetPermissions :<|>
-       coerce adminExportsUpdateFile :<|>
-       coerce adminExportsUpdatePermissions :<|>
-       coerce adminExportsUploadFile :<|>
-       coerce adminGroupsCreateGroup :<|>
-       coerce adminGroupsDeleteGroup :<|>
-       coerce adminGroupsGetGroup :<|>
-       coerce adminGroupsGetGroups :<|>
-       coerce adminGroupsGetPermissions :<|>
-       coerce adminGroupsUpdateGroup :<|>
-       coerce adminGroupsUpdatePermissions :<|>
-       coerce adminHealthCheckAdminGet :<|>
-       coerce adminReportFoldersDeleteFolder :<|>
-       coerce adminReportFoldersGetFolder :<|>
-       coerce adminReportFoldersGetFolders :<|>
-       coerce adminReportFoldersGetPermissions :<|>
-       coerce adminReportFoldersPostFolder :<|>
-       coerce adminReportFoldersUpdateFolder :<|>
-       coerce adminReportFoldersUpdatePermissions :<|>
-       coerce adminReportsDeleteFile :<|>
-       coerce adminReportsGetFile :<|>
-       coerce adminReportsGetFiles :<|>
-       coerce adminReportsGetPermissions :<|>
-       coerce adminReportsUpdateFile :<|>
-       coerce adminReportsUpdatePermissions :<|>
-       coerce adminReportsUploadFile :<|>
-       coerce adminSubscriptionAnalyticsCheckAnonPermissions :<|>
-       coerce adminSubscriptionAnalyticsCheckOtherPermissions :<|>
-       coerce adminSubscriptionAnalyticsGetDeadSubsInUsers :<|>
-       coerce adminSubscriptionAnalyticsGetEmptySubs :<|>
-       coerce adminSubscriptionAnalyticsGetLostFileChunks :<|>
-       coerce adminSubscriptionAnalyticsGetUnrelatedDocuments :<|>
-       coerce adminSubscriptionInvitesCreateInvite :<|>
-       coerce adminSubscriptionInvitesDeleteInvite :<|>
-       coerce adminSubscriptionInvitesGetInvites :<|>
-       coerce adminSubscriptionPeriodRenewSubscription :<|>
-       coerce adminSubscriptionPlansCreateSubscriptionPlan :<|>
-       coerce adminSubscriptionPlansDeleteSubscriptionPlan :<|>
-       coerce adminSubscriptionPlansGetSubscriptionPlan :<|>
-       coerce adminSubscriptionPlansGetSubscriptionPlans :<|>
-       coerce adminSubscriptionPlansUpdateSubscriptionPlan :<|>
-       coerce adminSubscriptionProblemSolvingSolveProblems :<|>
-       coerce adminSubscriptionsCreateSubscription :<|>
-       coerce adminSubscriptionsDeleteSubscription :<|>
-       coerce adminSubscriptionsGetNewSibscriptionsPerMonth :<|>
-       coerce adminSubscriptionsGetPermissions :<|>
-       coerce adminSubscriptionsGetSubscription :<|>
-       coerce adminSubscriptionsGetSubscriptions :<|>
-       coerce adminSubscriptionsReCountSubscription :<|>
-       coerce adminSubscriptionsUpdatePermissions :<|>
-       coerce adminSubscriptionsUpdateSubscription :<|>
-       coerce adminTemplateFoldersDeleteFolder :<|>
-       coerce adminTemplateFoldersGetFolder :<|>
-       coerce adminTemplateFoldersGetFolders :<|>
-       coerce adminTemplateFoldersGetPermissions :<|>
-       coerce adminTemplateFoldersPostFolder :<|>
-       coerce adminTemplateFoldersUpdateFolder :<|>
-       coerce adminTemplateFoldersUpdatePermissions :<|>
-       coerce adminTemplatesDeleteFile :<|>
-       coerce adminTemplatesGetFile :<|>
-       coerce adminTemplatesGetFiles :<|>
-       coerce adminTemplatesGetPermissions :<|>
-       coerce adminTemplatesUpdateFile :<|>
-       coerce adminTemplatesUpdatePermissions :<|>
-       coerce adminTemplatesUploadFile :<|>
-       coerce adminUsersDeleteUser :<|>
-       coerce adminUsersGetNewUsersPerMonth :<|>
-       coerce adminUsersGetUser :<|>
-       coerce adminUsersGetUsers :<|>
-       coerce adminUsersRegisterUser :<|>
-       coerce adminUsersUpdateUser :<|>
-       coerce apiKeysCreateApiKey :<|>
+      (coerce apiKeysCreateApiKey :<|>
        coerce apiKeysDeleteApiKey :<|>
        coerce apiKeysGetApiKeys :<|>
        coerce dataSourcesCreateDataSource :<|>
@@ -1071,9 +700,6 @@ runFastReportCloudMiddlewareServer Config{..} middleware backend = do
        coerce groupsRenameGroup :<|>
        coerce groupsUpdatePermissions :<|>
        coerce healthCheckDataGet :<|>
-       coerce healthCheckManagementGet :<|>
-       coerce healthCheckReportProcessorGet :<|>
-       coerce healthCheckResultsProviderGet :<|>
        coerce reportFolderAndFileGetCount :<|>
        coerce reportFolderAndFileGetFoldersAndFiles :<|>
        coerce reportFoldersCopyFolder :<|>
@@ -1155,4 +781,6 @@ runFastReportCloudMiddlewareServer Config{..} middleware backend = do
        coerce userProfileGetMyProfile :<|>
        coerce userProfileGetUserProfile :<|>
        coerce userProfileUpdateMyProfile :<|>
+       coerce userSettingsGetCurrentUserSettings :<|>
+       coerce userSettingsUpdateMySettings :<|>
        serveDirectoryFileServer "static")

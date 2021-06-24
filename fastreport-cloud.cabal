@@ -1,5 +1,5 @@
 name:                fastreport-cloud
-version:             1.0.0.0
+version:             2021.2.13.0
 synopsis:            Auto-generated API bindings for fastreport-cloud
 description:         Please see README.md
 homepage:            https://github.com/FastReports/FastReport-Cloud-Haskell

@@ -4,28 +4,15 @@
 {-# OPTIONS_GHC -fno-warn-unused-binds -fno-warn-unused-imports #-}
 
 module FastReportCloud.Types (
-  AdminExportFolderCreateVM (..),
-  AdminPermission (..),
-  AdminReportFolderCreateVM (..),
-  AdminSubscriptionVM (..),
-  AdminSubscriptionsVM (..),
-  AdminTemplateFolderCreateVM (..),
-  AnalysisResultVM (..),
-  AnalysisResultsVM (..),
   ApiKeyVM (..),
   ApiKeysVM (..),
   BreadcrumbsModel (..),
   BreadcrumbsVM (..),
   CountVM (..),
   CreateApiKeyVM (..),
-  CreateDataSourceAdminVM (..),
   CreateDataSourceVM (..),
-  CreateGroupAdminVM (..),
   CreateGroupVM (..),
   CreateSubscriptionInviteVM (..),
-  CreateSubscriptionPeriodVM (..),
-  CreateSubscriptionPlanVM (..),
-  CreateSubscriptionVM (..),
   DataSourcePermission (..),
   DataSourcePermissions (..),
   DataSourcePermissionsVM (..),
@@ -34,7 +21,6 @@ module FastReportCloud.Types (
   DefaultPermissions (..),
   DefaultPermissionsVM (..),
   DeleteApiKeyVM (..),
-  ExportCreateAdminVM (..),
   ExportFolderCreateVM (..),
   ExportReportTaskVM (..),
   ExportTemplateTaskVM (..),
@@ -46,7 +32,6 @@ module FastReportCloud.Types (
   FilePermissionsVM (..),
   FileRenameVM (..),
   FileTagsUpdateVM (..),
-  FileUpdateVM (..),
   FileVM (..),
   FilesVM (..),
   FolderIconVM (..),
@@ -62,11 +47,9 @@ module FastReportCloud.Types (
   InvitedUser (..),
   PrepareTemplateTaskVM (..),
   ProblemDetails (..),
-  RegisterUserVM (..),
   RenameDataSourceVM (..),
   RenameGroupVM (..),
   RenameSubscriptionVM (..),
-  ReportCreateAdminVM (..),
   ReportCreateVM (..),
   ReportFolderCreateVM (..),
   ReportInfo (..),
@@ -85,7 +68,6 @@ module FastReportCloud.Types (
   SubscriptionUsersVM (..),
   SubscriptionVM (..),
   SubscriptionsVM (..),
-  TemplateCreateAdminVM (..),
   TemplateCreateVM (..),
   TemplateFolderCreateVM (..),
   TemplateVM (..),
@@ -93,21 +75,15 @@ module FastReportCloud.Types (
   UpdateDataSourceConnectionStringVM (..),
   UpdateDataSourcePermissionsVM (..),
   UpdateDataSourceSubscriptionVM (..),
-  UpdateDataSourceVM (..),
   UpdateDefaultPermissionsVM (..),
   UpdateFilePermissionsVM (..),
   UpdateGroupPermissionsVM (..),
-  UpdateGroupVM (..),
   UpdateSubscriptionLocaleVM (..),
   UpdateSubscriptionPermissionsVM (..),
-  UpdateSubscriptionPlanVM (..),
-  UpdateSubscriptionVM (..),
-  UpdateUserVM (..),
-  UserProfileUpdateVM (..),
+  UpdateUserProfileVM (..),
+  UpdateUserSettingsVM (..),
   UserProfileVM (..),
-  UserSettings (..),
-  UserVM (..),
-  UsersVM (..),
+  UserSettingsVM (..),
   ) where
 
 import Data.Data (Data)
@@ -129,129 +105,6 @@ import Data.Function ((&))
 
 
 -- | 
-data AdminExportFolderCreateVM = AdminExportFolderCreateVM
-  { adminExportFolderCreateVMParentId :: Maybe Text -- ^ 
-  , adminExportFolderCreateVMOwnerId :: Maybe Text -- ^ 
-  , adminExportFolderCreateVMName :: Maybe Text -- ^ 
-  , adminExportFolderCreateVMTags :: Maybe [Text] -- ^ 
-  , adminExportFolderCreateVMIcon :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AdminExportFolderCreateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "adminExportFolderCreateVM")
-instance ToJSON AdminExportFolderCreateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "adminExportFolderCreateVM")
-
-
--- | 
-data AdminPermission = AdminPermission
-  { adminPermissionCreate :: Maybe Int -- ^ 
-  , adminPermissionDelete :: Maybe Int -- ^ 
-  , adminPermissionExecute :: Maybe Int -- ^ 
-  , adminPermissionGet :: Maybe Int -- ^ 
-  , adminPermissionUpdate :: Maybe Int -- ^ 
-  , adminPermissionAdministrate :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AdminPermission where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "adminPermission")
-instance ToJSON AdminPermission where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "adminPermission")
-
-
--- | 
-data AdminReportFolderCreateVM = AdminReportFolderCreateVM
-  { adminReportFolderCreateVMParentId :: Maybe Text -- ^ 
-  , adminReportFolderCreateVMOwnerId :: Maybe Text -- ^ 
-  , adminReportFolderCreateVMName :: Maybe Text -- ^ 
-  , adminReportFolderCreateVMTags :: Maybe [Text] -- ^ 
-  , adminReportFolderCreateVMIcon :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AdminReportFolderCreateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "adminReportFolderCreateVM")
-instance ToJSON AdminReportFolderCreateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "adminReportFolderCreateVM")
-
-
--- | 
-data AdminSubscriptionVM = AdminSubscriptionVM
-  { adminSubscriptionVMDefaultPermissions :: Maybe DefaultPermissions -- ^ 
-  , adminSubscriptionVMId :: Maybe Text -- ^ 
-  , adminSubscriptionVMName :: Maybe Text -- ^ 
-  , adminSubscriptionVMLocale :: Maybe Text -- ^ 
-  , adminSubscriptionVMCurrent :: Maybe SubscriptionPeriodVM -- ^ 
-  , adminSubscriptionVMOld :: Maybe [SubscriptionPeriodVM] -- ^ 
-  , adminSubscriptionVMTemplatesFolder :: Maybe SubscriptionFolder -- ^ 
-  , adminSubscriptionVMReportsFolder :: Maybe SubscriptionFolder -- ^ 
-  , adminSubscriptionVMExportsFolder :: Maybe SubscriptionFolder -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AdminSubscriptionVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "adminSubscriptionVM")
-instance ToJSON AdminSubscriptionVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "adminSubscriptionVM")
-
-
--- | 
-data AdminSubscriptionsVM = AdminSubscriptionsVM
-  { adminSubscriptionsVMSubscriptions :: Maybe [AdminSubscriptionVM] -- ^ 
-  , adminSubscriptionsVMCount :: Maybe Integer -- ^ 
-  , adminSubscriptionsVMSkip :: Maybe Int -- ^ 
-  , adminSubscriptionsVMTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AdminSubscriptionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "adminSubscriptionsVM")
-instance ToJSON AdminSubscriptionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "adminSubscriptionsVM")
-
-
--- | 
-data AdminTemplateFolderCreateVM = AdminTemplateFolderCreateVM
-  { adminTemplateFolderCreateVMParentId :: Maybe Text -- ^ 
-  , adminTemplateFolderCreateVMOwnerId :: Maybe Text -- ^ 
-  , adminTemplateFolderCreateVMName :: Maybe Text -- ^ 
-  , adminTemplateFolderCreateVMTags :: Maybe [Text] -- ^ 
-  , adminTemplateFolderCreateVMIcon :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AdminTemplateFolderCreateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "adminTemplateFolderCreateVM")
-instance ToJSON AdminTemplateFolderCreateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "adminTemplateFolderCreateVM")
-
-
--- | 
-data AnalysisResultVM = AnalysisResultVM
-  { analysisResultVMLevel :: Maybe Int -- ^ 
-  , analysisResultVMDetail :: Maybe Text -- ^ 
-  , analysisResultVMId :: Maybe Text -- ^ 
-  , analysisResultVMSubscriptionId :: Maybe Text -- ^ 
-  , analysisResultVMFileId :: Maybe Text -- ^ 
-  , analysisResultVMCollectionName :: Maybe Text -- ^ 
-  , analysisResultVMType :: Maybe Int -- ^ 
-  , analysisResultVMSignature :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AnalysisResultVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "analysisResultVM")
-instance ToJSON AnalysisResultVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "analysisResultVM")
-
-
--- | 
-data AnalysisResultsVM = AnalysisResultsVM
-  { analysisResultsVMResults :: Maybe [AnalysisResultVM] -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AnalysisResultsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "analysisResultsVM")
-instance ToJSON AnalysisResultsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "analysisResultsVM")
-
-
--- | 
 data ApiKeyVM = ApiKeyVM
   { apiKeyVMValue :: Maybe Text -- ^ 
   , apiKeyVMDescription :: Maybe Text -- ^ 
@@ -262,6 +115,10 @@ instance FromJSON ApiKeyVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "apiKeyVM")
 instance ToJSON ApiKeyVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "apiKeyVM")
+instance ToSchema ApiKeyVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "apiKeyVM"
 
 
 -- | 
@@ -274,6 +131,10 @@ instance FromJSON ApiKeysVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "apiKeysVM")
 instance ToJSON ApiKeysVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "apiKeysVM")
+instance ToSchema ApiKeysVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "apiKeysVM"
 
 
 -- | 
@@ -286,6 +147,10 @@ instance FromJSON BreadcrumbsModel where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "breadcrumbsModel")
 instance ToJSON BreadcrumbsModel where
   toJSON = genericToJSON (removeFieldLabelPrefix False "breadcrumbsModel")
+instance ToSchema BreadcrumbsModel where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "breadcrumbsModel"
 
 
 -- | 
@@ -297,6 +162,10 @@ instance FromJSON BreadcrumbsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "breadcrumbsVM")
 instance ToJSON BreadcrumbsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "breadcrumbsVM")
+instance ToSchema BreadcrumbsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "breadcrumbsVM"
 
 
 -- | 
@@ -308,6 +177,10 @@ instance FromJSON CountVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "countVM")
 instance ToJSON CountVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "countVM")
+instance ToSchema CountVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "countVM"
 
 
 -- | 
@@ -320,28 +193,17 @@ instance FromJSON CreateApiKeyVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "createApiKeyVM")
 instance ToJSON CreateApiKeyVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "createApiKeyVM")
-
-
--- | 
-data CreateDataSourceAdminVM = CreateDataSourceAdminVM
-  { createDataSourceAdminVMOwnerId :: Maybe Text -- ^ 
-  , createDataSourceAdminVMName :: Maybe Text -- ^ 
-  , createDataSourceAdminVMConnectionString :: Text -- ^ 
-  , createDataSourceAdminVMSubscriptionId :: Maybe Text -- ^ 
-  , createDataSourceAdminVMConnectionType :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON CreateDataSourceAdminVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createDataSourceAdminVM")
-instance ToJSON CreateDataSourceAdminVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createDataSourceAdminVM")
+instance ToSchema CreateApiKeyVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "createApiKeyVM"
 
 
 -- | 
 data CreateDataSourceVM = CreateDataSourceVM
   { createDataSourceVMName :: Maybe Text -- ^ 
   , createDataSourceVMConnectionString :: Text -- ^ 
-  , createDataSourceVMSubscriptionId :: Maybe Text -- ^ 
+  , createDataSourceVMSubscriptionId :: Text -- ^ 
   , createDataSourceVMConnectionType :: Maybe Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
@@ -349,19 +211,10 @@ instance FromJSON CreateDataSourceVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "createDataSourceVM")
 instance ToJSON CreateDataSourceVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "createDataSourceVM")
-
-
--- | 
-data CreateGroupAdminVM = CreateGroupAdminVM
-  { createGroupAdminVMOwnerId :: Maybe Text -- ^ 
-  , createGroupAdminVMName :: Text -- ^ 
-  , createGroupAdminVMSubscriptionId :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON CreateGroupAdminVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createGroupAdminVM")
-instance ToJSON CreateGroupAdminVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createGroupAdminVM")
+instance ToSchema CreateDataSourceVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "createDataSourceVM"
 
 
 -- | 
@@ -374,6 +227,10 @@ instance FromJSON CreateGroupVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "createGroupVM")
 instance ToJSON CreateGroupVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "createGroupVM")
+instance ToSchema CreateGroupVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "createGroupVM"
 
 
 -- | 
@@ -387,59 +244,10 @@ instance FromJSON CreateSubscriptionInviteVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "createSubscriptionInviteVM")
 instance ToJSON CreateSubscriptionInviteVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "createSubscriptionInviteVM")
-
-
--- | 
-data CreateSubscriptionPeriodVM = CreateSubscriptionPeriodVM
-  { createSubscriptionPeriodVMPlanId :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON CreateSubscriptionPeriodVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createSubscriptionPeriodVM")
-instance ToJSON CreateSubscriptionPeriodVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createSubscriptionPeriodVM")
-
-
--- | 
-data CreateSubscriptionPlanVM = CreateSubscriptionPlanVM
-  { createSubscriptionPlanVMIsActive :: Maybe Bool -- ^ 
-  , createSubscriptionPlanVMDisplayName :: Maybe Text -- ^ 
-  , createSubscriptionPlanVMTimePeriodType :: Maybe Text -- ^ 
-  , createSubscriptionPlanVMTimePeriod :: Maybe Int -- ^ 
-  , createSubscriptionPlanVMTemplatesSpaceLimit :: Maybe Integer -- ^ 
-  , createSubscriptionPlanVMReportsSpaceLimit :: Maybe Integer -- ^ 
-  , createSubscriptionPlanVMExportsSpaceLimit :: Maybe Integer -- ^ 
-  , createSubscriptionPlanVMFileUploadSizeLimit :: Maybe Integer -- ^ 
-  , createSubscriptionPlanVMDataSourceLimit :: Maybe Int -- ^ 
-  , createSubscriptionPlanVMMaxUsersCount :: Maybe Int -- ^ 
-  , createSubscriptionPlanVMHasSpaceOverdraft :: Maybe Bool -- ^ 
-  , createSubscriptionPlanVMGroupLimit :: Maybe Int -- ^ 
-  , createSubscriptionPlanVMOnlineDesigner :: Maybe Bool -- ^ 
-  , createSubscriptionPlanVMIsDemo :: Maybe Bool -- ^ 
-  , createSubscriptionPlanVMUrlToBuy :: Maybe Text -- ^ 
-  , createSubscriptionPlanVMUnlimitedPage :: Maybe Bool -- ^ 
-  , createSubscriptionPlanVMPageLimit :: Maybe Int -- ^ 
-  , createSubscriptionPlanVMReadonlyTimeLimitType :: Maybe Text -- ^ 
-  , createSubscriptionPlanVMReadonlyTimeLimit :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON CreateSubscriptionPlanVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createSubscriptionPlanVM")
-instance ToJSON CreateSubscriptionPlanVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createSubscriptionPlanVM")
-
-
--- | 
-data CreateSubscriptionVM = CreateSubscriptionVM
-  { createSubscriptionVMPlanId :: Maybe Text -- ^ 
-  , createSubscriptionVMName :: Maybe Text -- ^ 
-  , createSubscriptionVMUserId :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON CreateSubscriptionVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createSubscriptionVM")
-instance ToJSON CreateSubscriptionVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createSubscriptionVM")
+instance ToSchema CreateSubscriptionInviteVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "createSubscriptionInviteVM"
 
 
 -- | 
@@ -456,6 +264,10 @@ instance FromJSON DataSourcePermission where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourcePermission")
 instance ToJSON DataSourcePermission where
   toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourcePermission")
+instance ToSchema DataSourcePermission where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "dataSourcePermission"
 
 
 -- | 
@@ -471,6 +283,10 @@ instance FromJSON DataSourcePermissions where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourcePermissions")
 instance ToJSON DataSourcePermissions where
   toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourcePermissions")
+instance ToSchema DataSourcePermissions where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "dataSourcePermissions"
 
 
 -- | 
@@ -482,6 +298,10 @@ instance FromJSON DataSourcePermissionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourcePermissionsVM")
 instance ToJSON DataSourcePermissionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourcePermissionsVM")
+instance ToSchema DataSourcePermissionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "dataSourcePermissionsVM"
 
 
 -- | 
@@ -503,6 +323,10 @@ instance FromJSON DataSourceVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceVM")
 instance ToJSON DataSourceVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceVM")
+instance ToSchema DataSourceVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "dataSourceVM"
 
 
 -- | 
@@ -517,6 +341,10 @@ instance FromJSON DataSourcesVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourcesVM")
 instance ToJSON DataSourcesVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourcesVM")
+instance ToSchema DataSourcesVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "dataSourcesVM"
 
 
 -- | 
@@ -530,6 +358,10 @@ instance FromJSON DefaultPermissions where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "defaultPermissions")
 instance ToJSON DefaultPermissions where
   toJSON = genericToJSON (removeFieldLabelPrefix False "defaultPermissions")
+instance ToSchema DefaultPermissions where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "defaultPermissions"
 
 
 -- | 
@@ -543,6 +375,10 @@ instance FromJSON DefaultPermissionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "defaultPermissionsVM")
 instance ToJSON DefaultPermissionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "defaultPermissionsVM")
+instance ToSchema DefaultPermissionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "defaultPermissionsVM"
 
 
 -- | 
@@ -554,23 +390,10 @@ instance FromJSON DeleteApiKeyVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "deleteApiKeyVM")
 instance ToJSON DeleteApiKeyVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "deleteApiKeyVM")
-
-
--- | 
-data ExportCreateAdminVM = ExportCreateAdminVM
-  { exportCreateAdminVMOwnerId :: Maybe Text -- ^ 
-  , exportCreateAdminVMParentId :: Maybe Text -- ^ 
-  , exportCreateAdminVMTemplateId :: Maybe Text -- ^ 
-  , exportCreateAdminVMName :: Maybe Text -- ^ 
-  , exportCreateAdminVMTags :: Maybe [Text] -- ^ 
-  , exportCreateAdminVMIcon :: Maybe Text -- ^ 
-  , exportCreateAdminVMContent :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON ExportCreateAdminVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "exportCreateAdminVM")
-instance ToJSON ExportCreateAdminVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "exportCreateAdminVM")
+instance ToSchema DeleteApiKeyVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "deleteApiKeyVM"
 
 
 -- | 
@@ -584,6 +407,10 @@ instance FromJSON ExportFolderCreateVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "exportFolderCreateVM")
 instance ToJSON ExportFolderCreateVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "exportFolderCreateVM")
+instance ToSchema ExportFolderCreateVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "exportFolderCreateVM"
 
 
 -- | 
@@ -593,13 +420,17 @@ data ExportReportTaskVM = ExportReportTaskVM
   , exportReportTaskVMLocale :: Maybe Text -- ^ 
   , exportReportTaskVMPagesCount :: Maybe Int -- ^ 
   , exportReportTaskVMFormat :: Maybe Text -- ^ 
-  , exportReportTaskVMExportParameters :: Maybe (Map.Map String Value) -- ^ 
+  , exportReportTaskVMExportParameters :: Maybe (Map.Map String Text) -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON ExportReportTaskVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "exportReportTaskVM")
 instance ToJSON ExportReportTaskVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "exportReportTaskVM")
+instance ToSchema ExportReportTaskVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "exportReportTaskVM"
 
 
 -- | 
@@ -609,14 +440,18 @@ data ExportTemplateTaskVM = ExportTemplateTaskVM
   , exportTemplateTaskVMLocale :: Maybe Text -- ^ 
   , exportTemplateTaskVMPagesCount :: Maybe Int -- ^ 
   , exportTemplateTaskVMFormat :: Maybe Text -- ^ 
-  , exportTemplateTaskVMExportParameters :: Maybe (Map.Map String Value) -- ^ 
-  , exportTemplateTaskVMReportParameters :: Maybe (Map.Map String Value) -- ^ 
+  , exportTemplateTaskVMExportParameters :: Maybe (Map.Map String Text) -- ^ 
+  , exportTemplateTaskVMReportParameters :: Maybe (Map.Map String Text) -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON ExportTemplateTaskVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "exportTemplateTaskVM")
 instance ToJSON ExportTemplateTaskVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "exportTemplateTaskVM")
+instance ToSchema ExportTemplateTaskVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "exportTemplateTaskVM"
 
 
 -- | 
@@ -643,6 +478,10 @@ instance FromJSON ExportVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "exportVM")
 instance ToJSON ExportVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "exportVM")
+instance ToSchema ExportVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "exportVM"
 
 
 -- | 
@@ -657,6 +496,10 @@ instance FromJSON ExportsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "exportsVM")
 instance ToJSON ExportsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "exportsVM")
+instance ToSchema ExportsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "exportsVM"
 
 
 -- | 
@@ -668,6 +511,10 @@ instance FromJSON FileIconVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileIconVM")
 instance ToJSON FileIconVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "fileIconVM")
+instance ToSchema FileIconVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "fileIconVM"
 
 
 -- | 
@@ -684,6 +531,10 @@ instance FromJSON FilePermission where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "filePermission")
 instance ToJSON FilePermission where
   toJSON = genericToJSON (removeFieldLabelPrefix False "filePermission")
+instance ToSchema FilePermission where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "filePermission"
 
 
 -- | 
@@ -699,6 +550,10 @@ instance FromJSON FilePermissions where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "filePermissions")
 instance ToJSON FilePermissions where
   toJSON = genericToJSON (removeFieldLabelPrefix False "filePermissions")
+instance ToSchema FilePermissions where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "filePermissions"
 
 
 -- | 
@@ -710,6 +565,10 @@ instance FromJSON FilePermissionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "filePermissionsVM")
 instance ToJSON FilePermissionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "filePermissionsVM")
+instance ToSchema FilePermissionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "filePermissionsVM"
 
 
 -- | 
@@ -721,6 +580,10 @@ instance FromJSON FileRenameVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileRenameVM")
 instance ToJSON FileRenameVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "fileRenameVM")
+instance ToSchema FileRenameVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "fileRenameVM"
 
 
 -- | 
@@ -732,20 +595,10 @@ instance FromJSON FileTagsUpdateVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileTagsUpdateVM")
 instance ToJSON FileTagsUpdateVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "fileTagsUpdateVM")
-
-
--- | 
-data FileUpdateVM = FileUpdateVM
-  { fileUpdateVMName :: Maybe Text -- ^ 
-  , fileUpdateVMParentId :: Maybe Text -- ^ 
-  , fileUpdateVMTags :: Maybe [Text] -- ^ 
-  , fileUpdateVMIcon :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FileUpdateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileUpdateVM")
-instance ToJSON FileUpdateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileUpdateVM")
+instance ToSchema FileTagsUpdateVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "fileTagsUpdateVM"
 
 
 -- | 
@@ -770,6 +623,10 @@ instance FromJSON FileVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileVM")
 instance ToJSON FileVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "fileVM")
+instance ToSchema FileVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "fileVM"
 
 
 -- | 
@@ -784,28 +641,40 @@ instance FromJSON FilesVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "filesVM")
 instance ToJSON FilesVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "filesVM")
+instance ToSchema FilesVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "filesVM"
 
 
 -- | 
 data FolderIconVM = FolderIconVM
-  { folderIconVMIcon :: Maybe Text -- ^ 
+  { folderIconVMIcon :: Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FolderIconVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "folderIconVM")
 instance ToJSON FolderIconVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "folderIconVM")
+instance ToSchema FolderIconVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "folderIconVM"
 
 
 -- | 
 data FolderRenameVM = FolderRenameVM
-  { folderRenameVMName :: Maybe Text -- ^ 
+  { folderRenameVMName :: Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FolderRenameVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "folderRenameVM")
 instance ToJSON FolderRenameVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "folderRenameVM")
+instance ToSchema FolderRenameVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "folderRenameVM"
 
 
 -- | 
@@ -817,6 +686,10 @@ instance FromJSON FolderTagsUpdateVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "folderTagsUpdateVM")
 instance ToJSON FolderTagsUpdateVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "folderTagsUpdateVM")
+instance ToSchema FolderTagsUpdateVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "folderTagsUpdateVM"
 
 
 -- | 
@@ -833,6 +706,10 @@ instance FromJSON GroupPermission where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupPermission")
 instance ToJSON GroupPermission where
   toJSON = genericToJSON (removeFieldLabelPrefix False "groupPermission")
+instance ToSchema GroupPermission where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "groupPermission"
 
 
 -- | 
@@ -848,6 +725,10 @@ instance FromJSON GroupPermissions where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupPermissions")
 instance ToJSON GroupPermissions where
   toJSON = genericToJSON (removeFieldLabelPrefix False "groupPermissions")
+instance ToSchema GroupPermissions where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "groupPermissions"
 
 
 -- | 
@@ -859,6 +740,10 @@ instance FromJSON GroupPermissionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupPermissionsVM")
 instance ToJSON GroupPermissionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "groupPermissionsVM")
+instance ToSchema GroupPermissionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "groupPermissionsVM"
 
 
 -- | 
@@ -870,6 +755,10 @@ instance FromJSON GroupUserVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupUserVM")
 instance ToJSON GroupUserVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "groupUserVM")
+instance ToSchema GroupUserVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "groupUserVM"
 
 
 -- | 
@@ -884,6 +773,10 @@ instance FromJSON GroupUsersVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupUsersVM")
 instance ToJSON GroupUsersVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "groupUsersVM")
+instance ToSchema GroupUsersVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "groupUsersVM"
 
 
 -- | 
@@ -897,6 +790,10 @@ instance FromJSON GroupVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupVM")
 instance ToJSON GroupVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "groupVM")
+instance ToSchema GroupVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "groupVM"
 
 
 -- | 
@@ -911,6 +808,10 @@ instance FromJSON GroupsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupsVM")
 instance ToJSON GroupsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "groupsVM")
+instance ToSchema GroupsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "groupsVM"
 
 
 -- | 
@@ -923,6 +824,10 @@ instance FromJSON InvitedUser where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "invitedUser")
 instance ToJSON InvitedUser where
   toJSON = genericToJSON (removeFieldLabelPrefix False "invitedUser")
+instance ToSchema InvitedUser where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "invitedUser"
 
 
 -- | 
@@ -938,31 +843,15 @@ instance FromJSON PrepareTemplateTaskVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "prepareTemplateTaskVM")
 instance ToJSON PrepareTemplateTaskVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "prepareTemplateTaskVM")
+instance ToSchema PrepareTemplateTaskVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "prepareTemplateTaskVM"
 
 
 -- | 
 newtype ProblemDetails = ProblemDetails { unProblemDetails :: (Map.Map Text Value) }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
-
--- | 
-data RegisterUserVM = RegisterUserVM
-  { registerUserVMId :: Maybe Text -- ^ 
-  , registerUserVMSubscriptions :: Maybe [Text] -- ^ 
-  , registerUserVMGroups :: Maybe [Text] -- ^ 
-  , registerUserVMAdminPermission :: Maybe AdminPermission -- ^ 
-  , registerUserVMName :: Maybe Text -- ^ 
-  , registerUserVMUsername :: Maybe Text -- ^ 
-  , registerUserVMEmail :: Maybe Text -- ^ 
-  , registerUserVMPassword :: Maybe Text -- ^ 
-  , registerUserVMIsAdmin :: Maybe Bool -- ^ 
-  , registerUserVMProvider :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON RegisterUserVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "registerUserVM")
-instance ToJSON RegisterUserVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "registerUserVM")
-
 
 -- | 
 data RenameDataSourceVM = RenameDataSourceVM
@@ -973,6 +862,10 @@ instance FromJSON RenameDataSourceVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "renameDataSourceVM")
 instance ToJSON RenameDataSourceVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "renameDataSourceVM")
+instance ToSchema RenameDataSourceVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "renameDataSourceVM"
 
 
 -- | 
@@ -984,39 +877,31 @@ instance FromJSON RenameGroupVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "renameGroupVM")
 instance ToJSON RenameGroupVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "renameGroupVM")
+instance ToSchema RenameGroupVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "renameGroupVM"
 
 
 -- | 
 data RenameSubscriptionVM = RenameSubscriptionVM
-  { renameSubscriptionVMName :: Maybe Text -- ^ 
+  { renameSubscriptionVMName :: Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON RenameSubscriptionVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "renameSubscriptionVM")
 instance ToJSON RenameSubscriptionVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "renameSubscriptionVM")
-
-
--- | 
-data ReportCreateAdminVM = ReportCreateAdminVM
-  { reportCreateAdminVMOwnerId :: Maybe Text -- ^ 
-  , reportCreateAdminVMParentId :: Maybe Text -- ^ 
-  , reportCreateAdminVMTemplateId :: Maybe Text -- ^ 
-  , reportCreateAdminVMName :: Maybe Text -- ^ 
-  , reportCreateAdminVMTags :: Maybe [Text] -- ^ 
-  , reportCreateAdminVMIcon :: Maybe Text -- ^ 
-  , reportCreateAdminVMContent :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON ReportCreateAdminVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "reportCreateAdminVM")
-instance ToJSON ReportCreateAdminVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "reportCreateAdminVM")
+instance ToSchema RenameSubscriptionVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "renameSubscriptionVM"
 
 
 -- | 
 data ReportCreateVM = ReportCreateVM
   { reportCreateVMTemplateId :: Maybe Text -- ^ 
+  , reportCreateVMReportInfo :: Maybe ReportInfo -- ^ 
   , reportCreateVMName :: Maybe Text -- ^ 
   , reportCreateVMTags :: Maybe [Text] -- ^ 
   , reportCreateVMIcon :: Maybe Text -- ^ 
@@ -1027,6 +912,10 @@ instance FromJSON ReportCreateVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "reportCreateVM")
 instance ToJSON ReportCreateVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "reportCreateVM")
+instance ToSchema ReportCreateVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "reportCreateVM"
 
 
 -- | 
@@ -1040,6 +929,10 @@ instance FromJSON ReportFolderCreateVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "reportFolderCreateVM")
 instance ToJSON ReportFolderCreateVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "reportFolderCreateVM")
+instance ToSchema ReportFolderCreateVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "reportFolderCreateVM"
 
 
 -- | 
@@ -1062,6 +955,10 @@ instance FromJSON ReportInfo where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "reportInfo")
 instance ToJSON ReportInfo where
   toJSON = genericToJSON (removeFieldLabelPrefix False "reportInfo")
+instance ToSchema ReportInfo where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "reportInfo"
 
 
 -- | 
@@ -1088,6 +985,10 @@ instance FromJSON ReportVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "reportVM")
 instance ToJSON ReportVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "reportVM")
+instance ToSchema ReportVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "reportVM"
 
 
 -- | 
@@ -1102,6 +1003,10 @@ instance FromJSON ReportsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "reportsVM")
 instance ToJSON ReportsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "reportsVM")
+instance ToSchema ReportsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "reportsVM"
 
 
 -- | 
@@ -1114,6 +1019,10 @@ instance FromJSON SubscriptionFolder where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionFolder")
 instance ToJSON SubscriptionFolder where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionFolder")
+instance ToSchema SubscriptionFolder where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionFolder"
 
 
 -- | 
@@ -1130,6 +1039,10 @@ instance FromJSON SubscriptionInviteVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionInviteVM")
 instance ToJSON SubscriptionInviteVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionInviteVM")
+instance ToSchema SubscriptionInviteVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionInviteVM"
 
 
 -- | 
@@ -1142,6 +1055,10 @@ instance FromJSON SubscriptionInvitesVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionInvitesVM")
 instance ToJSON SubscriptionInvitesVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionInvitesVM")
+instance ToSchema SubscriptionInvitesVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionInvitesVM"
 
 
 -- | 
@@ -1155,6 +1072,10 @@ instance FromJSON SubscriptionPeriodVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPeriodVM")
 instance ToJSON SubscriptionPeriodVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPeriodVM")
+instance ToSchema SubscriptionPeriodVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionPeriodVM"
 
 
 -- | 
@@ -1171,6 +1092,10 @@ instance FromJSON SubscriptionPermission where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPermission")
 instance ToJSON SubscriptionPermission where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPermission")
+instance ToSchema SubscriptionPermission where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionPermission"
 
 
 -- | 
@@ -1186,6 +1111,10 @@ instance FromJSON SubscriptionPermissions where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPermissions")
 instance ToJSON SubscriptionPermissions where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPermissions")
+instance ToSchema SubscriptionPermissions where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionPermissions"
 
 
 -- | 
@@ -1197,6 +1126,10 @@ instance FromJSON SubscriptionPermissionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPermissionsVM")
 instance ToJSON SubscriptionPermissionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPermissionsVM")
+instance ToSchema SubscriptionPermissionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionPermissionsVM"
 
 
 -- | 
@@ -1227,6 +1160,10 @@ instance FromJSON SubscriptionPlanVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPlanVM")
 instance ToJSON SubscriptionPlanVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPlanVM")
+instance ToSchema SubscriptionPlanVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionPlanVM"
 
 
 -- | 
@@ -1241,6 +1178,10 @@ instance FromJSON SubscriptionPlansVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPlansVM")
 instance ToJSON SubscriptionPlansVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPlansVM")
+instance ToSchema SubscriptionPlansVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionPlansVM"
 
 
 -- | 
@@ -1253,6 +1194,10 @@ instance FromJSON SubscriptionUserVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionUserVM")
 instance ToJSON SubscriptionUserVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionUserVM")
+instance ToSchema SubscriptionUserVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionUserVM"
 
 
 -- | 
@@ -1267,6 +1212,10 @@ instance FromJSON SubscriptionUsersVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionUsersVM")
 instance ToJSON SubscriptionUsersVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionUsersVM")
+instance ToSchema SubscriptionUsersVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionUsersVM"
 
 
 -- | 
@@ -1285,6 +1234,10 @@ instance FromJSON SubscriptionVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionVM")
 instance ToJSON SubscriptionVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionVM")
+instance ToSchema SubscriptionVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionVM"
 
 
 -- | 
@@ -1299,22 +1252,10 @@ instance FromJSON SubscriptionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionsVM")
 instance ToJSON SubscriptionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionsVM")
-
-
--- | 
-data TemplateCreateAdminVM = TemplateCreateAdminVM
-  { templateCreateAdminVMOwnerId :: Maybe Text -- ^ 
-  , templateCreateAdminVMParentId :: Maybe Text -- ^ 
-  , templateCreateAdminVMName :: Maybe Text -- ^ 
-  , templateCreateAdminVMTags :: Maybe [Text] -- ^ 
-  , templateCreateAdminVMIcon :: Maybe Text -- ^ 
-  , templateCreateAdminVMContent :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON TemplateCreateAdminVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "templateCreateAdminVM")
-instance ToJSON TemplateCreateAdminVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "templateCreateAdminVM")
+instance ToSchema SubscriptionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "subscriptionsVM"
 
 
 -- | 
@@ -1329,6 +1270,10 @@ instance FromJSON TemplateCreateVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "templateCreateVM")
 instance ToJSON TemplateCreateVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "templateCreateVM")
+instance ToSchema TemplateCreateVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "templateCreateVM"
 
 
 -- | 
@@ -1342,6 +1287,10 @@ instance FromJSON TemplateFolderCreateVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "templateFolderCreateVM")
 instance ToJSON TemplateFolderCreateVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "templateFolderCreateVM")
+instance ToSchema TemplateFolderCreateVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "templateFolderCreateVM"
 
 
 -- | 
@@ -1367,6 +1316,10 @@ instance FromJSON TemplateVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "templateVM")
 instance ToJSON TemplateVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "templateVM")
+instance ToSchema TemplateVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "templateVM"
 
 
 -- | 
@@ -1381,17 +1334,25 @@ instance FromJSON TemplatesVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "templatesVM")
 instance ToJSON TemplatesVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "templatesVM")
+instance ToSchema TemplatesVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "templatesVM"
 
 
 -- | 
 data UpdateDataSourceConnectionStringVM = UpdateDataSourceConnectionStringVM
-  { updateDataSourceConnectionStringVMConnectionString :: Maybe Text -- ^ 
+  { updateDataSourceConnectionStringVMConnectionString :: Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON UpdateDataSourceConnectionStringVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateDataSourceConnectionStringVM")
 instance ToJSON UpdateDataSourceConnectionStringVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "updateDataSourceConnectionStringVM")
+instance ToSchema UpdateDataSourceConnectionStringVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "updateDataSourceConnectionStringVM"
 
 
 -- | 
@@ -1404,43 +1365,42 @@ instance FromJSON UpdateDataSourcePermissionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateDataSourcePermissionsVM")
 instance ToJSON UpdateDataSourcePermissionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "updateDataSourcePermissionsVM")
+instance ToSchema UpdateDataSourcePermissionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "updateDataSourcePermissionsVM"
 
 
 -- | 
 data UpdateDataSourceSubscriptionVM = UpdateDataSourceSubscriptionVM
-  { updateDataSourceSubscriptionVMSubscriptionId :: Maybe Text -- ^ 
+  { updateDataSourceSubscriptionVMSubscriptionId :: Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON UpdateDataSourceSubscriptionVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateDataSourceSubscriptionVM")
 instance ToJSON UpdateDataSourceSubscriptionVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "updateDataSourceSubscriptionVM")
-
-
--- | 
-data UpdateDataSourceVM = UpdateDataSourceVM
-  { updateDataSourceVMName :: Maybe Text -- ^ 
-  , updateDataSourceVMSubscriptionId :: Maybe Text -- ^ 
-  , updateDataSourceVMConnectionString :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateDataSourceVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateDataSourceVM")
-instance ToJSON UpdateDataSourceVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateDataSourceVM")
+instance ToSchema UpdateDataSourceSubscriptionVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "updateDataSourceSubscriptionVM"
 
 
 -- | 
 data UpdateDefaultPermissionsVM = UpdateDefaultPermissionsVM
-  { updateDefaultPermissionsVMFilePermissions :: Maybe FilePermissions -- ^ 
-  , updateDefaultPermissionsVMGroupPermissions :: Maybe GroupPermissions -- ^ 
-  , updateDefaultPermissionsVMDataSourcePermissions :: Maybe DataSourcePermissions -- ^ 
+  { updateDefaultPermissionsVMFilePermissions :: Maybe UpdateFilePermissionsVM -- ^ 
+  , updateDefaultPermissionsVMGroupPermissions :: Maybe UpdateGroupPermissionsVM -- ^ 
+  , updateDefaultPermissionsVMDataSourcePermissions :: Maybe UpdateDataSourcePermissionsVM -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON UpdateDefaultPermissionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateDefaultPermissionsVM")
 instance ToJSON UpdateDefaultPermissionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "updateDefaultPermissionsVM")
+instance ToSchema UpdateDefaultPermissionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "updateDefaultPermissionsVM"
 
 
 -- | 
@@ -1453,6 +1413,10 @@ instance FromJSON UpdateFilePermissionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateFilePermissionsVM")
 instance ToJSON UpdateFilePermissionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "updateFilePermissionsVM")
+instance ToSchema UpdateFilePermissionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "updateFilePermissionsVM"
 
 
 -- | 
@@ -1465,18 +1429,10 @@ instance FromJSON UpdateGroupPermissionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateGroupPermissionsVM")
 instance ToJSON UpdateGroupPermissionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "updateGroupPermissionsVM")
-
-
--- | 
-data UpdateGroupVM = UpdateGroupVM
-  { updateGroupVMName :: Maybe Text -- ^ 
-  , updateGroupVMSubscriptionId :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateGroupVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateGroupVM")
-instance ToJSON UpdateGroupVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateGroupVM")
+instance ToSchema UpdateGroupPermissionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "updateGroupPermissionsVM"
 
 
 -- | 
@@ -1488,6 +1444,10 @@ instance FromJSON UpdateSubscriptionLocaleVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateSubscriptionLocaleVM")
 instance ToJSON UpdateSubscriptionLocaleVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "updateSubscriptionLocaleVM")
+instance ToSchema UpdateSubscriptionLocaleVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "updateSubscriptionLocaleVM"
 
 
 -- | 
@@ -1500,83 +1460,45 @@ instance FromJSON UpdateSubscriptionPermissionsVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateSubscriptionPermissionsVM")
 instance ToJSON UpdateSubscriptionPermissionsVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "updateSubscriptionPermissionsVM")
+instance ToSchema UpdateSubscriptionPermissionsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "updateSubscriptionPermissionsVM"
 
 
 -- | 
-data UpdateSubscriptionPlanVM = UpdateSubscriptionPlanVM
-  { updateSubscriptionPlanVMIsActive :: Maybe Bool -- ^ 
-  , updateSubscriptionPlanVMDisplayName :: Maybe Text -- ^ 
-  , updateSubscriptionPlanVMTimePeriodType :: Maybe Text -- ^ 
-  , updateSubscriptionPlanVMTimePeriod :: Maybe Int -- ^ 
-  , updateSubscriptionPlanVMTemplatesSpaceLimit :: Maybe Integer -- ^ 
-  , updateSubscriptionPlanVMReportsSpaceLimit :: Maybe Integer -- ^ 
-  , updateSubscriptionPlanVMExportsSpaceLimit :: Maybe Integer -- ^ 
-  , updateSubscriptionPlanVMFileUploadSizeLimit :: Maybe Integer -- ^ 
-  , updateSubscriptionPlanVMDataSourceLimit :: Maybe Int -- ^ 
-  , updateSubscriptionPlanVMMaxUsersCount :: Maybe Int -- ^ 
-  , updateSubscriptionPlanVMHasSpaceOverdraft :: Maybe Bool -- ^ 
-  , updateSubscriptionPlanVMGroupLimit :: Maybe Int -- ^ 
-  , updateSubscriptionPlanVMOnlineDesigner :: Maybe Bool -- ^ 
-  , updateSubscriptionPlanVMIsDemo :: Maybe Bool -- ^ 
-  , updateSubscriptionPlanVMUrlToBuy :: Maybe Text -- ^ 
-  , updateSubscriptionPlanVMUnlimitedPage :: Maybe Bool -- ^ 
-  , updateSubscriptionPlanVMPageLimit :: Maybe Int -- ^ 
-  , updateSubscriptionPlanVMReadonlyTimeLimitType :: Maybe Text -- ^ 
-  , updateSubscriptionPlanVMReadonlyTimeLimit :: Maybe Int -- ^ 
+data UpdateUserProfileVM = UpdateUserProfileVM
+  { updateUserProfileVMName :: Maybe Text -- ^ 
+  , updateUserProfileVMUsername :: Maybe Text -- ^ 
+  , updateUserProfileVMEmail :: Maybe Text -- ^ 
+  , updateUserProfileVMPasswordNew :: Maybe Text -- ^ 
+  , updateUserProfileVMPasswordNew2 :: Maybe Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
-instance FromJSON UpdateSubscriptionPlanVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateSubscriptionPlanVM")
-instance ToJSON UpdateSubscriptionPlanVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateSubscriptionPlanVM")
+instance FromJSON UpdateUserProfileVM where
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateUserProfileVM")
+instance ToJSON UpdateUserProfileVM where
+  toJSON = genericToJSON (removeFieldLabelPrefix False "updateUserProfileVM")
+instance ToSchema UpdateUserProfileVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "updateUserProfileVM"
 
 
 -- | 
-data UpdateSubscriptionVM = UpdateSubscriptionVM
-  { updateSubscriptionVMName :: Maybe Text -- ^ 
-  , updateSubscriptionVMLocale :: Maybe Text -- ^ 
-  , updateSubscriptionVMDefaultPermissions :: Maybe DefaultPermissions -- ^ 
+data UpdateUserSettingsVM = UpdateUserSettingsVM
+  { updateUserSettingsVMProfileVisibility :: Maybe Int -- ^ 
+  , updateUserSettingsVMDefaultSubscription :: Maybe Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
-instance FromJSON UpdateSubscriptionVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateSubscriptionVM")
-instance ToJSON UpdateSubscriptionVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateSubscriptionVM")
-
-
--- | 
-data UpdateUserVM = UpdateUserVM
-  { updateUserVMSubscriptions :: Maybe [Text] -- ^ 
-  , updateUserVMGroups :: Maybe [Text] -- ^ 
-  , updateUserVMAdminPermission :: Maybe AdminPermission -- ^ 
-  , updateUserVMName :: Maybe Text -- ^ 
-  , updateUserVMUsername :: Maybe Text -- ^ 
-  , updateUserVMEmail :: Maybe Text -- ^ 
-  , updateUserVMPassword :: Maybe Text -- ^ 
-  , updateUserVMIsAdmin :: Maybe Bool -- ^ 
-  , updateUserVMProvider :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateUserVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateUserVM")
-instance ToJSON UpdateUserVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateUserVM")
-
-
--- | 
-data UserProfileUpdateVM = UserProfileUpdateVM
-  { userProfileUpdateVMName :: Maybe Text -- ^ 
-  , userProfileUpdateVMUsername :: Maybe Text -- ^ 
-  , userProfileUpdateVMEmail :: Maybe Text -- ^ 
-  , userProfileUpdateVMPasswordNew :: Maybe Text -- ^ 
-  , userProfileUpdateVMPasswordNew2 :: Maybe Text -- ^ 
-  , userProfileUpdateVMSettings :: Maybe UserSettings -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UserProfileUpdateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "userProfileUpdateVM")
-instance ToJSON UserProfileUpdateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "userProfileUpdateVM")
+instance FromJSON UpdateUserSettingsVM where
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateUserSettingsVM")
+instance ToJSON UpdateUserSettingsVM where
+  toJSON = genericToJSON (removeFieldLabelPrefix False "updateUserSettingsVM")
+instance ToSchema UpdateUserSettingsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "updateUserSettingsVM"
 
 
 -- | 
@@ -1592,49 +1514,26 @@ instance FromJSON UserProfileVM where
   parseJSON = genericParseJSON (removeFieldLabelPrefix True "userProfileVM")
 instance ToJSON UserProfileVM where
   toJSON = genericToJSON (removeFieldLabelPrefix False "userProfileVM")
+instance ToSchema UserProfileVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "userProfileVM"
 
 
 -- | 
-data UserSettings = UserSettings
-  { userSettingsProfileVisibility :: Maybe Int -- ^ 
+data UserSettingsVM = UserSettingsVM
+  { userSettingsVMProfileVisibility :: Maybe Int -- ^ 
+  , userSettingsVMDefaultSubscription :: Maybe Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
-instance FromJSON UserSettings where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "userSettings")
-instance ToJSON UserSettings where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "userSettings")
-
-
--- | 
-data UserVM = UserVM
-  { userVMId :: Maybe Text -- ^ 
-  , userVMSubscriptions :: Maybe [Text] -- ^ 
-  , userVMGroups :: Maybe [Text] -- ^ 
-  , userVMAdminPermission :: Maybe AdminPermission -- ^ 
-  , userVMIsAdmin :: Maybe Bool -- ^ 
-  , userVMName :: Maybe Text -- ^ 
-  , userVMUsername :: Maybe Text -- ^ 
-  , userVMEmail :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UserVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "userVM")
-instance ToJSON UserVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "userVM")
-
-
--- | 
-data UsersVM = UsersVM
-  { usersVMUsers :: Maybe [UserVM] -- ^ 
-  , usersVMCount :: Maybe Integer -- ^ 
-  , usersVMSkip :: Maybe Int -- ^ 
-  , usersVMTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UsersVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "usersVM")
-instance ToJSON UsersVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "usersVM")
+instance FromJSON UserSettingsVM where
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "userSettingsVM")
+instance ToJSON UserSettingsVM where
+  toJSON = genericToJSON (removeFieldLabelPrefix False "userSettingsVM")
+instance ToSchema UserSettingsVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "userSettingsVM"
 
 
 uncapitalize :: String -> String
