@@ -124,10 +124,11 @@ type FastReportCloudAPI
     =    "api" :> "manage" :> "v1" :> "ApiKeys" :> ReqBody '[JSON] CreateApiKeyVM :> Verb 'POST 200 '[JSON] ApiKeyVM -- 'apiKeysCreateApiKey' route
     :<|> "api" :> "manage" :> "v1" :> "ApiKeys" :> ReqBody '[JSON] DeleteApiKeyVM :> Verb 'DELETE 200 '[JSON] () -- 'apiKeysDeleteApiKey' route
     :<|> "api" :> "manage" :> "v1" :> "ApiKeys" :> Verb 'GET 200 '[JSON] ApiKeysVM -- 'apiKeysGetApiKeys' route
+    :<|> "api" :> "v1" :> "Configuration" :> Verb 'GET 200 '[JSON] ServerConfigurationVM -- 'configurationGet' route
     :<|> "api" :> "data" :> "v1" :> "DataSources" :> ReqBody '[JSON] CreateDataSourceVM :> Verb 'POST 200 '[JSON] DataSourceVM -- 'dataSourcesCreateDataSource' route
     :<|> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'dataSourcesDeleteDataSource' route
     :<|> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "fetch" :> Verb 'GET 200 '[JSON] () -- 'dataSourcesFetchData' route
-    :<|> "api" :> "data" :> "v1" :> "DataSources" :> QueryParam "subscriptionId" Text :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] DataSourcesVM -- 'dataSourcesGetAvailableDataSources' route
+    :<|> "api" :> "data" :> "v1" :> "DataSources" :> QueryParam "subscriptionId" Text :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" DataSourceSorting :> QueryParam "desc" Bool :> Verb 'GET 200 '[JSON] DataSourcesVM -- 'dataSourcesGetAvailableDataSources' route
     :<|> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> Verb 'GET 200 '[JSON] DataSourceVM -- 'dataSourcesGetDataSource' route
     :<|> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] DataSourcePermissionsVM -- 'dataSourcesGetPermissions' route
     :<|> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "rename" :> ReqBody '[JSON] RenameDataSourceVM :> Verb 'PUT 200 '[JSON] DataSourceVM -- 'dataSourcesRenameDataSource' route
@@ -143,7 +144,7 @@ type FastReportCloudAPI
     :<|> "download" :> "t" :> Capture "id" Text :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetTemplate' route
     :<|> "download" :> "ts" :> Capture "archiveName" Text :> QueryParam "ids" Text :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetTemplates' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'exportFolderAndFileGetCount' route
-    :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] FilesVM -- 'exportFolderAndFileGetFoldersAndFiles' route
+    :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] FilesVM -- 'exportFolderAndFileGetFoldersAndFiles' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] FileVM -- 'exportFoldersCopyFolder' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> QueryParam "recursive" Bool :> Verb 'DELETE 200 '[JSON] () -- 'exportFoldersDeleteFolder' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "Breadcrumbs" :> Verb 'GET 200 '[JSON] BreadcrumbsVM -- 'exportFoldersGetBreadcrumbs' route
@@ -182,7 +183,7 @@ type FastReportCloudAPI
     :<|> "api" :> "manage" :> "v1" :> "Groups" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateGroupPermissionsVM :> Verb 'POST 200 '[JSON] () -- 'groupsUpdatePermissions' route
     :<|> "api" :> "backend" :> "v1" :> "HealthCheck" :> Verb 'GET 200 '[JSON] () -- 'healthCheckDataGet' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'reportFolderAndFileGetCount' route
-    :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] FilesVM -- 'reportFolderAndFileGetFoldersAndFiles' route
+    :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] FilesVM -- 'reportFolderAndFileGetFoldersAndFiles' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] FileVM -- 'reportFoldersCopyFolder' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> QueryParam "recursive" Bool :> Verb 'DELETE 200 '[JSON] () -- 'reportFoldersDeleteFolder' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "Breadcrumbs" :> Verb 'GET 200 '[JSON] BreadcrumbsVM -- 'reportFoldersGetBreadcrumbs' route
@@ -199,7 +200,7 @@ type FastReportCloudAPI
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "UpdateTags" :> ReqBody '[JSON] FolderTagsUpdateVM :> Verb 'PUT 200 '[JSON] FileVM -- 'reportFoldersUpdateTags' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] ReportVM -- 'reportsCopyFile' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'reportsDeleteFile' route
-    :<|> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "Export" :> ReqBody '[JSON] ExportReportTaskVM :> Verb 'POST 200 '[JSON] ExportVM -- 'reportsExport' route
+    :<|> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "Export" :> ReqBody '[JSON] ExportReportVM :> Verb 'POST 200 '[JSON] ExportVM -- 'reportsExport' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> Verb 'GET 200 '[JSON] ReportVM -- 'reportsGetFile' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "CountFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'reportsGetFilesCount' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] ReportsVM -- 'reportsGetFilesList' route
@@ -222,6 +223,7 @@ type FastReportCloudAPI
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "leave" :> Verb 'DELETE 200 '[JSON] () -- 'subscriptionUsersLeaveSubscripiton' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "users" :> Capture "userId" Text :> Verb 'DELETE 200 '[JSON] () -- 'subscriptionUsersRemoveUser' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "defaultPermissions" :> Verb 'GET 200 '[JSON] DefaultPermissions -- 'subscriptionsGetDefaultPermissions' route
+    :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subId" Text :> "mypermissions" :> Verb 'GET 200 '[JSON] MyPermissionsVM -- 'subscriptionsGetMyPermissions' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] SubscriptionPermissionsVM -- 'subscriptionsGetPermissions' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "id" Text :> Verb 'GET 200 '[JSON] SubscriptionVM -- 'subscriptionsGetSubscription' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] SubscriptionsVM -- 'subscriptionsGetSubscriptions' route
@@ -229,8 +231,14 @@ type FastReportCloudAPI
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "defaultPermissions" :> ReqBody '[JSON] UpdateDefaultPermissionsVM :> Verb 'PUT 200 '[JSON] DefaultPermissionsVM -- 'subscriptionsUpdateDefaultPermissions' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "Locale" :> ReqBody '[JSON] UpdateSubscriptionLocaleVM :> Verb 'PUT 200 '[JSON] SubscriptionVM -- 'subscriptionsUpdateLocale' route
     :<|> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateSubscriptionPermissionsVM :> Verb 'POST 200 '[JSON] () -- 'subscriptionsUpdatePermissions' route
+    :<|> "api" :> "tasks" :> ReqBody '[JSON] CreateTaskBaseVM :> Verb 'POST 200 '[JSON] TaskBaseVM -- 'tasksCreateTask' route
+    :<|> "api" :> "tasks" :> Capture "taskId" Text :> Verb 'DELETE 200 '[JSON] () -- 'tasksDeleteTask' route
+    :<|> "api" :> "tasks" :> Capture "taskId" Text :> Verb 'GET 200 '[JSON] TaskBaseVM -- 'tasksGet' route
+    :<|> "api" :> "tasks" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] TasksVM -- 'tasksGetList' route
+    :<|> "api" :> "tasks" :> "run" :> ReqBody '[JSON] RunTaskBaseVM :> Verb 'POST 200 '[JSON] () -- 'tasksRunTask' route
+    :<|> "api" :> "tasks" :> Capture "taskId" Text :> "run" :> Verb 'POST 200 '[JSON] () -- 'tasksRunTaskById' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'templateFolderAndFileGetCount' route
-    :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] FilesVM -- 'templateFolderAndFileGetFoldersAndFiles' route
+    :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] FilesVM -- 'templateFolderAndFileGetFoldersAndFiles' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] FileVM -- 'templateFoldersCopyFolder' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> QueryParam "recursive" Bool :> Verb 'DELETE 200 '[JSON] () -- 'templateFoldersDeleteFolder' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "Breadcrumbs" :> Verb 'GET 200 '[JSON] BreadcrumbsVM -- 'templateFoldersGetBreadcrumbs' route
@@ -247,13 +255,13 @@ type FastReportCloudAPI
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "UpdateTags" :> ReqBody '[JSON] FolderTagsUpdateVM :> Verb 'PUT 200 '[JSON] FileVM -- 'templateFoldersUpdateTags' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] TemplateVM -- 'templatesCopyFile' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'templatesDeleteFile' route
-    :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Export" :> ReqBody '[JSON] ExportTemplateTaskVM :> Verb 'POST 200 '[JSON] ExportVM -- 'templatesExport' route
+    :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Export" :> ReqBody '[JSON] ExportTemplateVM :> Verb 'POST 200 '[JSON] ExportVM -- 'templatesExport' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> Verb 'GET 200 '[JSON] TemplateVM -- 'templatesGetFile' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "CountFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'templatesGetFilesCount' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] TemplatesVM -- 'templatesGetFilesList' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'templatesGetPermissions' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Move" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] TemplateVM -- 'templatesMoveFile' route
-    :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Prepare" :> ReqBody '[JSON] PrepareTemplateTaskVM :> Verb 'POST 200 '[JSON] ReportVM -- 'templatesPrepare' route
+    :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Prepare" :> ReqBody '[JSON] PrepareTemplateVM :> Verb 'POST 200 '[JSON] ReportVM -- 'templatesPrepare' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Rename" :> ReqBody '[JSON] FileRenameVM :> Verb 'PUT 200 '[JSON] TemplateVM -- 'templatesRenameFile' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Icon" :> ReqBody '[JSON] FileIconVM :> Verb 'PUT 200 '[JSON] TemplateVM -- 'templatesUpdateIcon' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 200 '[JSON] () -- 'templatesUpdatePermissions' route
@@ -287,10 +295,11 @@ data FastReportCloudBackend m = FastReportCloudBackend
   { apiKeysCreateApiKey :: CreateApiKeyVM -> m ApiKeyVM{- ^  -}
   , apiKeysDeleteApiKey :: DeleteApiKeyVM -> m (){- ^  -}
   , apiKeysGetApiKeys :: m ApiKeysVM{- ^ Always work, it should make only 200 response (except if user is not authorized). -}
+  , configurationGet :: m ServerConfigurationVM{- ^  -}
   , dataSourcesCreateDataSource :: CreateDataSourceVM -> m DataSourceVM{- ^  -}
   , dataSourcesDeleteDataSource :: Text -> m (){- ^  -}
   , dataSourcesFetchData :: Text -> m (){- ^  -}
-  , dataSourcesGetAvailableDataSources :: Maybe Text -> Maybe Int -> Maybe Int -> m DataSourcesVM{- ^  -}
+  , dataSourcesGetAvailableDataSources :: Maybe Text -> Maybe Int -> Maybe Int -> Maybe DataSourceSorting -> Maybe Bool -> m DataSourcesVM{- ^  -}
   , dataSourcesGetDataSource :: Text -> m DataSourceVM{- ^  -}
   , dataSourcesGetPermissions :: Text -> m DataSourcePermissionsVM{- ^  -}
   , dataSourcesRenameDataSource :: Text -> RenameDataSourceVM -> m DataSourceVM{- ^  -}
@@ -306,7 +315,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , downloadGetTemplate :: Text -> m FilePath{- ^  -}
   , downloadGetTemplates :: Text -> Maybe Text -> m FilePath{- ^  -}
   , exportFolderAndFileGetCount :: Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
-  , exportFolderAndFileGetFoldersAndFiles :: Text -> Maybe Int -> Maybe Int -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
+  , exportFolderAndFileGetFoldersAndFiles :: Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , exportFoldersCopyFolder :: Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , exportFoldersDeleteFolder :: Text -> Maybe Bool -> m (){- ^ User with a Delete Entity permission can access this method. -}
   , exportFoldersGetBreadcrumbs :: Text -> m BreadcrumbsVM{- ^ User with a Get Entity permission can access this method. -}
@@ -314,7 +323,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , exportFoldersGetFolders :: Text -> Maybe Int -> Maybe Int -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , exportFoldersGetFoldersCount :: Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
   , exportFoldersGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
-  , exportFoldersGetRootFolder :: Maybe Text -> m FileVM{- ^ &gt; Breakchange. Now user model doesn't contain a root folders.  This method can return error 400 and 404 when subscription is not found. -}
+  , exportFoldersGetRootFolder :: Maybe Text -> m FileVM{- ^ > Breakchange. Now user model doesn't contain a root folders.  This method can return error 400 and 404 when subscription is not found. -}
   , exportFoldersMoveFolder :: Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , exportFoldersPostFolder :: Text -> ExportFolderCreateVM -> m FileVM{- ^ User with a Create Entity permisison can access this method. -}
   , exportFoldersRenameFolder :: Text -> FolderRenameVM -> m FileVM{- ^ User with a Update Name permision can access this method. -}
@@ -325,7 +334,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , exportsDeleteFile :: Text -> m (){- ^ User with Delete permission can access the method. -}
   , exportsGetFile :: Text -> m ExportVM{- ^ User with Get Entity permission can access this method. -}
   , exportsGetFilesCount :: Text -> m CountVM{- ^ User with Get Count permission can access this method. -}
-  , exportsGetFilesList :: Text -> Maybe Int -> Maybe Int -> m ExportsVM{- ^ User with Get Entity permission can access this method. -}
+  , exportsGetFilesList :: Text -> Maybe Int -> Maybe Int -> m ExportsVM{- ^  -}
   , exportsGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
   , exportsMoveFile :: Text -> Text -> m ExportVM{- ^ User with Update Place permission can access this method. -}
   , exportsRenameFile :: Text -> FileRenameVM -> m ExportVM{- ^ User with Update Name permission can access this method. -}
@@ -345,7 +354,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , groupsUpdatePermissions :: Text -> UpdateGroupPermissionsVM -> m (){- ^  -}
   , healthCheckDataGet :: m (){- ^  -}
   , reportFolderAndFileGetCount :: Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
-  , reportFolderAndFileGetFoldersAndFiles :: Text -> Maybe Int -> Maybe Int -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
+  , reportFolderAndFileGetFoldersAndFiles :: Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , reportFoldersCopyFolder :: Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , reportFoldersDeleteFolder :: Text -> Maybe Bool -> m (){- ^ User with a Delete Entity permission can access this method. -}
   , reportFoldersGetBreadcrumbs :: Text -> m BreadcrumbsVM{- ^ User with a Get Entity permission can access this method. -}
@@ -353,7 +362,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , reportFoldersGetFolders :: Text -> Maybe Int -> Maybe Int -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , reportFoldersGetFoldersCount :: Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
   , reportFoldersGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
-  , reportFoldersGetRootFolder :: Maybe Text -> m FileVM{- ^ &gt; Breakchange. Now user model doesn't contain a root folders.  This method can return error 400 and 404 when subscription is not found. -}
+  , reportFoldersGetRootFolder :: Maybe Text -> m FileVM{- ^ > Breakchange. Now user model doesn't contain a root folders.  This method can return error 400 and 404 when subscription is not found. -}
   , reportFoldersMoveFolder :: Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , reportFoldersPostFolder :: Text -> ReportFolderCreateVM -> m FileVM{- ^ User with a Create Entity permisison can access this method. -}
   , reportFoldersRenameFolder :: Text -> FolderRenameVM -> m FileVM{- ^ User with a Update Name permision can access this method. -}
@@ -362,17 +371,17 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , reportFoldersUpdateTags :: Text -> FolderTagsUpdateVM -> m FileVM{- ^ User with a Update Tags permission can access this method. -}
   , reportsCopyFile :: Text -> Text -> m ReportVM{- ^  -}
   , reportsDeleteFile :: Text -> m (){- ^ User with Delete permission can access the method. -}
-  , reportsExport :: Text -> ExportReportTaskVM -> m ExportVM{- ^ User with Execute Export permission on prepared report and  Create Entity on an export folder can access this method. -}
+  , reportsExport :: Text -> ExportReportVM -> m ExportVM{- ^ User with Execute Export permission on prepared report and  Create Entity on an export folder can access this method. -}
   , reportsGetFile :: Text -> m ReportVM{- ^ User with Get Entity permission can access this method. -}
   , reportsGetFilesCount :: Text -> m CountVM{- ^ User with Get Count permission can access this method. -}
-  , reportsGetFilesList :: Text -> Maybe Int -> Maybe Int -> m ReportsVM{- ^ User with Get Entity permission can access this method. -}
+  , reportsGetFilesList :: Text -> Maybe Int -> Maybe Int -> m ReportsVM{- ^  -}
   , reportsGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
   , reportsMoveFile :: Text -> Text -> m ReportVM{- ^ User with Update Place permission can access this method. -}
   , reportsRenameFile :: Text -> FileRenameVM -> m ReportVM{- ^ User with Update Name permission can access this method. -}
   , reportsUpdateIcon :: Text -> FileIconVM -> m ReportVM{- ^ User with Update Icon permission can access this method. -}
   , reportsUpdatePermissions :: Text -> UpdateFilePermissionsVM -> m (){- ^  -}
   , reportsUpdateTags :: Text -> FileTagsUpdateVM -> m ReportVM{- ^ User with Update Tags permission can access this method. -}
-  , reportsUploadFile :: Text -> ReportCreateVM -> m ReportVM{- ^  -}
+  , reportsUploadFile :: Text -> ReportCreateVM -> m ReportVM{- ^ User with Create Entity permission can access this method. -}
   , subscriptionGroupsGetGroupsList :: Text -> Maybe Text -> m GroupsVM{- ^  -}
   , subscriptionInvitesAcceptInvite :: Text -> Text -> m (){- ^  -}
   , subscriptionInvitesCreateInvite :: Text -> CreateSubscriptionInviteVM -> m SubscriptionInviteVM{- ^  -}
@@ -385,6 +394,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , subscriptionUsersLeaveSubscripiton :: Text -> m (){- ^  -}
   , subscriptionUsersRemoveUser :: Text -> Text -> m (){- ^  -}
   , subscriptionsGetDefaultPermissions :: Text -> m DefaultPermissions{- ^  -}
+  , subscriptionsGetMyPermissions :: Text -> m MyPermissionsVM{- ^  -}
   , subscriptionsGetPermissions :: Text -> m SubscriptionPermissionsVM{- ^  -}
   , subscriptionsGetSubscription :: Text -> m SubscriptionVM{- ^  -}
   , subscriptionsGetSubscriptions :: Maybe Int -> Maybe Int -> m SubscriptionsVM{- ^  -}
@@ -392,8 +402,14 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , subscriptionsUpdateDefaultPermissions :: Text -> UpdateDefaultPermissionsVM -> m DefaultPermissionsVM{- ^  -}
   , subscriptionsUpdateLocale :: Text -> UpdateSubscriptionLocaleVM -> m SubscriptionVM{- ^  -}
   , subscriptionsUpdatePermissions :: Text -> UpdateSubscriptionPermissionsVM -> m (){- ^  -}
+  , tasksCreateTask :: CreateTaskBaseVM -> m TaskBaseVM{- ^  -}
+  , tasksDeleteTask :: Text -> m (){- ^  -}
+  , tasksGet :: Text -> m TaskBaseVM{- ^  -}
+  , tasksGetList :: Maybe Int -> Maybe Int -> Maybe Text -> m TasksVM{- ^  -}
+  , tasksRunTask :: RunTaskBaseVM -> m (){- ^  -}
+  , tasksRunTaskById :: Text -> m (){- ^  -}
   , templateFolderAndFileGetCount :: Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
-  , templateFolderAndFileGetFoldersAndFiles :: Text -> Maybe Int -> Maybe Int -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
+  , templateFolderAndFileGetFoldersAndFiles :: Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , templateFoldersCopyFolder :: Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , templateFoldersDeleteFolder :: Text -> Maybe Bool -> m (){- ^ User with a Delete Entity permission can access this method. -}
   , templateFoldersGetBreadcrumbs :: Text -> m BreadcrumbsVM{- ^ User with a Get Entity permission can access this method. -}
@@ -401,7 +417,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , templateFoldersGetFolders :: Text -> Maybe Int -> Maybe Int -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , templateFoldersGetFoldersCount :: Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
   , templateFoldersGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
-  , templateFoldersGetRootFolder :: Maybe Text -> m FileVM{- ^ &gt; Breakchange. Now user model doesn't contain a root folders.  This method can return error 400 and 404 when subscription is not found. -}
+  , templateFoldersGetRootFolder :: Maybe Text -> m FileVM{- ^ > Breakchange. Now user model doesn't contain a root folders.  This method can return error 400 and 404 when subscription is not found. -}
   , templateFoldersMoveFolder :: Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , templateFoldersPostFolder :: Text -> TemplateFolderCreateVM -> m FileVM{- ^ User with a Create Entity permisison can access this method. -}
   , templateFoldersRenameFolder :: Text -> FolderRenameVM -> m FileVM{- ^ User with a Update Name permision can access this method. -}
@@ -410,13 +426,13 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , templateFoldersUpdateTags :: Text -> FolderTagsUpdateVM -> m FileVM{- ^ User with a Update Tags permission can access this method. -}
   , templatesCopyFile :: Text -> Text -> m TemplateVM{- ^  -}
   , templatesDeleteFile :: Text -> m (){- ^ User with Delete permission can access the method. -}
-  , templatesExport :: Text -> ExportTemplateTaskVM -> m ExportVM{- ^ User with Execute Export permission on prepared report and  Create Entity on an export folder can access this method. -}
+  , templatesExport :: Text -> ExportTemplateVM -> m ExportVM{- ^ User with Execute Export permission on prepared report and  Create Entity on an export folder can access this method. -}
   , templatesGetFile :: Text -> m TemplateVM{- ^ User with Get Entity permission can access this method. -}
   , templatesGetFilesCount :: Text -> m CountVM{- ^ User with Get Count permission can access this method. -}
-  , templatesGetFilesList :: Text -> Maybe Int -> Maybe Int -> m TemplatesVM{- ^ User with Get Entity permission can access this method. -}
+  , templatesGetFilesList :: Text -> Maybe Int -> Maybe Int -> m TemplatesVM{- ^  -}
   , templatesGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
   , templatesMoveFile :: Text -> Text -> m TemplateVM{- ^ User with Update Place permission can access this method. -}
-  , templatesPrepare :: Text -> PrepareTemplateTaskVM -> m ReportVM{- ^ User with Execute Prepare permission on report and   Create Entity on a prepared report folder can access this method. -}
+  , templatesPrepare :: Text -> PrepareTemplateVM -> m ReportVM{- ^ User with Execute Prepare permission on report and  Create Entity on a prepared report folder can access this method. -}
   , templatesRenameFile :: Text -> FileRenameVM -> m TemplateVM{- ^ User with Update Name permission can access this method. -}
   , templatesUpdateIcon :: Text -> FileIconVM -> m TemplateVM{- ^ User with Update Icon permission can access this method. -}
   , templatesUpdatePermissions :: Text -> UpdateFilePermissionsVM -> m (){- ^  -}
@@ -453,6 +469,7 @@ createFastReportCloudClient = FastReportCloudBackend{..}
     ((coerce -> apiKeysCreateApiKey) :<|>
      (coerce -> apiKeysDeleteApiKey) :<|>
      (coerce -> apiKeysGetApiKeys) :<|>
+     (coerce -> configurationGet) :<|>
      (coerce -> dataSourcesCreateDataSource) :<|>
      (coerce -> dataSourcesDeleteDataSource) :<|>
      (coerce -> dataSourcesFetchData) :<|>
@@ -551,6 +568,7 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> subscriptionUsersLeaveSubscripiton) :<|>
      (coerce -> subscriptionUsersRemoveUser) :<|>
      (coerce -> subscriptionsGetDefaultPermissions) :<|>
+     (coerce -> subscriptionsGetMyPermissions) :<|>
      (coerce -> subscriptionsGetPermissions) :<|>
      (coerce -> subscriptionsGetSubscription) :<|>
      (coerce -> subscriptionsGetSubscriptions) :<|>
@@ -558,6 +576,12 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> subscriptionsUpdateDefaultPermissions) :<|>
      (coerce -> subscriptionsUpdateLocale) :<|>
      (coerce -> subscriptionsUpdatePermissions) :<|>
+     (coerce -> tasksCreateTask) :<|>
+     (coerce -> tasksDeleteTask) :<|>
+     (coerce -> tasksGet) :<|>
+     (coerce -> tasksGetList) :<|>
+     (coerce -> tasksRunTask) :<|>
+     (coerce -> tasksRunTaskById) :<|>
      (coerce -> templateFolderAndFileGetCount) :<|>
      (coerce -> templateFolderAndFileGetFoldersAndFiles) :<|>
      (coerce -> templateFoldersCopyFolder) :<|>
@@ -643,6 +667,7 @@ runFastReportCloudMiddlewareServer Config{..} middleware backend = do
       (coerce apiKeysCreateApiKey :<|>
        coerce apiKeysDeleteApiKey :<|>
        coerce apiKeysGetApiKeys :<|>
+       coerce configurationGet :<|>
        coerce dataSourcesCreateDataSource :<|>
        coerce dataSourcesDeleteDataSource :<|>
        coerce dataSourcesFetchData :<|>
@@ -741,6 +766,7 @@ runFastReportCloudMiddlewareServer Config{..} middleware backend = do
        coerce subscriptionUsersLeaveSubscripiton :<|>
        coerce subscriptionUsersRemoveUser :<|>
        coerce subscriptionsGetDefaultPermissions :<|>
+       coerce subscriptionsGetMyPermissions :<|>
        coerce subscriptionsGetPermissions :<|>
        coerce subscriptionsGetSubscription :<|>
        coerce subscriptionsGetSubscriptions :<|>
@@ -748,6 +774,12 @@ runFastReportCloudMiddlewareServer Config{..} middleware backend = do
        coerce subscriptionsUpdateDefaultPermissions :<|>
        coerce subscriptionsUpdateLocale :<|>
        coerce subscriptionsUpdatePermissions :<|>
+       coerce tasksCreateTask :<|>
+       coerce tasksDeleteTask :<|>
+       coerce tasksGet :<|>
+       coerce tasksGetList :<|>
+       coerce tasksRunTask :<|>
+       coerce tasksRunTaskById :<|>
        coerce templateFolderAndFileGetCount :<|>
        coerce templateFolderAndFileGetFoldersAndFiles :<|>
        coerce templateFoldersCopyFolder :<|>
