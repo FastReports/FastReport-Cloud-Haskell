@@ -135,15 +135,16 @@ type FastReportCloudAPI
     :<|> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "ConnectionString" :> ReqBody '[JSON] UpdateDataSourceConnectionStringVM :> Verb 'PUT 200 '[JSON] DataSourceVM -- 'dataSourcesUpdateConnectionString' route
     :<|> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateDataSourcePermissionsVM :> Verb 'POST 200 '[JSON] () -- 'dataSourcesUpdatePermissions' route
     :<|> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "updateSubscription" :> ReqBody '[JSON] UpdateDataSourceSubscriptionVM :> Verb 'PUT 200 '[JSON] () -- 'dataSourcesUpdateSubscriptionDataSource' route
-    :<|> "download" :> "e" :> Capture "id" Text :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetExport' route
+    :<|> "download" :> "e" :> Capture "id" Text :> QueryParam "preview" Bool :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetExport' route
     :<|> "download" :> "e" :> Capture "id" Text :> "thumbnail" :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetExportThumbnail' route
     :<|> "download" :> "es" :> Capture "archiveName" Text :> QueryParam "ids" Text :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetExports' route
     :<|> "download" :> "r" :> Capture "id" Text :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetReport' route
     :<|> "download" :> "r" :> Capture "id" Text :> "thumbnail" :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetReportThumbnail' route
     :<|> "download" :> "rs" :> Capture "archiveName" Text :> QueryParam "ids" Text :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetReports' route
     :<|> "download" :> "t" :> Capture "id" Text :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetTemplate' route
+    :<|> "download" :> "t" :> Capture "id" Text :> "thumbnail" :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetTemplateThumbnail' route
     :<|> "download" :> "ts" :> Capture "archiveName" Text :> QueryParam "ids" Text :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetTemplates' route
-    :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'exportFolderAndFileGetCount' route
+    :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] CountVM -- 'exportFolderAndFileGetCount' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] FilesVM -- 'exportFolderAndFileGetFoldersAndFiles' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] FileVM -- 'exportFoldersCopyFolder' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> QueryParam "recursive" Bool :> Verb 'DELETE 200 '[JSON] () -- 'exportFoldersDeleteFolder' route
@@ -163,7 +164,7 @@ type FastReportCloudAPI
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> Verb 'DELETE 200 '[JSON] () -- 'exportsDeleteFile' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> Verb 'GET 200 '[JSON] ExportVM -- 'exportsGetFile' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "CountFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'exportsGetFilesCount' route
-    :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] ExportsVM -- 'exportsGetFilesList' route
+    :<|> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] ExportsVM -- 'exportsGetFilesList' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'exportsGetPermissions' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "Move" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] ExportVM -- 'exportsMoveFile' route
     :<|> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "Rename" :> ReqBody '[JSON] FileRenameVM :> Verb 'PUT 200 '[JSON] ExportVM -- 'exportsRenameFile' route
@@ -182,7 +183,7 @@ type FastReportCloudAPI
     :<|> "api" :> "manage" :> "v1" :> "Groups" :> Capture "id" Text :> "rename" :> ReqBody '[JSON] RenameGroupVM :> Verb 'PUT 200 '[JSON] GroupVM -- 'groupsRenameGroup' route
     :<|> "api" :> "manage" :> "v1" :> "Groups" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateGroupPermissionsVM :> Verb 'POST 200 '[JSON] () -- 'groupsUpdatePermissions' route
     :<|> "api" :> "backend" :> "v1" :> "HealthCheck" :> Verb 'GET 200 '[JSON] () -- 'healthCheckDataGet' route
-    :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'reportFolderAndFileGetCount' route
+    :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] CountVM -- 'reportFolderAndFileGetCount' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] FilesVM -- 'reportFolderAndFileGetFoldersAndFiles' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] FileVM -- 'reportFoldersCopyFolder' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> QueryParam "recursive" Bool :> Verb 'DELETE 200 '[JSON] () -- 'reportFoldersDeleteFolder' route
@@ -203,7 +204,7 @@ type FastReportCloudAPI
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "Export" :> ReqBody '[JSON] ExportReportVM :> Verb 'POST 200 '[JSON] ExportVM -- 'reportsExport' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> Verb 'GET 200 '[JSON] ReportVM -- 'reportsGetFile' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "CountFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'reportsGetFilesCount' route
-    :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] ReportsVM -- 'reportsGetFilesList' route
+    :<|> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] ReportsVM -- 'reportsGetFilesList' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'reportsGetPermissions' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "Move" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] ReportVM -- 'reportsMoveFile' route
     :<|> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "Rename" :> ReqBody '[JSON] FileRenameVM :> Verb 'PUT 200 '[JSON] ReportVM -- 'reportsRenameFile' route
@@ -237,7 +238,7 @@ type FastReportCloudAPI
     :<|> "api" :> "tasks" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] TasksVM -- 'tasksGetList' route
     :<|> "api" :> "tasks" :> "run" :> ReqBody '[JSON] RunTaskBaseVM :> Verb 'POST 200 '[JSON] () -- 'tasksRunTask' route
     :<|> "api" :> "tasks" :> Capture "taskId" Text :> "run" :> Verb 'POST 200 '[JSON] () -- 'tasksRunTaskById' route
-    :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'templateFolderAndFileGetCount' route
+    :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] CountVM -- 'templateFolderAndFileGetCount' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] FilesVM -- 'templateFolderAndFileGetFoldersAndFiles' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] FileVM -- 'templateFoldersCopyFolder' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> QueryParam "recursive" Bool :> Verb 'DELETE 200 '[JSON] () -- 'templateFoldersDeleteFolder' route
@@ -258,7 +259,7 @@ type FastReportCloudAPI
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Export" :> ReqBody '[JSON] ExportTemplateVM :> Verb 'POST 200 '[JSON] ExportVM -- 'templatesExport' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> Verb 'GET 200 '[JSON] TemplateVM -- 'templatesGetFile' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "CountFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'templatesGetFilesCount' route
-    :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] TemplatesVM -- 'templatesGetFilesList' route
+    :<|> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "searchPattern" Text :> Verb 'GET 200 '[JSON] TemplatesVM -- 'templatesGetFilesList' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'templatesGetPermissions' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Move" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] TemplateVM -- 'templatesMoveFile' route
     :<|> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Prepare" :> ReqBody '[JSON] PrepareTemplateVM :> Verb 'POST 200 '[JSON] ReportVM -- 'templatesPrepare' route
@@ -306,15 +307,16 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , dataSourcesUpdateConnectionString :: Text -> UpdateDataSourceConnectionStringVM -> m DataSourceVM{- ^  -}
   , dataSourcesUpdatePermissions :: Text -> UpdateDataSourcePermissionsVM -> m (){- ^  -}
   , dataSourcesUpdateSubscriptionDataSource :: Text -> UpdateDataSourceSubscriptionVM -> m (){- ^  -}
-  , downloadGetExport :: Text -> m FilePath{- ^  -}
+  , downloadGetExport :: Text -> Maybe Bool -> m FilePath{- ^  -}
   , downloadGetExportThumbnail :: Text -> m FilePath{- ^  -}
   , downloadGetExports :: Text -> Maybe Text -> m FilePath{- ^  -}
   , downloadGetReport :: Text -> m FilePath{- ^  -}
   , downloadGetReportThumbnail :: Text -> m FilePath{- ^  -}
   , downloadGetReports :: Text -> Maybe Text -> m FilePath{- ^  -}
   , downloadGetTemplate :: Text -> m FilePath{- ^  -}
+  , downloadGetTemplateThumbnail :: Text -> m FilePath{- ^  -}
   , downloadGetTemplates :: Text -> Maybe Text -> m FilePath{- ^  -}
-  , exportFolderAndFileGetCount :: Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
+  , exportFolderAndFileGetCount :: Text -> Maybe Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
   , exportFolderAndFileGetFoldersAndFiles :: Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , exportFoldersCopyFolder :: Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , exportFoldersDeleteFolder :: Text -> Maybe Bool -> m (){- ^ User with a Delete Entity permission can access this method. -}
@@ -334,7 +336,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , exportsDeleteFile :: Text -> m (){- ^ User with Delete permission can access the method. -}
   , exportsGetFile :: Text -> m ExportVM{- ^ User with Get Entity permission can access this method. -}
   , exportsGetFilesCount :: Text -> m CountVM{- ^ User with Get Count permission can access this method. -}
-  , exportsGetFilesList :: Text -> Maybe Int -> Maybe Int -> m ExportsVM{- ^  -}
+  , exportsGetFilesList :: Text -> Maybe Int -> Maybe Int -> Maybe Text -> m ExportsVM{- ^  -}
   , exportsGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
   , exportsMoveFile :: Text -> Text -> m ExportVM{- ^ User with Update Place permission can access this method. -}
   , exportsRenameFile :: Text -> FileRenameVM -> m ExportVM{- ^ User with Update Name permission can access this method. -}
@@ -353,7 +355,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , groupsRenameGroup :: Text -> RenameGroupVM -> m GroupVM{- ^  -}
   , groupsUpdatePermissions :: Text -> UpdateGroupPermissionsVM -> m (){- ^  -}
   , healthCheckDataGet :: m (){- ^  -}
-  , reportFolderAndFileGetCount :: Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
+  , reportFolderAndFileGetCount :: Text -> Maybe Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
   , reportFolderAndFileGetFoldersAndFiles :: Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , reportFoldersCopyFolder :: Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , reportFoldersDeleteFolder :: Text -> Maybe Bool -> m (){- ^ User with a Delete Entity permission can access this method. -}
@@ -374,7 +376,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , reportsExport :: Text -> ExportReportVM -> m ExportVM{- ^ User with Execute Export permission on prepared report and  Create Entity on an export folder can access this method. -}
   , reportsGetFile :: Text -> m ReportVM{- ^ User with Get Entity permission can access this method. -}
   , reportsGetFilesCount :: Text -> m CountVM{- ^ User with Get Count permission can access this method. -}
-  , reportsGetFilesList :: Text -> Maybe Int -> Maybe Int -> m ReportsVM{- ^  -}
+  , reportsGetFilesList :: Text -> Maybe Int -> Maybe Int -> Maybe Text -> m ReportsVM{- ^  -}
   , reportsGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
   , reportsMoveFile :: Text -> Text -> m ReportVM{- ^ User with Update Place permission can access this method. -}
   , reportsRenameFile :: Text -> FileRenameVM -> m ReportVM{- ^ User with Update Name permission can access this method. -}
@@ -408,7 +410,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , tasksGetList :: Maybe Int -> Maybe Int -> Maybe Text -> m TasksVM{- ^  -}
   , tasksRunTask :: RunTaskBaseVM -> m (){- ^  -}
   , tasksRunTaskById :: Text -> m (){- ^  -}
-  , templateFolderAndFileGetCount :: Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
+  , templateFolderAndFileGetCount :: Text -> Maybe Text -> m CountVM{- ^ User with a Get Count permission can access this method. -}
   , templateFolderAndFileGetFoldersAndFiles :: Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , templateFoldersCopyFolder :: Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , templateFoldersDeleteFolder :: Text -> Maybe Bool -> m (){- ^ User with a Delete Entity permission can access this method. -}
@@ -429,7 +431,7 @@ data FastReportCloudBackend m = FastReportCloudBackend
   , templatesExport :: Text -> ExportTemplateVM -> m ExportVM{- ^ User with Execute Export permission on prepared report and  Create Entity on an export folder can access this method. -}
   , templatesGetFile :: Text -> m TemplateVM{- ^ User with Get Entity permission can access this method. -}
   , templatesGetFilesCount :: Text -> m CountVM{- ^ User with Get Count permission can access this method. -}
-  , templatesGetFilesList :: Text -> Maybe Int -> Maybe Int -> m TemplatesVM{- ^  -}
+  , templatesGetFilesList :: Text -> Maybe Int -> Maybe Int -> Maybe Text -> m TemplatesVM{- ^  -}
   , templatesGetPermissions :: Text -> m FilePermissionsVM{- ^  -}
   , templatesMoveFile :: Text -> Text -> m TemplateVM{- ^ User with Update Place permission can access this method. -}
   , templatesPrepare :: Text -> PrepareTemplateVM -> m ReportVM{- ^ User with Execute Prepare permission on report and  Create Entity on a prepared report folder can access this method. -}
@@ -487,6 +489,7 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> downloadGetReportThumbnail) :<|>
      (coerce -> downloadGetReports) :<|>
      (coerce -> downloadGetTemplate) :<|>
+     (coerce -> downloadGetTemplateThumbnail) :<|>
      (coerce -> downloadGetTemplates) :<|>
      (coerce -> exportFolderAndFileGetCount) :<|>
      (coerce -> exportFolderAndFileGetFoldersAndFiles) :<|>
@@ -685,6 +688,7 @@ runFastReportCloudMiddlewareServer Config{..} middleware backend = do
        coerce downloadGetReportThumbnail :<|>
        coerce downloadGetReports :<|>
        coerce downloadGetTemplate :<|>
+       coerce downloadGetTemplateThumbnail :<|>
        coerce downloadGetTemplates :<|>
        coerce exportFolderAndFileGetCount :<|>
        coerce exportFolderAndFileGetFoldersAndFiles :<|>

@@ -12,6 +12,7 @@ module FastReportCloud.Types (
   ApiKeyVM (..),
   ApiKeysVM (..),
   AppMixins (..),
+  AuthConfigVM (..),
   BreadcrumbsModel (..),
   BreadcrumbsVM (..),
   CountVM (..),
@@ -28,6 +29,8 @@ module FastReportCloud.Types (
   CreatePrepareTemplateTaskVM (..),
   CreateSubscriptionInviteVM (..),
   CreateTaskBaseVM (..),
+  CreateThumbnailReportTaskVM (..),
+  CreateThumbnailTemplateTaskVM (..),
   CreateTransformTaskBaseVM (..),
   CreateTransportTaskBaseVM (..),
   CreateWebhookTaskVM (..),
@@ -133,6 +136,8 @@ module FastReportCloud.Types (
   RunInputFileVM (..),
   RunPrepareTemplateTaskVM (..),
   RunTaskBaseVM (..),
+  RunThumbnailReportTaskVM (..),
+  RunThumbnailTemplateTaskVM (..),
   RunTransformTaskBaseVM (..),
   RunTransportTaskBaseVM (..),
   RunWebhookTaskVM (..),
@@ -169,6 +174,8 @@ module FastReportCloud.Types (
   TemplateVM (..),
   TemplateVMFilesVMBase (..),
   TemplatesVM (..),
+  ThumbnailReportTaskVM (..),
+  ThumbnailTemplateTaskVM (..),
   TimePeriodType (..),
   TransformTaskBaseVM (..),
   TransportTaskBaseVM (..),
@@ -346,6 +353,23 @@ instance ToSchema AppMixins where
   declareNamedSchema = Swagger.genericDeclareNamedSchema
     $ Swagger.fromAesonOptions
     $ removeFieldLabelPrefix False "appMixins"
+
+
+-- | 
+data AuthConfigVM = AuthConfigVM
+  { authConfigVMUseLocal :: Maybe Bool -- ^ 
+  , authConfigVMUseOpenId :: Maybe Bool -- ^ 
+  , authConfigVMAuthority :: Maybe Text -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON AuthConfigVM where
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "authConfigVM")
+instance ToJSON AuthConfigVM where
+  toJSON = genericToJSON (removeFieldLabelPrefix False "authConfigVM")
+instance ToSchema AuthConfigVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "authConfigVM"
 
 
 -- | 
@@ -530,9 +554,7 @@ instance ToSchema CreateExportTemplateTaskVM where
 
 -- | 
 data CreateFetchTaskVM = CreateFetchTaskVM
-  { createFetchTaskVMConnectionType :: Maybe DataSourceConnectionType -- ^ 
-  , createFetchTaskVMConnectionString :: Text -- ^ 
-  , createFetchTaskVMName :: Maybe Text -- ^ 
+  { createFetchTaskVMName :: Maybe Text -- ^ 
   , createFetchTaskVMSubscriptionId :: Maybe Text -- ^ 
   , createFetchTaskVMType :: Maybe TaskType -- ^ 
   } deriving (Show, Eq, Generic, Data)
@@ -632,6 +654,40 @@ instance ToSchema CreateTaskBaseVM where
   declareNamedSchema = Swagger.genericDeclareNamedSchema
     $ Swagger.fromAesonOptions
     $ removeFieldLabelPrefix False "createTaskBaseVM"
+
+
+-- | 
+data CreateThumbnailReportTaskVM = CreateThumbnailReportTaskVM
+  { createThumbnailReportTaskVMName :: Maybe Text -- ^ 
+  , createThumbnailReportTaskVMSubscriptionId :: Maybe Text -- ^ 
+  , createThumbnailReportTaskVMType :: Maybe TaskType -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON CreateThumbnailReportTaskVM where
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createThumbnailReportTaskVM")
+instance ToJSON CreateThumbnailReportTaskVM where
+  toJSON = genericToJSON (removeFieldLabelPrefix False "createThumbnailReportTaskVM")
+instance ToSchema CreateThumbnailReportTaskVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "createThumbnailReportTaskVM"
+
+
+-- | 
+data CreateThumbnailTemplateTaskVM = CreateThumbnailTemplateTaskVM
+  { createThumbnailTemplateTaskVMName :: Maybe Text -- ^ 
+  , createThumbnailTemplateTaskVMSubscriptionId :: Maybe Text -- ^ 
+  , createThumbnailTemplateTaskVMType :: Maybe TaskType -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON CreateThumbnailTemplateTaskVM where
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createThumbnailTemplateTaskVM")
+instance ToJSON CreateThumbnailTemplateTaskVM where
+  toJSON = genericToJSON (removeFieldLabelPrefix False "createThumbnailTemplateTaskVM")
+instance ToSchema CreateThumbnailTemplateTaskVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "createThumbnailTemplateTaskVM"
 
 
 -- | 
@@ -1075,7 +1131,6 @@ instance ToSchema EntityVM where
 data ExportCreateAdminVM = ExportCreateAdminVM
   { exportCreateAdminVMOwnerId :: Text -- ^ 
   , exportCreateAdminVMParentId :: Text -- ^ 
-  , exportCreateAdminVMTemplateId :: Maybe Text -- ^ 
   , exportCreateAdminVMName :: Maybe Text -- ^ 
   , exportCreateAdminVMTags :: Maybe [Text] -- ^ 
   , exportCreateAdminVMIcon :: Maybe Text -- ^ 
@@ -1281,9 +1336,7 @@ instance ToSchema ExportsVM where
 
 -- | 
 data FetchTaskVM = FetchTaskVM
-  { fetchTaskVMConnectionType :: Maybe DataSourceConnectionType -- ^ 
-  , fetchTaskVMConnectionString :: Text -- ^ 
-  , fetchTaskVMName :: Maybe Text -- ^ 
+  { fetchTaskVMName :: Maybe Text -- ^ 
   , fetchTaskVMSubscriptionId :: Maybe Text -- ^ 
   , fetchTaskVMType :: Maybe TaskType -- ^ 
   } deriving (Show, Eq, Generic, Data)
@@ -2385,9 +2438,7 @@ instance ToSchema RunExportTemplateTaskVM where
 
 -- | 
 data RunFetchTaskVM = RunFetchTaskVM
-  { runFetchTaskVMConnectionType :: Maybe DataSourceConnectionType -- ^ 
-  , runFetchTaskVMConnectionString :: Text -- ^ 
-  , runFetchTaskVMSubscriptionId :: Maybe Text -- ^ 
+  { runFetchTaskVMSubscriptionId :: Maybe Text -- ^ 
   , runFetchTaskVMType :: Maybe TaskType -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
@@ -2452,6 +2503,38 @@ instance ToSchema RunTaskBaseVM where
   declareNamedSchema = Swagger.genericDeclareNamedSchema
     $ Swagger.fromAesonOptions
     $ removeFieldLabelPrefix False "runTaskBaseVM"
+
+
+-- | 
+data RunThumbnailReportTaskVM = RunThumbnailReportTaskVM
+  { runThumbnailReportTaskVMSubscriptionId :: Maybe Text -- ^ 
+  , runThumbnailReportTaskVMType :: Maybe TaskType -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON RunThumbnailReportTaskVM where
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "runThumbnailReportTaskVM")
+instance ToJSON RunThumbnailReportTaskVM where
+  toJSON = genericToJSON (removeFieldLabelPrefix False "runThumbnailReportTaskVM")
+instance ToSchema RunThumbnailReportTaskVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "runThumbnailReportTaskVM"
+
+
+-- | 
+data RunThumbnailTemplateTaskVM = RunThumbnailTemplateTaskVM
+  { runThumbnailTemplateTaskVMSubscriptionId :: Maybe Text -- ^ 
+  , runThumbnailTemplateTaskVMType :: Maybe TaskType -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON RunThumbnailTemplateTaskVM where
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "runThumbnailTemplateTaskVM")
+instance ToJSON RunThumbnailTemplateTaskVM where
+  toJSON = genericToJSON (removeFieldLabelPrefix False "runThumbnailTemplateTaskVM")
+instance ToSchema RunThumbnailTemplateTaskVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "runThumbnailTemplateTaskVM"
 
 
 -- | 
@@ -2527,7 +2610,9 @@ instance ToSchema SaveMode where
 data ServerConfigurationVM = ServerConfigurationVM
   { serverConfigurationVMTitle :: Maybe Text -- ^ 
   , serverConfigurationVMCorporateServerMode :: Maybe Bool -- ^ 
+  , serverConfigurationVMIsDisabled :: Maybe Bool -- ^ 
   , serverConfigurationVMAppMixins :: Maybe AppMixins -- ^ 
+  , serverConfigurationVMAuth :: Maybe AuthConfigVM -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON ServerConfigurationVM where
@@ -2945,6 +3030,8 @@ data TaskSettingsVM = TaskSettingsVM
   , taskSettingsVMSendViaEmail :: Maybe Bool -- ^ 
   , taskSettingsVMSendViaWebhook :: Maybe Bool -- ^ 
   , taskSettingsVMFetchData :: Maybe Bool -- ^ 
+  , taskSettingsVMThumbnailReport :: Maybe Bool -- ^ 
+  , taskSettingsVMThumbnailTemplate :: Maybe Bool -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON TaskSettingsVM where
@@ -3099,6 +3186,40 @@ instance ToSchema TemplatesVM where
   declareNamedSchema = Swagger.genericDeclareNamedSchema
     $ Swagger.fromAesonOptions
     $ removeFieldLabelPrefix False "templatesVM"
+
+
+-- | 
+data ThumbnailReportTaskVM = ThumbnailReportTaskVM
+  { thumbnailReportTaskVMName :: Maybe Text -- ^ 
+  , thumbnailReportTaskVMSubscriptionId :: Maybe Text -- ^ 
+  , thumbnailReportTaskVMType :: Maybe TaskType -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON ThumbnailReportTaskVM where
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "thumbnailReportTaskVM")
+instance ToJSON ThumbnailReportTaskVM where
+  toJSON = genericToJSON (removeFieldLabelPrefix False "thumbnailReportTaskVM")
+instance ToSchema ThumbnailReportTaskVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "thumbnailReportTaskVM"
+
+
+-- | 
+data ThumbnailTemplateTaskVM = ThumbnailTemplateTaskVM
+  { thumbnailTemplateTaskVMName :: Maybe Text -- ^ 
+  , thumbnailTemplateTaskVMSubscriptionId :: Maybe Text -- ^ 
+  , thumbnailTemplateTaskVMType :: Maybe TaskType -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON ThumbnailTemplateTaskVM where
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "thumbnailTemplateTaskVM")
+instance ToJSON ThumbnailTemplateTaskVM where
+  toJSON = genericToJSON (removeFieldLabelPrefix False "thumbnailTemplateTaskVM")
+instance ToSchema ThumbnailTemplateTaskVM where
+  declareNamedSchema = Swagger.genericDeclareNamedSchema
+    $ Swagger.fromAesonOptions
+    $ removeFieldLabelPrefix False "thumbnailTemplateTaskVM"
 
 
 -- | 
@@ -3304,6 +3425,7 @@ instance ToSchema UpdateUserProfileVM where
 data UpdateUserSettingsVM = UpdateUserSettingsVM
   { updateUserSettingsVMProfileVisibility :: Maybe ProfileVisibility -- ^ 
   , updateUserSettingsVMDefaultSubscription :: Maybe Text -- ^ 
+  , updateUserSettingsVMShowHiddenFilesAndFolders :: Maybe Bool -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON UpdateUserSettingsVM where
@@ -3339,6 +3461,7 @@ instance ToSchema UserProfileVM where
 data UserSettingsVM = UserSettingsVM
   { userSettingsVMProfileVisibility :: Maybe ProfileVisibility -- ^ 
   , userSettingsVMDefaultSubscription :: Maybe Text -- ^ 
+  , userSettingsVMShowHiddenFilesAndFolders :: Maybe Bool -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON UserSettingsVM where
