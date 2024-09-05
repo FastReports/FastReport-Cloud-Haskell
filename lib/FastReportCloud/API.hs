@@ -80,6 +80,32 @@ import           Web.HttpApiData
 
 
 
+data FormReportsUploadFileV2 = FormReportsUploadFileV2
+  { reportsUploadFileV2TemplateId :: Text
+  , reportsUploadFileV2Tags :: [Text]
+  , reportsUploadFileV2Icon :: FilePath
+  , reportsUploadFileV2FileContent :: FilePath
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromForm FormReportsUploadFileV2
+instance ToForm FormReportsUploadFileV2
+
+data FormTemplatesUpdateContentV2 = FormTemplatesUpdateContentV2
+  { templatesUpdateContentV2FileContent :: FilePath
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromForm FormTemplatesUpdateContentV2
+instance ToForm FormTemplatesUpdateContentV2
+
+data FormTemplatesUploadFileV2 = FormTemplatesUploadFileV2
+  { templatesUploadFileV2Tags :: [Text]
+  , templatesUploadFileV2Icon :: FilePath
+  , templatesUploadFileV2FileContent :: FilePath
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromForm FormTemplatesUploadFileV2
+instance ToForm FormTemplatesUploadFileV2
+
 
 -- | List of elements parsed from a query.
 newtype QueryList (p :: CollectionFormat) a = QueryList
@@ -134,7 +160,7 @@ formatSeparatedQueryList char = T.intercalate (T.singleton char) . map toQueryPa
 -- | Servant type-level API, generated from the OpenAPI spec for FastReportCloud.
 type FastReportCloudAPI
     =    Protected :> "api" :> "manage" :> "v1" :> "ApiKeys" :> ReqBody '[JSON] CreateApiKeyVM :> Verb 'POST 200 '[JSON] ApiKeyVM -- 'apiKeysCreateApiKey' route
-    :<|> Protected :> "api" :> "manage" :> "v1" :> "ApiKeys" :> ReqBody '[JSON] DeleteApiKeyVM :> Verb 'DELETE 204 '[JSON] NoContent -- 'apiKeysDeleteApiKey' route
+    :<|> Protected :> "api" :> "manage" :> "v1" :> "ApiKeys" :> ReqBody '[JSON] DeleteApiKeyVM :> Verb 'DELETE 200 '[JSON] ApiKeyVM -- 'apiKeysDeleteApiKey' route
     :<|> Protected :> "api" :> "manage" :> "v1" :> "ApiKeys" :> Verb 'GET 200 '[JSON] ApiKeysVM -- 'apiKeysGetApiKeys' route
     :<|> Protected :> "api" :> "v1" :> "Configuration" :> Verb 'GET 200 '[JSON] ServerConfigurationVM -- 'configurationGet' route
     :<|> Protected :> "api" :> "v1" :> "ContactGroups" :> "group" :> ReqBody '[JSON] CreateContactGroupVM :> Verb 'POST 200 '[JSON] ContactGroupVM -- 'contactGroupsCreate' route
@@ -154,10 +180,12 @@ type FastReportCloudAPI
     :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "fetch" :> Verb 'GET 204 '[JSON] NoContent -- 'dataSourcesFetchData' route
     :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> QueryParam "subscriptionId" Text :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" DataSourceSorting :> QueryParam "desc" Bool :> Verb 'GET 200 '[JSON] DataSourcesVM -- 'dataSourcesGetAvailableDataSources' route
     :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> Verb 'GET 200 '[JSON] DataSourceVM -- 'dataSourcesGetDataSource' route
+    :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> "parameterTypes" :> Capture "dataSourceType" DataSourceConnectionType :> Verb 'GET 200 '[JSON] DataSourceParameterTypesVM -- 'dataSourcesGetParameterTypes' route
     :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] DataSourcePermissionsVM -- 'dataSourcesGetPermissions' route
     :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "rename" :> ReqBody '[JSON] RenameDataSourceVM :> Verb 'PUT 200 '[JSON] DataSourceVM -- 'dataSourcesRenameDataSource' route
-    :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "ConnectionString" :> ReqBody '[JSON] UpdateDataSourceConnectionStringVM :> Verb 'PUT 200 '[JSON] DataSourceVM -- 'dataSourcesUpdateConnectionString' route
+    :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "connectionString" :> ReqBody '[JSON] UpdateDataSourceConnectionStringVM :> Verb 'PUT 200 '[JSON] DataSourceVM -- 'dataSourcesUpdateConnectionString' route
     :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateDataSourcePermissionsVM :> Verb 'POST 204 '[JSON] NoContent -- 'dataSourcesUpdatePermissions' route
+    :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "selectCommands" :> ReqBody '[JSON] UpdateDataSourceSelectCommandsVM :> Verb 'PUT 200 '[JSON] DataSourceVM -- 'dataSourcesUpdateSelectCommands' route
     :<|> Protected :> "api" :> "data" :> "v1" :> "DataSources" :> Capture "id" Text :> "updateSubscription" :> ReqBody '[JSON] UpdateDataSourceSubscriptionVM :> Verb 'PUT 200 '[JSON] NoContent -- 'dataSourcesUpdateSubscriptionDataSource' route
     :<|> Protected :> "download" :> "e" :> Capture "id" Text :> QueryParam "preview" Bool :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetExport' route
     :<|> Protected :> "download" :> "e" :> Capture "id" Text :> "thumbnail" :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetExportThumbnail' route
@@ -170,11 +198,16 @@ type FastReportCloudAPI
     :<|> Protected :> "download" :> "t" :> Capture "id" Text :> "thumbnail" :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetTemplateThumbnail' route
     :<|> Protected :> "download" :> "ts" :> Capture "archiveName" Text :> QueryParam "fileIds" Text :> QueryParam "folderIds" Text :> Verb 'GET 200 '[JSON] FilePath -- 'downloadGetTemplates' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "subscriptionId" Text :> "ClearRecycleBin" :> Verb 'DELETE 204 '[JSON] NoContent -- 'exportFolderAndFileClearRecycleBin' route
-    :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "subscriptionId" Text :> "DeleteFiles" :> ReqBody '[JSON] SelectedFilesForDeletingVM :> Verb 'POST 204 '[JSON] NoContent -- 'exportFolderAndFileDeleteFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "subscriptionId" Text :> "CopyFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'exportFolderAndFileCopyFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "subscriptionId" Text :> "CountRecycleBinFolderAndFiles" :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] CountVM -- 'exportFolderAndFileCountRecycleBinFoldersAndFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "subscriptionId" Text :> "DeleteFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'exportFolderAndFileDeleteFiles' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] CountVM -- 'exportFolderAndFileGetCount' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] FilesVM -- 'exportFolderAndFileGetFoldersAndFiles' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "subscriptionId" Text :> "ListRecycleBinFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] FilesVM -- 'exportFolderAndFileGetRecycleBinFoldersAndFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "subscriptionId" Text :> "MoveFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'exportFolderAndFileMoveFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "subscriptionId" Text :> "ToBin" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'exportFolderAndFileMoveFilesToBin' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "subscriptionId" Text :> "RecoverRecycleBin" :> Verb 'POST 204 '[JSON] NoContent -- 'exportFolderAndFileRecoverAllFromRecycleBin' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "subscriptionId" Text :> "RecoverFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'exportFolderAndFileRecoverFiles' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "size" :> Verb 'GET 200 '[JSON] FolderSizeVM -- 'exportFoldersCalculateFolderSize' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] FileVM -- 'exportFoldersCopyFolder' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> Verb 'DELETE 204 '[JSON] NoContent -- 'exportFoldersDeleteFolder' route
@@ -194,12 +227,15 @@ type FastReportCloudAPI
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 204 '[JSON] NoContent -- 'exportFoldersUpdatePermissions' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "UpdateTags" :> ReqBody '[JSON] FolderTagsUpdateVM :> Verb 'PUT 200 '[JSON] FileVM -- 'exportFoldersUpdateTags' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] ExportVM -- 'exportsCopyFile' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "sharingKey" :> ReqBody '[JSON] CreateFileShareVM :> Verb 'POST 200 '[JSON] FileSharingKeysVM -- 'exportsCreateSharingKey' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> Verb 'DELETE 204 '[JSON] NoContent -- 'exportsDeleteFile' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "sharingKey" :> Verb 'DELETE 204 '[JSON] NoContent -- 'exportsDeleteSharingKey' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> Verb 'GET 200 '[JSON] ExportVM -- 'exportsGetFile' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "History" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] AuditActionsVM -- 'exportsGetFileHistory' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "CountFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'exportsGetFilesCount' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "searchPattern" Text :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] ExportsVM -- 'exportsGetFilesList' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'exportsGetPermissions' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "sharingKeys" :> Verb 'GET 200 '[JSON] FileSharingKeysVM -- 'exportsGetSharingKeys' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "Move" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] ExportVM -- 'exportsMoveFile' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "ToBin" :> Verb 'DELETE 204 '[JSON] NoContent -- 'exportsMoveFileToBin' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Exports" :> "File" :> Capture "id" Text :> "Recover" :> QueryParam "recoveryPath" Text :> Verb 'POST 204 '[JSON] NoContent -- 'exportsRecoverFile' route
@@ -220,11 +256,16 @@ type FastReportCloudAPI
     :<|> Protected :> "api" :> "manage" :> "v1" :> "Groups" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateGroupPermissionsVM :> Verb 'POST 204 '[JSON] NoContent -- 'groupsUpdatePermissions' route
     :<|> Protected :> "api" :> "backend" :> "v1" :> "HealthCheck" :> Verb 'GET 200 '[JSON] NoContent -- 'healthCheckDataGet' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "subscriptionId" Text :> "ClearRecycleBin" :> Verb 'DELETE 204 '[JSON] NoContent -- 'reportFolderAndFileClearRecycleBin' route
-    :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "subscriptionId" Text :> "DeleteFiles" :> ReqBody '[JSON] SelectedFilesForDeletingVM :> Verb 'POST 204 '[JSON] NoContent -- 'reportFolderAndFileDeleteFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "subscriptionId" Text :> "CopyFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'reportFolderAndFileCopyFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "subscriptionId" Text :> "CountRecycleBinFolderAndFiles" :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] CountVM -- 'reportFolderAndFileCountRecycleBinFoldersAndFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "subscriptionId" Text :> "DeleteFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'reportFolderAndFileDeleteFiles' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] CountVM -- 'reportFolderAndFileGetCount' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] FilesVM -- 'reportFolderAndFileGetFoldersAndFiles' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "subscriptionId" Text :> "ListRecycleBinFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] FilesVM -- 'reportFolderAndFileGetRecycleBinFoldersAndFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "subscriptionId" Text :> "MoveFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'reportFolderAndFileMoveFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "subscriptionId" Text :> "ToBin" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'reportFolderAndFileMoveFilesToBin' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "subscriptionId" Text :> "RecoverRecycleBin" :> Verb 'POST 204 '[JSON] NoContent -- 'reportFolderAndFileRecoverAllFromRecycleBin' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "subscriptionId" Text :> "RecoverFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'reportFolderAndFileRecoverFiles' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "size" :> Verb 'GET 200 '[JSON] FolderSizeVM -- 'reportFoldersCalculateFolderSize' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] FileVM -- 'reportFoldersCopyFolder' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> Verb 'DELETE 204 '[JSON] NoContent -- 'reportFoldersDeleteFolder' route
@@ -245,13 +286,16 @@ type FastReportCloudAPI
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 204 '[JSON] NoContent -- 'reportFoldersUpdatePermissions' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "UpdateTags" :> ReqBody '[JSON] FolderTagsUpdateVM :> Verb 'PUT 200 '[JSON] FileVM -- 'reportFoldersUpdateTags' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] ReportVM -- 'reportsCopyFile' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "sharingKey" :> ReqBody '[JSON] CreateFileShareVM :> Verb 'POST 200 '[JSON] FileSharingKeysVM -- 'reportsCreateSharingKey' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> Verb 'DELETE 204 '[JSON] NoContent -- 'reportsDeleteFile' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "sharingKey" :> Verb 'DELETE 204 '[JSON] NoContent -- 'reportsDeleteSharingKey' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "Export" :> ReqBody '[JSON] ExportReportVM :> Verb 'POST 200 '[JSON] ExportVM -- 'reportsExport' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> Verb 'GET 200 '[JSON] ReportVM -- 'reportsGetFile' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "History" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] AuditActionsVM -- 'reportsGetFileHistory' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "CountFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'reportsGetFilesCount' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "searchPattern" Text :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] ReportsVM -- 'reportsGetFilesList' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'reportsGetPermissions' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "sharingKeys" :> Verb 'GET 200 '[JSON] FileSharingKeysVM -- 'reportsGetSharingKeys' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "Move" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] ReportVM -- 'reportsMoveFile' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "ToBin" :> Verb 'DELETE 204 '[JSON] NoContent -- 'reportsMoveFileToBin' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "Recover" :> QueryParam "recoveryPath" Text :> Verb 'POST 204 '[JSON] NoContent -- 'reportsRecoverFile' route
@@ -261,6 +305,7 @@ type FastReportCloudAPI
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 204 '[JSON] NoContent -- 'reportsUpdatePermissions' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "File" :> Capture "id" Text :> "UpdateTags" :> ReqBody '[JSON] FileTagsUpdateVM :> Verb 'PUT 200 '[JSON] ReportVM -- 'reportsUpdateTags' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Reports" :> "Folder" :> Capture "id" Text :> "File" :> ReqBody '[JSON] ReportCreateVM :> Verb 'POST 200 '[JSON] ReportVM -- 'reportsUploadFile' route
+    :<|> Protected :> "api" :> "rp" :> "v2" :> "Reports" :> "Folder" :> Capture "id" Text :> "File" :> ReqBody '[FormUrlEncoded] FormReportsUploadFileV2 :> Verb 'POST 200 '[JSON] ReportVM -- 'reportsUploadFileV2' route
     :<|> Protected :> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "count" :> Verb 'GET 200 '[JSON] Integer -- 'subscriptionGroupsCountGroupsAsync' route
     :<|> Protected :> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "groups" :> QueryParam "userId" Text :> Verb 'GET 200 '[JSON] GroupsVM -- 'subscriptionGroupsGetGroupsList' route
     :<|> Protected :> "api" :> "manage" :> "v1" :> "Subscriptions" :> Capture "subscriptionId" Text :> "invite" :> Capture "accessToken" Text :> "accept" :> Verb 'GET 200 '[JSON] NoContent -- 'subscriptionInvitesAcceptInvite' route
@@ -294,11 +339,16 @@ type FastReportCloudAPI
     :<|> Protected :> "api" :> "tasks" :> "v1" :> "Tasks" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateTaskPermissionsVM :> Verb 'POST 204 '[JSON] NoContent -- 'tasksUpdatePermissions' route
     :<|> Protected :> "api" :> "tasks" :> "v1" :> "Tasks" :> Capture "taskId" Text :> ReqBody '[JSON] UpdateTaskBaseVM :> Verb 'PUT 200 '[JSON] TaskBaseVM -- 'tasksUpdateTask' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "subscriptionId" Text :> "ClearRecycleBin" :> Verb 'DELETE 204 '[JSON] NoContent -- 'templateFolderAndFileClearRecycleBin' route
-    :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "subscriptionId" Text :> "DeleteFiles" :> ReqBody '[JSON] SelectedFilesForDeletingVM :> Verb 'POST 204 '[JSON] NoContent -- 'templateFolderAndFileDeleteFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "subscriptionId" Text :> "CopyFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'templateFolderAndFileCopyFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "subscriptionId" Text :> "CountRecycleBinFolderAndFiles" :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] CountVM -- 'templateFolderAndFileCountRecycleBinFoldersAndFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "subscriptionId" Text :> "DeleteFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'templateFolderAndFileDeleteFiles' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "CountFolderAndFiles" :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] CountVM -- 'templateFolderAndFileGetCount' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "ListFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] FilesVM -- 'templateFolderAndFileGetFoldersAndFiles' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "subscriptionId" Text :> "ListRecycleBinFolderAndFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "searchPattern" Text :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] FilesVM -- 'templateFolderAndFileGetRecycleBinFoldersAndFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "subscriptionId" Text :> "MoveFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'templateFolderAndFileMoveFiles' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "subscriptionId" Text :> "ToBin" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'templateFolderAndFileMoveFilesToBin' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "subscriptionId" Text :> "RecoverRecycleBin" :> Verb 'POST 204 '[JSON] NoContent -- 'templateFolderAndFileRecoverAllFromRecycleBin' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "subscriptionId" Text :> "RecoverFiles" :> ReqBody '[JSON] SelectedFilesVM :> Verb 'POST 204 '[JSON] NoContent -- 'templateFolderAndFileRecoverFiles' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "size" :> Verb 'GET 200 '[JSON] FolderSizeVM -- 'templateFoldersCalculateFolderSize' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] FileVM -- 'templateFoldersCopyFolder' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> Verb 'DELETE 204 '[JSON] NoContent -- 'templateFoldersDeleteFolder' route
@@ -320,13 +370,16 @@ type FastReportCloudAPI
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 204 '[JSON] NoContent -- 'templateFoldersUpdatePermissions' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "UpdateTags" :> ReqBody '[JSON] FolderTagsUpdateVM :> Verb 'PUT 200 '[JSON] FileVM -- 'templateFoldersUpdateTags' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Copy" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] TemplateVM -- 'templatesCopyFile' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "sharingKey" :> ReqBody '[JSON] CreateFileShareVM :> Verb 'POST 200 '[JSON] FileSharingKeysVM -- 'templatesCreateSharingKey' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> Verb 'DELETE 204 '[JSON] NoContent -- 'templatesDeleteFile' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "sharingKey" :> Verb 'DELETE 204 '[JSON] NoContent -- 'templatesDeleteSharingKey' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Export" :> ReqBody '[JSON] ExportTemplateVM :> Verb 'POST 200 '[JSON] ExportVM -- 'templatesExport' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> Verb 'GET 200 '[JSON] TemplateVM -- 'templatesGetFile' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "History" :> QueryParam "skip" Int :> QueryParam "take" Int :> Verb 'GET 200 '[JSON] AuditActionsVM -- 'templatesGetFileHistory' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "CountFiles" :> Verb 'GET 200 '[JSON] CountVM -- 'templatesGetFilesCount' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "ListFiles" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "searchPattern" Text :> QueryParam "orderBy" FileSorting :> QueryParam "desc" Bool :> QueryParam "useRegex" Bool :> Verb 'GET 200 '[JSON] TemplatesVM -- 'templatesGetFilesList' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "permissions" :> Verb 'GET 200 '[JSON] FilePermissionsVM -- 'templatesGetPermissions' route
+    :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "sharingKeys" :> Verb 'GET 200 '[JSON] FileSharingKeysVM -- 'templatesGetSharingKeys' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Move" :> Capture "folderId" Text :> Verb 'POST 200 '[JSON] TemplateVM -- 'templatesMoveFile' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "ToBin" :> Verb 'DELETE 204 '[JSON] NoContent -- 'templatesMoveFileToBin' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Prepare" :> ReqBody '[JSON] PrepareTemplateVM :> Verb 'POST 200 '[JSON] ReportVM -- 'templatesPrepare' route
@@ -334,10 +387,12 @@ type FastReportCloudAPI
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Rename" :> ReqBody '[JSON] FileRenameVM :> Verb 'PUT 200 '[JSON] TemplateVM -- 'templatesRenameFile' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "StaticPreview" :> ReqBody '[JSON] PreviewTemplateVM :> Verb 'POST 200 '[JSON] ExportVM -- 'templatesStaticPreview' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Content" :> ReqBody '[JSON] UpdateFileContentVM :> Verb 'PUT 204 '[JSON] NoContent -- 'templatesUpdateContent' route
+    :<|> Protected :> "api" :> "rp" :> "v2" :> "Templates" :> "File" :> Capture "id" Text :> "Content" :> ReqBody '[FormUrlEncoded] FormTemplatesUpdateContentV2 :> Verb 'PUT 204 '[JSON] NoContent -- 'templatesUpdateContentV2' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "Icon" :> ReqBody '[JSON] FileIconVM :> Verb 'PUT 200 '[JSON] TemplateVM -- 'templatesUpdateIcon' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "permissions" :> ReqBody '[JSON] UpdateFilePermissionsVM :> Verb 'POST 204 '[JSON] NoContent -- 'templatesUpdatePermissions' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "File" :> Capture "id" Text :> "UpdateTags" :> ReqBody '[JSON] FileTagsUpdateVM :> Verb 'PUT 200 '[JSON] TemplateVM -- 'templatesUpdateTags' route
     :<|> Protected :> "api" :> "rp" :> "v1" :> "Templates" :> "Folder" :> Capture "id" Text :> "File" :> ReqBody '[JSON] TemplateCreateVM :> Verb 'POST 200 '[JSON] TemplateVM -- 'templatesUploadFile' route
+    :<|> Protected :> "api" :> "rp" :> "v2" :> "Templates" :> "Folder" :> Capture "id" Text :> "File" :> ReqBody '[FormUrlEncoded] FormTemplatesUploadFileV2 :> Verb 'POST 200 '[JSON] TemplateVM -- 'templatesUploadFileV2' route
     :<|> Protected :> "api" :> "manage" :> "v1" :> "notifications" :> ReqBody '[JSON] ClearNotificationsVM :> Verb 'DELETE 204 '[JSON] NoContent -- 'userNotificationsClearNotifications' route
     :<|> Protected :> "api" :> "manage" :> "v1" :> "notifications" :> QueryParam "skip" Int :> QueryParam "take" Int :> QueryParam "subscriptionId" Text :> Verb 'GET 200 '[JSON] AuditActionsVM -- 'userNotificationsGetNotifications' route
     :<|> Protected :> "api" :> "manage" :> "v1" :> "UserProfile" :> Verb 'GET 200 '[JSON] UserProfileVM -- 'userProfileGetMyProfile' route
@@ -367,7 +422,7 @@ newtype FastReportCloudClientError = FastReportCloudClientError ClientError
 -- a backend, the API can be served using @runFastReportCloudMiddlewareServer@.
 data FastReportCloudBackend a m = FastReportCloudBackend
   { apiKeysCreateApiKey :: a -> CreateApiKeyVM -> m ApiKeyVM{- ^  -}
-  , apiKeysDeleteApiKey :: a -> DeleteApiKeyVM -> m NoContent{- ^  -}
+  , apiKeysDeleteApiKey :: a -> DeleteApiKeyVM -> m ApiKeyVM{- ^  -}
   , apiKeysGetApiKeys :: a -> m ApiKeysVM{- ^ Always work, it should make only 200 response (except if user is not authorized). -}
   , configurationGet :: a -> m ServerConfigurationVM{- ^  -}
   , contactGroupsCreate :: a -> CreateContactGroupVM -> m ContactGroupVM{- ^  -}
@@ -387,10 +442,12 @@ data FastReportCloudBackend a m = FastReportCloudBackend
   , dataSourcesFetchData :: a -> Text -> m NoContent{- ^  -}
   , dataSourcesGetAvailableDataSources :: a -> Maybe Text -> Maybe Int -> Maybe Int -> Maybe DataSourceSorting -> Maybe Bool -> m DataSourcesVM{- ^  -}
   , dataSourcesGetDataSource :: a -> Text -> m DataSourceVM{- ^  -}
+  , dataSourcesGetParameterTypes :: a -> DataSourceConnectionType -> m DataSourceParameterTypesVM{- ^  -}
   , dataSourcesGetPermissions :: a -> Text -> m DataSourcePermissionsVM{- ^  -}
   , dataSourcesRenameDataSource :: a -> Text -> RenameDataSourceVM -> m DataSourceVM{- ^  -}
   , dataSourcesUpdateConnectionString :: a -> Text -> UpdateDataSourceConnectionStringVM -> m DataSourceVM{- ^  -}
   , dataSourcesUpdatePermissions :: a -> Text -> UpdateDataSourcePermissionsVM -> m NoContent{- ^  -}
+  , dataSourcesUpdateSelectCommands :: a -> Text -> UpdateDataSourceSelectCommandsVM -> m DataSourceVM{- ^  -}
   , dataSourcesUpdateSubscriptionDataSource :: a -> Text -> UpdateDataSourceSubscriptionVM -> m NoContent{- ^  -}
   , downloadGetExport :: a -> Text -> Maybe Bool -> m FilePath{- ^  -}
   , downloadGetExportThumbnail :: a -> Text -> m FilePath{- ^  -}
@@ -403,11 +460,16 @@ data FastReportCloudBackend a m = FastReportCloudBackend
   , downloadGetTemplateThumbnail :: a -> Text -> m FilePath{- ^  -}
   , downloadGetTemplates :: a -> Text -> Maybe Text -> Maybe Text -> m FilePath{- ^  -}
   , exportFolderAndFileClearRecycleBin :: a -> Text -> m NoContent{- ^ User with a Delete RecycleBin permission can access this method. -}
-  , exportFolderAndFileDeleteFiles :: a -> Text -> SelectedFilesForDeletingVM -> m NoContent{- ^ User with a Delete permission can access this method. -}
+  , exportFolderAndFileCopyFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Get permission for a files and Create permission for a destination folder can access this method. -}
+  , exportFolderAndFileCountRecycleBinFoldersAndFiles :: a -> Text -> Maybe Text -> Maybe Bool -> m CountVM{- ^ User with a Get DeletedFiles permission can access this method. -}
+  , exportFolderAndFileDeleteFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Delete permission can access this method. -}
   , exportFolderAndFileGetCount :: a -> Text -> Maybe Text -> Maybe Bool -> m CountVM{- ^ User with a Get Count permission can access this method. -}
   , exportFolderAndFileGetFoldersAndFiles :: a -> Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> Maybe Bool -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , exportFolderAndFileGetRecycleBinFoldersAndFiles :: a -> Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> Maybe Bool -> m FilesVM{- ^ User with a Get DeletedFiles permission can access this method. -}
+  , exportFolderAndFileMoveFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Update Place permission for a files and Create permission for a destination folder can access this method. -}
+  , exportFolderAndFileMoveFilesToBin :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Delete permission can access this method. -}
   , exportFolderAndFileRecoverAllFromRecycleBin :: a -> Text -> m NoContent{- ^ User with a Create RecycleBin permission can access this method. -}
+  , exportFolderAndFileRecoverFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a SubscriptionCreate permission can access this method. -}
   , exportFoldersCalculateFolderSize :: a -> Text -> m FolderSizeVM{- ^ User with a Get Entity permission can access this method. -}
   , exportFoldersCopyFolder :: a -> Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , exportFoldersDeleteFolder :: a -> Text -> m NoContent{- ^ User with a Delete Entity permission can access this method. -}
@@ -427,13 +489,16 @@ data FastReportCloudBackend a m = FastReportCloudBackend
   , exportFoldersUpdatePermissions :: a -> Text -> UpdateFilePermissionsVM -> m NoContent{- ^  -}
   , exportFoldersUpdateTags :: a -> Text -> FolderTagsUpdateVM -> m FileVM{- ^ User with a Update Tags permission can access this method. -}
   , exportsCopyFile :: a -> Text -> Text -> m ExportVM{- ^  -}
+  , exportsCreateSharingKey :: a -> Text -> CreateFileShareVM -> m FileSharingKeysVM{- ^  -}
   , exportsDeleteFile :: a -> Text -> m NoContent{- ^ User with Delete permission can access the method. -}
-  , exportsGetFile :: a -> Text -> m ExportVM{- ^ User with Get Entity permission can access this method. -}
+  , exportsDeleteSharingKey :: a -> Text -> m NoContent{- ^  -}
+  , exportsGetFile :: a -> Text -> m ExportVM{- ^  -}
   , exportsGetFileHistory :: a -> Text -> Maybe Int -> Maybe Int -> m AuditActionsVM{- ^  -}
   , exportsGetFilesCount :: a -> Text -> m CountVM{- ^ User with Get Count permission can access this method. -}
   , exportsGetFilesList :: a -> Text -> Maybe Int -> Maybe Int -> Maybe Text -> Maybe FileSorting -> Maybe Bool -> Maybe Bool -> m ExportsVM{- ^  -}
   , exportsGetPermissions :: a -> Text -> m FilePermissionsVM{- ^  -}
-  , exportsMoveFile :: a -> Text -> Text -> m ExportVM{- ^ User with Update Place permission can access this method. -}
+  , exportsGetSharingKeys :: a -> Text -> m FileSharingKeysVM{- ^  -}
+  , exportsMoveFile :: a -> Text -> Text -> m ExportVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , exportsMoveFileToBin :: a -> Text -> m NoContent{- ^ User with Delete permission can access the method. -}
   , exportsRecoverFile :: a -> Text -> Maybe Text -> m NoContent{- ^ User with Delete permission can access the method. -}
   , exportsRenameFile :: a -> Text -> FileRenameVM -> m ExportVM{- ^ User with Update Name permission can access this method. -}
@@ -453,11 +518,16 @@ data FastReportCloudBackend a m = FastReportCloudBackend
   , groupsUpdatePermissions :: a -> Text -> UpdateGroupPermissionsVM -> m NoContent{- ^  -}
   , healthCheckDataGet :: a -> m NoContent{- ^  -}
   , reportFolderAndFileClearRecycleBin :: a -> Text -> m NoContent{- ^ User with a Delete RecycleBin permission can access this method. -}
-  , reportFolderAndFileDeleteFiles :: a -> Text -> SelectedFilesForDeletingVM -> m NoContent{- ^ User with a Delete permission can access this method. -}
+  , reportFolderAndFileCopyFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Get permission for a files and Create permission for a destination folder can access this method. -}
+  , reportFolderAndFileCountRecycleBinFoldersAndFiles :: a -> Text -> Maybe Text -> Maybe Bool -> m CountVM{- ^ User with a Get DeletedFiles permission can access this method. -}
+  , reportFolderAndFileDeleteFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Delete permission can access this method. -}
   , reportFolderAndFileGetCount :: a -> Text -> Maybe Text -> Maybe Bool -> m CountVM{- ^ User with a Get Count permission can access this method. -}
   , reportFolderAndFileGetFoldersAndFiles :: a -> Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> Maybe Bool -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , reportFolderAndFileGetRecycleBinFoldersAndFiles :: a -> Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> Maybe Bool -> m FilesVM{- ^ User with a Get DeletedFiles permission can access this method. -}
+  , reportFolderAndFileMoveFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Update Place permission for a files and Create permission for a destination folder can access this method. -}
+  , reportFolderAndFileMoveFilesToBin :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Delete permission can access this method. -}
   , reportFolderAndFileRecoverAllFromRecycleBin :: a -> Text -> m NoContent{- ^ User with a Create RecycleBin permission can access this method. -}
+  , reportFolderAndFileRecoverFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a SubscriptionCreate permission can access this method. -}
   , reportFoldersCalculateFolderSize :: a -> Text -> m FolderSizeVM{- ^ User with a Get Entity permission can access this method. -}
   , reportFoldersCopyFolder :: a -> Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , reportFoldersDeleteFolder :: a -> Text -> m NoContent{- ^ User with a Delete Entity permission can access this method. -}
@@ -478,14 +548,17 @@ data FastReportCloudBackend a m = FastReportCloudBackend
   , reportFoldersUpdatePermissions :: a -> Text -> UpdateFilePermissionsVM -> m NoContent{- ^  -}
   , reportFoldersUpdateTags :: a -> Text -> FolderTagsUpdateVM -> m FileVM{- ^ User with a Update Tags permission can access this method. -}
   , reportsCopyFile :: a -> Text -> Text -> m ReportVM{- ^  -}
+  , reportsCreateSharingKey :: a -> Text -> CreateFileShareVM -> m FileSharingKeysVM{- ^  -}
   , reportsDeleteFile :: a -> Text -> m NoContent{- ^ User with Delete permission can access the method. -}
+  , reportsDeleteSharingKey :: a -> Text -> m NoContent{- ^  -}
   , reportsExport :: a -> Text -> ExportReportVM -> m ExportVM{- ^ User with Execute Export permission on prepared report and  Create Entity on an export folder can access this method. -}
   , reportsGetFile :: a -> Text -> m ReportVM{- ^ User with Get Entity permission can access this method. -}
   , reportsGetFileHistory :: a -> Text -> Maybe Int -> Maybe Int -> m AuditActionsVM{- ^  -}
   , reportsGetFilesCount :: a -> Text -> m CountVM{- ^ User with Get Count permission can access this method. -}
   , reportsGetFilesList :: a -> Text -> Maybe Int -> Maybe Int -> Maybe Text -> Maybe FileSorting -> Maybe Bool -> Maybe Bool -> m ReportsVM{- ^  -}
   , reportsGetPermissions :: a -> Text -> m FilePermissionsVM{- ^  -}
-  , reportsMoveFile :: a -> Text -> Text -> m ReportVM{- ^ User with Update Place permission can access this method. -}
+  , reportsGetSharingKeys :: a -> Text -> m FileSharingKeysVM{- ^  -}
+  , reportsMoveFile :: a -> Text -> Text -> m ReportVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , reportsMoveFileToBin :: a -> Text -> m NoContent{- ^ User with Delete permission can access the method. -}
   , reportsRecoverFile :: a -> Text -> Maybe Text -> m NoContent{- ^ User with Delete permission can access the method. -}
   , reportsRenameFile :: a -> Text -> FileRenameVM -> m ReportVM{- ^ User with Update Name permission can access this method. -}
@@ -494,6 +567,7 @@ data FastReportCloudBackend a m = FastReportCloudBackend
   , reportsUpdatePermissions :: a -> Text -> UpdateFilePermissionsVM -> m NoContent{- ^  -}
   , reportsUpdateTags :: a -> Text -> FileTagsUpdateVM -> m ReportVM{- ^ User with Update Tags permission can access this method. -}
   , reportsUploadFile :: a -> Text -> ReportCreateVM -> m ReportVM{- ^ User with Create Entity permission can access this method. -}
+  , reportsUploadFileV2 :: a -> Text -> FormReportsUploadFileV2 -> m ReportVM{- ^ User with Create Entity permission can access this method. -}
   , subscriptionGroupsCountGroupsAsync :: a -> Text -> m Integer{- ^  -}
   , subscriptionGroupsGetGroupsList :: a -> Text -> Maybe Text -> m GroupsVM{- ^  -}
   , subscriptionInvitesAcceptInvite :: a -> Text -> Text -> m NoContent{- ^  -}
@@ -527,11 +601,16 @@ data FastReportCloudBackend a m = FastReportCloudBackend
   , tasksUpdatePermissions :: a -> Text -> UpdateTaskPermissionsVM -> m NoContent{- ^  -}
   , tasksUpdateTask :: a -> Text -> UpdateTaskBaseVM -> m TaskBaseVM{- ^  -}
   , templateFolderAndFileClearRecycleBin :: a -> Text -> m NoContent{- ^ User with a Delete RecycleBin permission can access this method. -}
-  , templateFolderAndFileDeleteFiles :: a -> Text -> SelectedFilesForDeletingVM -> m NoContent{- ^ User with a Delete permission can access this method. -}
+  , templateFolderAndFileCopyFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Get permission for a files and Create permission for a destination folder can access this method. -}
+  , templateFolderAndFileCountRecycleBinFoldersAndFiles :: a -> Text -> Maybe Text -> Maybe Bool -> m CountVM{- ^ User with a Get DeletedFiles permission can access this method. -}
+  , templateFolderAndFileDeleteFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Delete permission can access this method. -}
   , templateFolderAndFileGetCount :: a -> Text -> Maybe Text -> Maybe Bool -> m CountVM{- ^ User with a Get Count permission can access this method. -}
   , templateFolderAndFileGetFoldersAndFiles :: a -> Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> Maybe Bool -> m FilesVM{- ^ User with a Get Entity permission can access this method. -}
   , templateFolderAndFileGetRecycleBinFoldersAndFiles :: a -> Text -> Maybe Int -> Maybe Int -> Maybe FileSorting -> Maybe Bool -> Maybe Text -> Maybe Bool -> m FilesVM{- ^ User with a Get DeletedFiles permission can access this method. -}
+  , templateFolderAndFileMoveFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Update Place permission for a files and Create permission for a destination folder can access this method. -}
+  , templateFolderAndFileMoveFilesToBin :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a Delete permission can access this method. -}
   , templateFolderAndFileRecoverAllFromRecycleBin :: a -> Text -> m NoContent{- ^ User with a Create RecycleBin permission can access this method. -}
+  , templateFolderAndFileRecoverFiles :: a -> Text -> SelectedFilesVM -> m NoContent{- ^ User with a SubscriptionCreate permission can access this method. -}
   , templateFoldersCalculateFolderSize :: a -> Text -> m FolderSizeVM{- ^ User with a Get Entity permission can access this method. -}
   , templateFoldersCopyFolder :: a -> Text -> Text -> m FileVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , templateFoldersDeleteFolder :: a -> Text -> m NoContent{- ^ User with a Delete Entity permission can access this method. -}
@@ -553,24 +632,29 @@ data FastReportCloudBackend a m = FastReportCloudBackend
   , templateFoldersUpdatePermissions :: a -> Text -> UpdateFilePermissionsVM -> m NoContent{- ^  -}
   , templateFoldersUpdateTags :: a -> Text -> FolderTagsUpdateVM -> m FileVM{- ^ User with a Update Tags permission can access this method. -}
   , templatesCopyFile :: a -> Text -> Text -> m TemplateVM{- ^  -}
+  , templatesCreateSharingKey :: a -> Text -> CreateFileShareVM -> m FileSharingKeysVM{- ^  -}
   , templatesDeleteFile :: a -> Text -> m NoContent{- ^ User with Delete permission can access the method. -}
+  , templatesDeleteSharingKey :: a -> Text -> m NoContent{- ^  -}
   , templatesExport :: a -> Text -> ExportTemplateVM -> m ExportVM{- ^ User with Execute Export permission on prepared report and  Create Entity on an export folder can access this method. -}
   , templatesGetFile :: a -> Text -> m TemplateVM{- ^ User with Get Entity permission can access this method. -}
   , templatesGetFileHistory :: a -> Text -> Maybe Int -> Maybe Int -> m AuditActionsVM{- ^  -}
   , templatesGetFilesCount :: a -> Text -> m CountVM{- ^ User with Get Count permission can access this method. -}
   , templatesGetFilesList :: a -> Text -> Maybe Int -> Maybe Int -> Maybe Text -> Maybe FileSorting -> Maybe Bool -> Maybe Bool -> m TemplatesVM{- ^  -}
   , templatesGetPermissions :: a -> Text -> m FilePermissionsVM{- ^  -}
-  , templatesMoveFile :: a -> Text -> Text -> m TemplateVM{- ^ User with Update Place permission can access this method. -}
+  , templatesGetSharingKeys :: a -> Text -> m FileSharingKeysVM{- ^  -}
+  , templatesMoveFile :: a -> Text -> Text -> m TemplateVM{- ^ User with a Update Place permission for a folder and Create Entity  for a Parent Folder can access this method. -}
   , templatesMoveFileToBin :: a -> Text -> m NoContent{- ^ User with Delete permission can access the method. -}
   , templatesPrepare :: a -> Text -> PrepareTemplateVM -> m ReportVM{- ^ User with Execute Prepare permission on report and  Create Entity on a prepared report folder can access this method. -}
   , templatesRecoverFile :: a -> Text -> Maybe Text -> m NoContent{- ^ User with Delete permission can access the method. -}
   , templatesRenameFile :: a -> Text -> FileRenameVM -> m TemplateVM{- ^ User with Update Name permission can access this method. -}
   , templatesStaticPreview :: a -> Text -> PreviewTemplateVM -> m ExportVM{- ^  -}
   , templatesUpdateContent :: a -> Text -> UpdateFileContentVM -> m NoContent{- ^  -}
+  , templatesUpdateContentV2 :: a -> Text -> FormTemplatesUpdateContentV2 -> m NoContent{- ^  -}
   , templatesUpdateIcon :: a -> Text -> FileIconVM -> m TemplateVM{- ^ User with Update Icon permission can access this method. -}
   , templatesUpdatePermissions :: a -> Text -> UpdateFilePermissionsVM -> m NoContent{- ^  -}
   , templatesUpdateTags :: a -> Text -> FileTagsUpdateVM -> m TemplateVM{- ^ User with Update Tags permission can access this method. -}
   , templatesUploadFile :: a -> Text -> TemplateCreateVM -> m TemplateVM{- ^ User with Create Entity permission can access this method. -}
+  , templatesUploadFileV2 :: a -> Text -> FormTemplatesUploadFileV2 -> m TemplateVM{- ^ User with Create Entity permission can access this method. -}
   , userNotificationsClearNotifications :: a -> ClearNotificationsVM -> m NoContent{- ^  -}
   , userNotificationsGetNotifications :: a -> Maybe Int -> Maybe Int -> Maybe Text -> m AuditActionsVM{- ^  -}
   , userProfileGetMyProfile :: a -> m UserProfileVM{- ^  -}
@@ -640,10 +724,12 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> dataSourcesFetchData) :<|>
      (coerce -> dataSourcesGetAvailableDataSources) :<|>
      (coerce -> dataSourcesGetDataSource) :<|>
+     (coerce -> dataSourcesGetParameterTypes) :<|>
      (coerce -> dataSourcesGetPermissions) :<|>
      (coerce -> dataSourcesRenameDataSource) :<|>
      (coerce -> dataSourcesUpdateConnectionString) :<|>
      (coerce -> dataSourcesUpdatePermissions) :<|>
+     (coerce -> dataSourcesUpdateSelectCommands) :<|>
      (coerce -> dataSourcesUpdateSubscriptionDataSource) :<|>
      (coerce -> downloadGetExport) :<|>
      (coerce -> downloadGetExportThumbnail) :<|>
@@ -656,11 +742,16 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> downloadGetTemplateThumbnail) :<|>
      (coerce -> downloadGetTemplates) :<|>
      (coerce -> exportFolderAndFileClearRecycleBin) :<|>
+     (coerce -> exportFolderAndFileCopyFiles) :<|>
+     (coerce -> exportFolderAndFileCountRecycleBinFoldersAndFiles) :<|>
      (coerce -> exportFolderAndFileDeleteFiles) :<|>
      (coerce -> exportFolderAndFileGetCount) :<|>
      (coerce -> exportFolderAndFileGetFoldersAndFiles) :<|>
      (coerce -> exportFolderAndFileGetRecycleBinFoldersAndFiles) :<|>
+     (coerce -> exportFolderAndFileMoveFiles) :<|>
+     (coerce -> exportFolderAndFileMoveFilesToBin) :<|>
      (coerce -> exportFolderAndFileRecoverAllFromRecycleBin) :<|>
+     (coerce -> exportFolderAndFileRecoverFiles) :<|>
      (coerce -> exportFoldersCalculateFolderSize) :<|>
      (coerce -> exportFoldersCopyFolder) :<|>
      (coerce -> exportFoldersDeleteFolder) :<|>
@@ -680,12 +771,15 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> exportFoldersUpdatePermissions) :<|>
      (coerce -> exportFoldersUpdateTags) :<|>
      (coerce -> exportsCopyFile) :<|>
+     (coerce -> exportsCreateSharingKey) :<|>
      (coerce -> exportsDeleteFile) :<|>
+     (coerce -> exportsDeleteSharingKey) :<|>
      (coerce -> exportsGetFile) :<|>
      (coerce -> exportsGetFileHistory) :<|>
      (coerce -> exportsGetFilesCount) :<|>
      (coerce -> exportsGetFilesList) :<|>
      (coerce -> exportsGetPermissions) :<|>
+     (coerce -> exportsGetSharingKeys) :<|>
      (coerce -> exportsMoveFile) :<|>
      (coerce -> exportsMoveFileToBin) :<|>
      (coerce -> exportsRecoverFile) :<|>
@@ -706,11 +800,16 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> groupsUpdatePermissions) :<|>
      (coerce -> healthCheckDataGet) :<|>
      (coerce -> reportFolderAndFileClearRecycleBin) :<|>
+     (coerce -> reportFolderAndFileCopyFiles) :<|>
+     (coerce -> reportFolderAndFileCountRecycleBinFoldersAndFiles) :<|>
      (coerce -> reportFolderAndFileDeleteFiles) :<|>
      (coerce -> reportFolderAndFileGetCount) :<|>
      (coerce -> reportFolderAndFileGetFoldersAndFiles) :<|>
      (coerce -> reportFolderAndFileGetRecycleBinFoldersAndFiles) :<|>
+     (coerce -> reportFolderAndFileMoveFiles) :<|>
+     (coerce -> reportFolderAndFileMoveFilesToBin) :<|>
      (coerce -> reportFolderAndFileRecoverAllFromRecycleBin) :<|>
+     (coerce -> reportFolderAndFileRecoverFiles) :<|>
      (coerce -> reportFoldersCalculateFolderSize) :<|>
      (coerce -> reportFoldersCopyFolder) :<|>
      (coerce -> reportFoldersDeleteFolder) :<|>
@@ -731,13 +830,16 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> reportFoldersUpdatePermissions) :<|>
      (coerce -> reportFoldersUpdateTags) :<|>
      (coerce -> reportsCopyFile) :<|>
+     (coerce -> reportsCreateSharingKey) :<|>
      (coerce -> reportsDeleteFile) :<|>
+     (coerce -> reportsDeleteSharingKey) :<|>
      (coerce -> reportsExport) :<|>
      (coerce -> reportsGetFile) :<|>
      (coerce -> reportsGetFileHistory) :<|>
      (coerce -> reportsGetFilesCount) :<|>
      (coerce -> reportsGetFilesList) :<|>
      (coerce -> reportsGetPermissions) :<|>
+     (coerce -> reportsGetSharingKeys) :<|>
      (coerce -> reportsMoveFile) :<|>
      (coerce -> reportsMoveFileToBin) :<|>
      (coerce -> reportsRecoverFile) :<|>
@@ -747,6 +849,7 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> reportsUpdatePermissions) :<|>
      (coerce -> reportsUpdateTags) :<|>
      (coerce -> reportsUploadFile) :<|>
+     (coerce -> reportsUploadFileV2) :<|>
      (coerce -> subscriptionGroupsCountGroupsAsync) :<|>
      (coerce -> subscriptionGroupsGetGroupsList) :<|>
      (coerce -> subscriptionInvitesAcceptInvite) :<|>
@@ -780,11 +883,16 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> tasksUpdatePermissions) :<|>
      (coerce -> tasksUpdateTask) :<|>
      (coerce -> templateFolderAndFileClearRecycleBin) :<|>
+     (coerce -> templateFolderAndFileCopyFiles) :<|>
+     (coerce -> templateFolderAndFileCountRecycleBinFoldersAndFiles) :<|>
      (coerce -> templateFolderAndFileDeleteFiles) :<|>
      (coerce -> templateFolderAndFileGetCount) :<|>
      (coerce -> templateFolderAndFileGetFoldersAndFiles) :<|>
      (coerce -> templateFolderAndFileGetRecycleBinFoldersAndFiles) :<|>
+     (coerce -> templateFolderAndFileMoveFiles) :<|>
+     (coerce -> templateFolderAndFileMoveFilesToBin) :<|>
      (coerce -> templateFolderAndFileRecoverAllFromRecycleBin) :<|>
+     (coerce -> templateFolderAndFileRecoverFiles) :<|>
      (coerce -> templateFoldersCalculateFolderSize) :<|>
      (coerce -> templateFoldersCopyFolder) :<|>
      (coerce -> templateFoldersDeleteFolder) :<|>
@@ -806,13 +914,16 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> templateFoldersUpdatePermissions) :<|>
      (coerce -> templateFoldersUpdateTags) :<|>
      (coerce -> templatesCopyFile) :<|>
+     (coerce -> templatesCreateSharingKey) :<|>
      (coerce -> templatesDeleteFile) :<|>
+     (coerce -> templatesDeleteSharingKey) :<|>
      (coerce -> templatesExport) :<|>
      (coerce -> templatesGetFile) :<|>
      (coerce -> templatesGetFileHistory) :<|>
      (coerce -> templatesGetFilesCount) :<|>
      (coerce -> templatesGetFilesList) :<|>
      (coerce -> templatesGetPermissions) :<|>
+     (coerce -> templatesGetSharingKeys) :<|>
      (coerce -> templatesMoveFile) :<|>
      (coerce -> templatesMoveFileToBin) :<|>
      (coerce -> templatesPrepare) :<|>
@@ -820,10 +931,12 @@ createFastReportCloudClient = FastReportCloudBackend{..}
      (coerce -> templatesRenameFile) :<|>
      (coerce -> templatesStaticPreview) :<|>
      (coerce -> templatesUpdateContent) :<|>
+     (coerce -> templatesUpdateContentV2) :<|>
      (coerce -> templatesUpdateIcon) :<|>
      (coerce -> templatesUpdatePermissions) :<|>
      (coerce -> templatesUpdateTags) :<|>
      (coerce -> templatesUploadFile) :<|>
+     (coerce -> templatesUploadFileV2) :<|>
      (coerce -> userNotificationsClearNotifications) :<|>
      (coerce -> userNotificationsGetNotifications) :<|>
      (coerce -> userProfileGetMyProfile) :<|>
@@ -907,10 +1020,12 @@ serverWaiApplicationFastReportCloud auth backend = serveWithContextT (Proxy :: P
        coerce dataSourcesFetchData :<|>
        coerce dataSourcesGetAvailableDataSources :<|>
        coerce dataSourcesGetDataSource :<|>
+       coerce dataSourcesGetParameterTypes :<|>
        coerce dataSourcesGetPermissions :<|>
        coerce dataSourcesRenameDataSource :<|>
        coerce dataSourcesUpdateConnectionString :<|>
        coerce dataSourcesUpdatePermissions :<|>
+       coerce dataSourcesUpdateSelectCommands :<|>
        coerce dataSourcesUpdateSubscriptionDataSource :<|>
        coerce downloadGetExport :<|>
        coerce downloadGetExportThumbnail :<|>
@@ -923,11 +1038,16 @@ serverWaiApplicationFastReportCloud auth backend = serveWithContextT (Proxy :: P
        coerce downloadGetTemplateThumbnail :<|>
        coerce downloadGetTemplates :<|>
        coerce exportFolderAndFileClearRecycleBin :<|>
+       coerce exportFolderAndFileCopyFiles :<|>
+       coerce exportFolderAndFileCountRecycleBinFoldersAndFiles :<|>
        coerce exportFolderAndFileDeleteFiles :<|>
        coerce exportFolderAndFileGetCount :<|>
        coerce exportFolderAndFileGetFoldersAndFiles :<|>
        coerce exportFolderAndFileGetRecycleBinFoldersAndFiles :<|>
+       coerce exportFolderAndFileMoveFiles :<|>
+       coerce exportFolderAndFileMoveFilesToBin :<|>
        coerce exportFolderAndFileRecoverAllFromRecycleBin :<|>
+       coerce exportFolderAndFileRecoverFiles :<|>
        coerce exportFoldersCalculateFolderSize :<|>
        coerce exportFoldersCopyFolder :<|>
        coerce exportFoldersDeleteFolder :<|>
@@ -947,12 +1067,15 @@ serverWaiApplicationFastReportCloud auth backend = serveWithContextT (Proxy :: P
        coerce exportFoldersUpdatePermissions :<|>
        coerce exportFoldersUpdateTags :<|>
        coerce exportsCopyFile :<|>
+       coerce exportsCreateSharingKey :<|>
        coerce exportsDeleteFile :<|>
+       coerce exportsDeleteSharingKey :<|>
        coerce exportsGetFile :<|>
        coerce exportsGetFileHistory :<|>
        coerce exportsGetFilesCount :<|>
        coerce exportsGetFilesList :<|>
        coerce exportsGetPermissions :<|>
+       coerce exportsGetSharingKeys :<|>
        coerce exportsMoveFile :<|>
        coerce exportsMoveFileToBin :<|>
        coerce exportsRecoverFile :<|>
@@ -973,11 +1096,16 @@ serverWaiApplicationFastReportCloud auth backend = serveWithContextT (Proxy :: P
        coerce groupsUpdatePermissions :<|>
        coerce healthCheckDataGet :<|>
        coerce reportFolderAndFileClearRecycleBin :<|>
+       coerce reportFolderAndFileCopyFiles :<|>
+       coerce reportFolderAndFileCountRecycleBinFoldersAndFiles :<|>
        coerce reportFolderAndFileDeleteFiles :<|>
        coerce reportFolderAndFileGetCount :<|>
        coerce reportFolderAndFileGetFoldersAndFiles :<|>
        coerce reportFolderAndFileGetRecycleBinFoldersAndFiles :<|>
+       coerce reportFolderAndFileMoveFiles :<|>
+       coerce reportFolderAndFileMoveFilesToBin :<|>
        coerce reportFolderAndFileRecoverAllFromRecycleBin :<|>
+       coerce reportFolderAndFileRecoverFiles :<|>
        coerce reportFoldersCalculateFolderSize :<|>
        coerce reportFoldersCopyFolder :<|>
        coerce reportFoldersDeleteFolder :<|>
@@ -998,13 +1126,16 @@ serverWaiApplicationFastReportCloud auth backend = serveWithContextT (Proxy :: P
        coerce reportFoldersUpdatePermissions :<|>
        coerce reportFoldersUpdateTags :<|>
        coerce reportsCopyFile :<|>
+       coerce reportsCreateSharingKey :<|>
        coerce reportsDeleteFile :<|>
+       coerce reportsDeleteSharingKey :<|>
        coerce reportsExport :<|>
        coerce reportsGetFile :<|>
        coerce reportsGetFileHistory :<|>
        coerce reportsGetFilesCount :<|>
        coerce reportsGetFilesList :<|>
        coerce reportsGetPermissions :<|>
+       coerce reportsGetSharingKeys :<|>
        coerce reportsMoveFile :<|>
        coerce reportsMoveFileToBin :<|>
        coerce reportsRecoverFile :<|>
@@ -1014,6 +1145,7 @@ serverWaiApplicationFastReportCloud auth backend = serveWithContextT (Proxy :: P
        coerce reportsUpdatePermissions :<|>
        coerce reportsUpdateTags :<|>
        coerce reportsUploadFile :<|>
+       coerce reportsUploadFileV2 :<|>
        coerce subscriptionGroupsCountGroupsAsync :<|>
        coerce subscriptionGroupsGetGroupsList :<|>
        coerce subscriptionInvitesAcceptInvite :<|>
@@ -1047,11 +1179,16 @@ serverWaiApplicationFastReportCloud auth backend = serveWithContextT (Proxy :: P
        coerce tasksUpdatePermissions :<|>
        coerce tasksUpdateTask :<|>
        coerce templateFolderAndFileClearRecycleBin :<|>
+       coerce templateFolderAndFileCopyFiles :<|>
+       coerce templateFolderAndFileCountRecycleBinFoldersAndFiles :<|>
        coerce templateFolderAndFileDeleteFiles :<|>
        coerce templateFolderAndFileGetCount :<|>
        coerce templateFolderAndFileGetFoldersAndFiles :<|>
        coerce templateFolderAndFileGetRecycleBinFoldersAndFiles :<|>
+       coerce templateFolderAndFileMoveFiles :<|>
+       coerce templateFolderAndFileMoveFilesToBin :<|>
        coerce templateFolderAndFileRecoverAllFromRecycleBin :<|>
+       coerce templateFolderAndFileRecoverFiles :<|>
        coerce templateFoldersCalculateFolderSize :<|>
        coerce templateFoldersCopyFolder :<|>
        coerce templateFoldersDeleteFolder :<|>
@@ -1073,13 +1210,16 @@ serverWaiApplicationFastReportCloud auth backend = serveWithContextT (Proxy :: P
        coerce templateFoldersUpdatePermissions :<|>
        coerce templateFoldersUpdateTags :<|>
        coerce templatesCopyFile :<|>
+       coerce templatesCreateSharingKey :<|>
        coerce templatesDeleteFile :<|>
+       coerce templatesDeleteSharingKey :<|>
        coerce templatesExport :<|>
        coerce templatesGetFile :<|>
        coerce templatesGetFileHistory :<|>
        coerce templatesGetFilesCount :<|>
        coerce templatesGetFilesList :<|>
        coerce templatesGetPermissions :<|>
+       coerce templatesGetSharingKeys :<|>
        coerce templatesMoveFile :<|>
        coerce templatesMoveFileToBin :<|>
        coerce templatesPrepare :<|>
@@ -1087,10 +1227,12 @@ serverWaiApplicationFastReportCloud auth backend = serveWithContextT (Proxy :: P
        coerce templatesRenameFile :<|>
        coerce templatesStaticPreview :<|>
        coerce templatesUpdateContent :<|>
+       coerce templatesUpdateContentV2 :<|>
        coerce templatesUpdateIcon :<|>
        coerce templatesUpdatePermissions :<|>
        coerce templatesUpdateTags :<|>
        coerce templatesUploadFile :<|>
+       coerce templatesUploadFileV2 :<|>
        coerce userNotificationsClearNotifications :<|>
        coerce userNotificationsGetNotifications :<|>
        coerce userProfileGetMyProfile :<|>

@@ -5,30 +5,48 @@
 
 module FastReportCloud.Types (
   AcceptAgreementsVM (..),
+  AdminAdministrate (..),
+  AdminCreate (..),
+  AdminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermission (..),
+  AdminDelete (..),
+  AdminExecute (..),
   AdminExportFolderCreateVM (..),
   AdminFolderCreateVM (..),
+  AdminGet (..),
+  AdminPermission (..),
   AdminReportFolderCreateVM (..),
   AdminSubscriptionVM (..),
+  AdminSubscriptionsVM (..),
   AdminTemplateFolderCreateVM (..),
+  AdminUpdate (..),
+  AdminUpdateCurrentSubscriptionPlanVM (..),
+  AnalysisResultVM (..),
+  AnalysisResultsVM (..),
   ApiKeyVM (..),
   ApiKeysVM (..),
-  AppMixins (..),
+  AppMixinsVM (..),
   AuditActionVM (..),
   AuditActionsVM (..),
+  AuditActiveStatsVM (..),
   AuditFilePropertyChangedVM (..),
+  AuditStatVM (..),
+  AuditStatsVM (..),
   AuditSubscriptionActionVM (..),
   AuditTaskActionVM (..),
   AuditType (..),
   AuthConfigVM (..),
   BreadcrumbsModel (..),
   BreadcrumbsVM (..),
+  CheckUserByPasswordInternalVM (..),
   ClearNotificationsVM (..),
+  CloudBaseVM (..),
   ContactGroupVM (..),
   ContactGroupsVM (..),
   ContactVM (..),
   ContactsVM (..),
   CountVM (..),
   CreateApiKeyVM (..),
+  CreateAuditActionVM (..),
   CreateContactGroupVM (..),
   CreateContactVM (..),
   CreateDataSourceAdminVM (..),
@@ -38,11 +56,17 @@ module FastReportCloud.Types (
   CreateExportTemplateTaskVM (..),
   CreateFTPUploadTaskVM (..),
   CreateFetchTaskVM (..),
+  CreateFileShareVM (..),
   CreateGroupAdminVM (..),
   CreateGroupVM (..),
+  CreateIfNotExistInternalVM (..),
   CreatePrepareTemplateTaskVM (..),
   CreateSubscriptionInviteVM (..),
+  CreateSubscriptionPeriodVM (..),
+  CreateSubscriptionPlanVM (..),
+  CreateSubscriptionVM (..),
   CreateTaskBaseVM (..),
+  CreateTaskEndVM (..),
   CreateThumbnailReportTaskVM (..),
   CreateThumbnailTemplateTaskVM (..),
   CreateTransformTaskBaseVM (..),
@@ -51,14 +75,16 @@ module FastReportCloud.Types (
   DataSourceAdministrate (..),
   DataSourceConnectionType (..),
   DataSourceCreate (..),
-  DataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermission (..),
   DataSourceDelete (..),
   DataSourceExecute (..),
   DataSourceGet (..),
-  DataSourcePermission (..),
-  DataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissions (..),
-  DataSourcePermissions (..),
+  DataSourceParameterTypeVM (..),
+  DataSourceParameterTypesVM (..),
+  DataSourcePermissionCRUDVM (..),
+  DataSourcePermissionsCRUDVM (..),
   DataSourcePermissionsVM (..),
+  DataSourceSelectCommandParameterVM (..),
+  DataSourceSelectCommandVM (..),
   DataSourceSorting (..),
   DataSourceStatus (..),
   DataSourceUpdate (..),
@@ -68,7 +94,6 @@ module FastReportCloud.Types (
   DeleteApiKeyVM (..),
   EmailTaskVM (..),
   EntityType (..),
-  EntityVM (..),
   ExportCreateAdminVM (..),
   ExportCreateVM (..),
   ExportFolderCreateVM (..),
@@ -78,48 +103,51 @@ module FastReportCloud.Types (
   ExportTemplateTaskVM (..),
   ExportTemplateVM (..),
   ExportVM (..),
-  ExportVMFilesVMBase (..),
   ExportsVM (..),
   FTPUploadTaskVM (..),
   FetchTaskVM (..),
   FileAdministrate (..),
+  FileContentVM (..),
   FileCreate (..),
-  FileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermission (..),
+  FileCreateFormVM (..),
   FileCreateVM (..),
   FileDelete (..),
   FileExecute (..),
   FileGet (..),
   FileIconVM (..),
   FileKind (..),
-  FilePermission (..),
-  FilePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissions (..),
-  FilePermissions (..),
+  FilePermissionCRUDVM (..),
+  FilePermissionsCRUDVM (..),
   FilePermissionsVM (..),
   FileRenameVM (..),
+  FileShareVM (..),
+  FileSharingKeysVM (..),
   FileSorting (..),
   FileStatus (..),
   FileStatusReason (..),
+  FileStatusUpdateInternalVM (..),
+  FileStatusVM (..),
   FileTagsUpdateVM (..),
+  FileThumbnailUpdateInternalVM (..),
   FileType (..),
   FileUpdate (..),
+  FileUpdateVM (..),
   FileVM (..),
-  FileVMFilesVMBase (..),
   FilesVM (..),
+  FilesVMBase (..),
   FolderCreateVM (..),
   FolderIconVM (..),
   FolderRenameVM (..),
   FolderSizeVM (..),
   FolderTagsUpdateVM (..),
-  FrontendApp (..),
+  FrontendAppVM (..),
   GroupAdministrate (..),
   GroupCreate (..),
-  GroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermission (..),
   GroupDelete (..),
   GroupExecute (..),
   GroupGet (..),
-  GroupPermission (..),
-  GroupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissions (..),
-  GroupPermissions (..),
+  GroupPermissionCRUDVM (..),
+  GroupPermissionsCRUDVM (..),
   GroupPermissionsVM (..),
   GroupUpdate (..),
   GroupUserVM (..),
@@ -136,17 +164,21 @@ module FastReportCloud.Types (
   PreviewReportVM (..),
   PreviewTemplateVM (..),
   ProblemDetails (..),
+  ProblemLevel (..),
+  ProblemType (..),
   ProfileVisibility (..),
+  RegisterUserVM (..),
   RenameDataSourceVM (..),
   RenameGroupVM (..),
   RenameSubscriptionVM (..),
   ReportCreateAdminVM (..),
+  ReportCreateFormVM (..),
   ReportCreateVM (..),
   ReportFolderCreateVM (..),
   ReportInfo (..),
   ReportVM (..),
-  ReportVMFilesVMBase (..),
   ReportsVM (..),
+  RestOfSpaceVM (..),
   RunEmailTaskVM (..),
   RunExportReportTaskVM (..),
   RunExportTemplateTaskVM (..),
@@ -161,12 +193,11 @@ module FastReportCloud.Types (
   RunTransportTaskBaseVM (..),
   RunWebhookTaskVM (..),
   SaveMode (..),
-  SelectedFilesForDeletingVM (..),
   SelectedFilesVM (..),
   ServerConfigurationVM (..),
+  SolvationReportVM (..),
   SubscriptionAdministrate (..),
   SubscriptionCreate (..),
-  SubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermission (..),
   SubscriptionDelete (..),
   SubscriptionExecute (..),
   SubscriptionFolder (..),
@@ -174,9 +205,8 @@ module FastReportCloud.Types (
   SubscriptionInviteVM (..),
   SubscriptionInvitesVM (..),
   SubscriptionPeriodVM (..),
-  SubscriptionPermission (..),
-  SubscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissions (..),
-  SubscriptionPermissions (..),
+  SubscriptionPermissionCRUDVM (..),
+  SubscriptionPermissionsCRUDVM (..),
   SubscriptionPermissionsVM (..),
   SubscriptionPlanVM (..),
   SubscriptionPlansVM (..),
@@ -188,22 +218,24 @@ module FastReportCloud.Types (
   TaskAdministrate (..),
   TaskBaseVM (..),
   TaskCreate (..),
-  TaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermission (..),
   TaskDelete (..),
+  TaskEnd (..),
   TaskExecute (..),
   TaskGet (..),
-  TaskPermission (..),
-  TaskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissions (..),
-  TaskPermissions (..),
+  TaskIdsVM (..),
+  TaskMessageIdVM (..),
+  TaskPermissionCRUDVM (..),
+  TaskPermissionsCRUDVM (..),
   TaskPermissionsVM (..),
   TaskSettingsVM (..),
   TaskUpdate (..),
   TasksVM (..),
+  TemplateContentVM (..),
   TemplateCreateAdminVM (..),
+  TemplateCreateFormVM (..),
   TemplateCreateVM (..),
   TemplateFolderCreateVM (..),
   TemplateVM (..),
-  TemplateVMFilesVMBase (..),
   TemplatesVM (..),
   ThumbnailReportTaskVM (..),
   ThumbnailTemplateTaskVM (..),
@@ -212,21 +244,30 @@ module FastReportCloud.Types (
   TransportTaskBaseVM (..),
   UpdateContactGroupVM (..),
   UpdateContactVM (..),
+  UpdateContentInternalVM (..),
   UpdateDataSourceConnectionStringVM (..),
   UpdateDataSourcePermissionsVM (..),
+  UpdateDataSourceSelectCommandsVM (..),
   UpdateDataSourceSubscriptionVM (..),
+  UpdateDataSourceVM (..),
+  UpdateDataVM (..),
   UpdateDefaultPermissionsVM (..),
   UpdateEmailTaskVM (..),
   UpdateExportReportTaskVM (..),
   UpdateExportTemplateTaskVM (..),
   UpdateFTPUploadTaskVM (..),
   UpdateFetchTaskVM (..),
+  UpdateFileContentFormVM (..),
+  UpdateFileContentInternalVM (..),
   UpdateFileContentVM (..),
   UpdateFilePermissionsVM (..),
   UpdateGroupPermissionsVM (..),
+  UpdateGroupVM (..),
   UpdatePrepareTemplateTaskVM (..),
   UpdateSubscriptionLocaleVM (..),
   UpdateSubscriptionPermissionsVM (..),
+  UpdateSubscriptionPlanVM (..),
+  UpdateSubscriptionVM (..),
   UpdateTaskBaseVM (..),
   UpdateTaskPermissionsVM (..),
   UpdateThumbnailReportTaskVM (..),
@@ -235,15 +276,20 @@ module FastReportCloud.Types (
   UpdateTransportTaskBaseVM (..),
   UpdateUserProfileVM (..),
   UpdateUserSettingsVM (..),
+  UpdateUserVM (..),
   UpdateWebhookTaskVM (..),
+  UserIsAdminVM (..),
   UserProfileVM (..),
+  UserResultVM (..),
   UserSettingsVM (..),
+  UserVM (..),
+  UsersVM (..),
   WebhookTaskVM (..),
   ) where
 
 import Data.Data (Data)
 import Data.UUID (UUID)
-import Data.List (stripPrefix)
+import Data.List (lookup)
 import Data.Maybe (fromMaybe)
 import Data.Aeson (Value, FromJSON(..), ToJSON(..), genericToJSON, genericParseJSON)
 import Data.Aeson.Types (Options(..), defaultOptions)
@@ -256,18 +302,130 @@ import qualified Data.Char as Char
 import qualified Data.Text as T
 import qualified Data.Map as Map
 import GHC.Generics (Generic)
-import Data.Function ((&))
 
 
 -- | 
-data AcceptAgreementsVM = AcceptAgreementsVM
-  { acceptAgreementsVMSlaAccepted :: Maybe Bool -- ^ 
+newtype AcceptAgreementsVM = AcceptAgreementsVM { unAcceptAgreementsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+data AdminAdministrate = AdminAdministrate
+  { 
   } deriving (Show, Eq, Generic, Data)
 
-instance FromJSON AcceptAgreementsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "acceptAgreementsVM")
-instance ToJSON AcceptAgreementsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "acceptAgreementsVM")
+instance FromJSON AdminAdministrate where
+  parseJSON = genericParseJSON optionsAdminAdministrate
+instance ToJSON AdminAdministrate where
+  toJSON = genericToJSON optionsAdminAdministrate
+
+optionsAdminAdministrate :: Options
+optionsAdminAdministrate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
+
+
+-- | 
+data AdminCreate = AdminCreate
+  { 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON AdminCreate where
+  parseJSON = genericParseJSON optionsAdminCreate
+instance ToJSON AdminCreate where
+  toJSON = genericToJSON optionsAdminCreate
+
+optionsAdminCreate :: Options
+optionsAdminCreate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
+
+
+-- | 
+data AdminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermission = AdminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermission
+  { adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionCreate :: Maybe AdminCreate -- ^ 
+  , adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionDelete :: Maybe AdminDelete -- ^ 
+  , adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionExecute :: Maybe AdminExecute -- ^ 
+  , adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionGet :: Maybe AdminGet -- ^ 
+  , adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionUpdate :: Maybe AdminUpdate -- ^ 
+  , adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionAdministrate :: Maybe AdminAdministrate -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON AdminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermission where
+  parseJSON = genericParseJSON optionsAdminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermission
+instance ToJSON AdminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermission where
+  toJSON = genericToJSON optionsAdminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermission
+
+optionsAdminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermission :: Options
+optionsAdminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermission =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionCreate", "create")
+      , ("adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionDelete", "delete")
+      , ("adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionExecute", "execute")
+      , ("adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionGet", "get")
+      , ("adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionUpdate", "update")
+      , ("adminCreateAdminGetAdminUpdateAdminDeleteAdminExecuteAdminAdministratePermissionAdministrate", "administrate")
+      ]
+
+
+-- | 
+data AdminDelete = AdminDelete
+  { 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON AdminDelete where
+  parseJSON = genericParseJSON optionsAdminDelete
+instance ToJSON AdminDelete where
+  toJSON = genericToJSON optionsAdminDelete
+
+optionsAdminDelete :: Options
+optionsAdminDelete =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
+
+
+-- | 
+data AdminExecute = AdminExecute
+  { 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON AdminExecute where
+  parseJSON = genericParseJSON optionsAdminExecute
+instance ToJSON AdminExecute where
+  toJSON = genericToJSON optionsAdminExecute
+
+optionsAdminExecute :: Options
+optionsAdminExecute =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -279,6 +437,60 @@ newtype AdminFolderCreateVM = AdminFolderCreateVM { unAdminFolderCreateVM :: Fol
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
+data AdminGet = AdminGet
+  { 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON AdminGet where
+  parseJSON = genericParseJSON optionsAdminGet
+instance ToJSON AdminGet where
+  toJSON = genericToJSON optionsAdminGet
+
+optionsAdminGet :: Options
+optionsAdminGet =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
+
+
+-- | 
+data AdminPermission = AdminPermission
+  { adminPermissionCreate :: Maybe AdminCreate -- ^ 
+  , adminPermissionDelete :: Maybe AdminDelete -- ^ 
+  , adminPermissionExecute :: Maybe AdminExecute -- ^ 
+  , adminPermissionGet :: Maybe AdminGet -- ^ 
+  , adminPermissionUpdate :: Maybe AdminUpdate -- ^ 
+  , adminPermissionAdministrate :: Maybe AdminAdministrate -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON AdminPermission where
+  parseJSON = genericParseJSON optionsAdminPermission
+instance ToJSON AdminPermission where
+  toJSON = genericToJSON optionsAdminPermission
+
+optionsAdminPermission :: Options
+optionsAdminPermission =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("adminPermissionCreate", "create")
+      , ("adminPermissionDelete", "delete")
+      , ("adminPermissionExecute", "execute")
+      , ("adminPermissionGet", "get")
+      , ("adminPermissionUpdate", "update")
+      , ("adminPermissionAdministrate", "administrate")
+      ]
+
+
+-- | 
 newtype AdminReportFolderCreateVM = AdminReportFolderCreateVM { unAdminReportFolderCreateVM :: AdminFolderCreateVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
@@ -287,82 +499,81 @@ newtype AdminSubscriptionVM = AdminSubscriptionVM { unAdminSubscriptionVM :: Sub
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
+newtype AdminSubscriptionsVM = AdminSubscriptionsVM { unAdminSubscriptionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
 newtype AdminTemplateFolderCreateVM = AdminTemplateFolderCreateVM { unAdminTemplateFolderCreateVM :: AdminFolderCreateVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data ApiKeyVM = ApiKeyVM
-  { apiKeyVMValue :: Maybe Text -- ^ 
-  , apiKeyVMDescription :: Maybe Text -- ^ 
-  , apiKeyVMExpired :: Maybe UTCTime -- ^ 
+data AdminUpdate = AdminUpdate
+  { 
   } deriving (Show, Eq, Generic, Data)
 
-instance FromJSON ApiKeyVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "apiKeyVM")
-instance ToJSON ApiKeyVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "apiKeyVM")
+instance FromJSON AdminUpdate where
+  parseJSON = genericParseJSON optionsAdminUpdate
+instance ToJSON AdminUpdate where
+  toJSON = genericToJSON optionsAdminUpdate
+
+optionsAdminUpdate :: Options
+optionsAdminUpdate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data ApiKeysVM = ApiKeysVM
-  { apiKeysVMApiKeys :: Maybe [ApiKeyVM] -- ^ 
-  , apiKeysVMCount :: Maybe Integer -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON ApiKeysVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "apiKeysVM")
-instance ToJSON ApiKeysVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "apiKeysVM")
-
+newtype AdminUpdateCurrentSubscriptionPlanVM = AdminUpdateCurrentSubscriptionPlanVM { unAdminUpdateCurrentSubscriptionPlanVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data AppMixins = AppMixins
-  { appMixinsHead :: Maybe Text -- ^ 
-  , appMixinsBody :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AppMixins where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "appMixins")
-instance ToJSON AppMixins where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "appMixins")
-
+newtype AnalysisResultVM = AnalysisResultVM { unAnalysisResultVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data AuditActionVM = AuditActionVM
-  { auditActionVMUserId :: Maybe Text -- ^ 
-  , auditActionVMEntityId :: Maybe Text -- ^ 
-  , auditActionVMSubscriptionId :: Maybe Text -- ^ 
-  , auditActionVMType :: Maybe AuditType -- ^ 
-  , auditActionVMId :: Maybe Text -- ^ 
-  , auditActionVMCreatedTime :: Maybe UTCTime -- ^ 
-  , auditActionVMCreatorUserId :: Maybe Text -- ^ 
-  , auditActionVMName :: Maybe Text -- ^ 
-  , auditActionVMAdminAction :: Maybe Bool -- ^ 
-  , auditActionVMDollart :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AuditActionVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "auditActionVM")
-instance ToJSON AuditActionVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "auditActionVM")
-
+newtype AnalysisResultsVM = AnalysisResultsVM { unAnalysisResultsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data AuditActionsVM = AuditActionsVM
-  { auditActionsVMItems :: Maybe [AuditActionVM] -- ^ 
-  , auditActionsVMCount :: Maybe Integer -- ^ 
-  , auditActionsVMSkip :: Maybe Int -- ^ 
-  , auditActionsVMTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype ApiKeyVM = ApiKeyVM { unApiKeyVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON AuditActionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "auditActionsVM")
-instance ToJSON AuditActionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "auditActionsVM")
+-- | 
+newtype ApiKeysVM = ApiKeysVM { unApiKeysVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
+-- | 
+newtype AppMixinsVM = AppMixinsVM { unAppMixinsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype AuditActionVM = AuditActionVM { unAuditActionVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype AuditActionsVM = AuditActionsVM { unAuditActionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype AuditActiveStatsVM = AuditActiveStatsVM { unAuditActiveStatsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype AuditFilePropertyChangedVM = AuditFilePropertyChangedVM { unAuditFilePropertyChangedVM :: AuditActionVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype AuditStatVM = AuditStatVM { unAuditStatVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype AuditStatsVM = AuditStatsVM { unAuditStatsVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
@@ -379,23 +590,25 @@ data AuditType = AuditType
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON AuditType where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "auditType")
+  parseJSON = genericParseJSON optionsAuditType
 instance ToJSON AuditType where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "auditType")
+  toJSON = genericToJSON optionsAuditType
+
+optionsAuditType :: Options
+optionsAuditType =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data AuthConfigVM = AuthConfigVM
-  { authConfigVMUseLocal :: Maybe Bool -- ^ 
-  , authConfigVMUseOpenId :: Maybe Bool -- ^ 
-  , authConfigVMAuthority :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON AuthConfigVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "authConfigVM")
-instance ToJSON AuthConfigVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "authConfigVM")
-
+newtype AuthConfigVM = AuthConfigVM { unAuthConfigVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data BreadcrumbsModel = BreadcrumbsModel
@@ -404,31 +617,55 @@ data BreadcrumbsModel = BreadcrumbsModel
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON BreadcrumbsModel where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "breadcrumbsModel")
+  parseJSON = genericParseJSON optionsBreadcrumbsModel
 instance ToJSON BreadcrumbsModel where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "breadcrumbsModel")
+  toJSON = genericToJSON optionsBreadcrumbsModel
+
+optionsBreadcrumbsModel :: Options
+optionsBreadcrumbsModel =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("breadcrumbsModelId", "id")
+      , ("breadcrumbsModelName", "name")
+      ]
 
 
 -- | 
-data BreadcrumbsVM = BreadcrumbsVM
-  { breadcrumbsVMBreadcrumbs :: Maybe [BreadcrumbsModel] -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON BreadcrumbsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "breadcrumbsVM")
-instance ToJSON BreadcrumbsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "breadcrumbsVM")
-
+newtype BreadcrumbsVM = BreadcrumbsVM { unBreadcrumbsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data ClearNotificationsVM = ClearNotificationsVM
-  { clearNotificationsVMUpdate :: Maybe Bool -- ^ 
+newtype CheckUserByPasswordInternalVM = CheckUserByPasswordInternalVM { unCheckUserByPasswordInternalVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype ClearNotificationsVM = ClearNotificationsVM { unClearNotificationsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+data CloudBaseVM = CloudBaseVM
+  { cloudBaseVMDollart :: Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
-instance FromJSON ClearNotificationsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "clearNotificationsVM")
-instance ToJSON ClearNotificationsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "clearNotificationsVM")
+instance FromJSON CloudBaseVM where
+  parseJSON = genericParseJSON optionsCloudBaseVM
+instance ToJSON CloudBaseVM where
+  toJSON = genericToJSON optionsCloudBaseVM
+
+optionsCloudBaseVM :: Options
+optionsCloudBaseVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("cloudBaseVMDollart", "$t")
+      ]
 
 
 -- | 
@@ -443,9 +680,26 @@ data ContactGroupVM = ContactGroupVM
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON ContactGroupVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "contactGroupVM")
+  parseJSON = genericParseJSON optionsContactGroupVM
 instance ToJSON ContactGroupVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "contactGroupVM")
+  toJSON = genericToJSON optionsContactGroupVM
+
+optionsContactGroupVM :: Options
+optionsContactGroupVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("contactGroupVMId", "id")
+      , ("contactGroupVMName", "name")
+      , ("contactGroupVMSubscriptionId", "subscriptionId")
+      , ("contactGroupVMCreatedTime", "createdTime")
+      , ("contactGroupVMCreatorUserId", "creatorUserId")
+      , ("contactGroupVMEditedTime", "editedTime")
+      , ("contactGroupVMEditorUserId", "editorUserId")
+      ]
 
 
 -- | 
@@ -457,9 +711,23 @@ data ContactGroupsVM = ContactGroupsVM
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON ContactGroupsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "contactGroupsVM")
+  parseJSON = genericParseJSON optionsContactGroupsVM
 instance ToJSON ContactGroupsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "contactGroupsVM")
+  toJSON = genericToJSON optionsContactGroupsVM
+
+optionsContactGroupsVM :: Options
+optionsContactGroupsVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("contactGroupsVMGroups", "groups")
+      , ("contactGroupsVMSkip", "skip")
+      , ("contactGroupsVMTake", "take")
+      , ("contactGroupsVMCount", "count")
+      ]
 
 
 -- | 
@@ -476,9 +744,28 @@ data ContactVM = ContactVM
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON ContactVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "contactVM")
+  parseJSON = genericParseJSON optionsContactVM
 instance ToJSON ContactVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "contactVM")
+  toJSON = genericToJSON optionsContactVM
+
+optionsContactVM :: Options
+optionsContactVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("contactVMId", "id")
+      , ("contactVMName", "name")
+      , ("contactVMEmail", "email")
+      , ("contactVMGroups", "groups")
+      , ("contactVMSubscriptionId", "subscriptionId")
+      , ("contactVMCreatedTime", "createdTime")
+      , ("contactVMCreatorUserId", "creatorUserId")
+      , ("contactVMEditedTime", "editedTime")
+      , ("contactVMEditorUserId", "editorUserId")
+      ]
 
 
 -- | 
@@ -490,33 +777,36 @@ data ContactsVM = ContactsVM
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON ContactsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "contactsVM")
+  parseJSON = genericParseJSON optionsContactsVM
 instance ToJSON ContactsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "contactsVM")
+  toJSON = genericToJSON optionsContactsVM
+
+optionsContactsVM :: Options
+optionsContactsVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("contactsVMContacts", "contacts")
+      , ("contactsVMSkip", "skip")
+      , ("contactsVMTake", "take")
+      , ("contactsVMCount", "count")
+      ]
 
 
 -- | 
-data CountVM = CountVM
-  { countVMCount :: Maybe Integer -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON CountVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "countVM")
-instance ToJSON CountVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "countVM")
-
+newtype CountVM = CountVM { unCountVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data CreateApiKeyVM = CreateApiKeyVM
-  { createApiKeyVMDescription :: Maybe Text -- ^ 
-  , createApiKeyVMExpired :: UTCTime -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype CreateApiKeyVM = CreateApiKeyVM { unCreateApiKeyVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON CreateApiKeyVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createApiKeyVM")
-instance ToJSON CreateApiKeyVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createApiKeyVM")
-
+-- | 
+newtype CreateAuditActionVM = CreateAuditActionVM { unCreateAuditActionVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data CreateContactGroupVM = CreateContactGroupVM
@@ -525,9 +815,21 @@ data CreateContactGroupVM = CreateContactGroupVM
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON CreateContactGroupVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createContactGroupVM")
+  parseJSON = genericParseJSON optionsCreateContactGroupVM
 instance ToJSON CreateContactGroupVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createContactGroupVM")
+  toJSON = genericToJSON optionsCreateContactGroupVM
+
+optionsCreateContactGroupVM :: Options
+optionsCreateContactGroupVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("createContactGroupVMName", "name")
+      , ("createContactGroupVMSubscriptionId", "subscriptionId")
+      ]
 
 
 -- | 
@@ -539,9 +841,23 @@ data CreateContactVM = CreateContactVM
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON CreateContactVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createContactVM")
+  parseJSON = genericParseJSON optionsCreateContactVM
 instance ToJSON CreateContactVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createContactVM")
+  toJSON = genericToJSON optionsCreateContactVM
+
+optionsCreateContactVM :: Options
+optionsCreateContactVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("createContactVMName", "name")
+      , ("createContactVMEmail", "email")
+      , ("createContactVMGroups", "groups")
+      , ("createContactVMSubscriptionId", "subscriptionId")
+      ]
 
 
 -- | 
@@ -549,18 +865,8 @@ newtype CreateDataSourceAdminVM = CreateDataSourceAdminVM { unCreateDataSourceAd
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data CreateDataSourceVM = CreateDataSourceVM
-  { createDataSourceVMName :: Maybe Text -- ^ 
-  , createDataSourceVMConnectionString :: Text -- ^ 
-  , createDataSourceVMSubscriptionId :: Text -- ^ 
-  , createDataSourceVMConnectionType :: Maybe DataSourceConnectionType -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON CreateDataSourceVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createDataSourceVM")
-instance ToJSON CreateDataSourceVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createDataSourceVM")
-
+newtype CreateDataSourceVM = CreateDataSourceVM { unCreateDataSourceVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype CreateEmailTaskVM = CreateEmailTaskVM { unCreateEmailTaskVM :: CreateTransportTaskBaseVM }
@@ -583,51 +889,89 @@ newtype CreateFetchTaskVM = CreateFetchTaskVM { unCreateFetchTaskVM :: CreateTas
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
+data CreateFileShareVM = CreateFileShareVM
+  { createFileShareVMExpires :: Maybe UTCTime -- ^ 
+  , createFileShareVMName :: Maybe Text -- ^ 
+  , createFileShareVMPermission :: Maybe FilePermissionCRUDVM -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON CreateFileShareVM where
+  parseJSON = genericParseJSON optionsCreateFileShareVM
+instance ToJSON CreateFileShareVM where
+  toJSON = genericToJSON optionsCreateFileShareVM
+
+optionsCreateFileShareVM :: Options
+optionsCreateFileShareVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("createFileShareVMExpires", "expires")
+      , ("createFileShareVMName", "name")
+      , ("createFileShareVMPermission", "permission")
+      ]
+
+
+-- | 
 newtype CreateGroupAdminVM = CreateGroupAdminVM { unCreateGroupAdminVM :: CreateGroupVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data CreateGroupVM = CreateGroupVM
-  { createGroupVMName :: Text -- ^ 
-  , createGroupVMSubscriptionId :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype CreateGroupVM = CreateGroupVM { unCreateGroupVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON CreateGroupVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createGroupVM")
-instance ToJSON CreateGroupVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createGroupVM")
-
+-- | 
+newtype CreateIfNotExistInternalVM = CreateIfNotExistInternalVM { unCreateIfNotExistInternalVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype CreatePrepareTemplateTaskVM = CreatePrepareTemplateTaskVM { unCreatePrepareTemplateTaskVM :: CreateTransformTaskBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data CreateSubscriptionInviteVM = CreateSubscriptionInviteVM
-  { createSubscriptionInviteVMUsages :: Maybe Integer -- ^ 
-  , createSubscriptionInviteVMDurable :: Maybe Bool -- ^ 
-  , createSubscriptionInviteVMExpiredDate :: Maybe UTCTime -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON CreateSubscriptionInviteVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createSubscriptionInviteVM")
-instance ToJSON CreateSubscriptionInviteVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createSubscriptionInviteVM")
-
+newtype CreateSubscriptionInviteVM = CreateSubscriptionInviteVM { unCreateSubscriptionInviteVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data CreateTaskBaseVM = CreateTaskBaseVM
-  { createTaskBaseVMCronExpression :: Maybe Text -- ^ 
-  , createTaskBaseVMDelayedRunTime :: Maybe UTCTime -- ^ 
-  , createTaskBaseVMName :: Maybe Text -- ^ 
-  , createTaskBaseVMSubscriptionId :: Maybe Text -- ^ 
-  , createTaskBaseVMDollart :: Text -- ^ 
+newtype CreateSubscriptionPeriodVM = CreateSubscriptionPeriodVM { unCreateSubscriptionPeriodVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype CreateSubscriptionPlanVM = CreateSubscriptionPlanVM { unCreateSubscriptionPlanVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype CreateSubscriptionVM = CreateSubscriptionVM { unCreateSubscriptionVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype CreateTaskBaseVM = CreateTaskBaseVM { unCreateTaskBaseVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+data CreateTaskEndVM = CreateTaskEndVM
+  { createTaskEndVMAfter :: Maybe Int -- ^ 
+  , createTaskEndVMOn :: Maybe UTCTime -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
-instance FromJSON CreateTaskBaseVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "createTaskBaseVM")
-instance ToJSON CreateTaskBaseVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "createTaskBaseVM")
+instance FromJSON CreateTaskEndVM where
+  parseJSON = genericParseJSON optionsCreateTaskEndVM
+instance ToJSON CreateTaskEndVM where
+  toJSON = genericToJSON optionsCreateTaskEndVM
+
+optionsCreateTaskEndVM :: Options
+optionsCreateTaskEndVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("createTaskEndVMAfter", "after")
+      , ("createTaskEndVMOn", "on")
+      ]
 
 
 -- | 
@@ -656,9 +1000,20 @@ data DataSourceAdministrate = DataSourceAdministrate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON DataSourceAdministrate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceAdministrate")
+  parseJSON = genericParseJSON optionsDataSourceAdministrate
 instance ToJSON DataSourceAdministrate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceAdministrate")
+  toJSON = genericToJSON optionsDataSourceAdministrate
+
+optionsDataSourceAdministrate :: Options
+optionsDataSourceAdministrate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -667,9 +1022,20 @@ data DataSourceConnectionType = DataSourceConnectionType
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON DataSourceConnectionType where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceConnectionType")
+  parseJSON = genericParseJSON optionsDataSourceConnectionType
 instance ToJSON DataSourceConnectionType where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceConnectionType")
+  toJSON = genericToJSON optionsDataSourceConnectionType
+
+optionsDataSourceConnectionType :: Options
+optionsDataSourceConnectionType =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -678,25 +1044,20 @@ data DataSourceCreate = DataSourceCreate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON DataSourceCreate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceCreate")
+  parseJSON = genericParseJSON optionsDataSourceCreate
 instance ToJSON DataSourceCreate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceCreate")
+  toJSON = genericToJSON optionsDataSourceCreate
 
-
--- | 
-data DataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermission = DataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermission
-  { dataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionCreate :: Maybe DataSourceCreate -- ^ 
-  , dataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionDelete :: Maybe DataSourceDelete -- ^ 
-  , dataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionExecute :: Maybe DataSourceExecute -- ^ 
-  , dataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionGet :: Maybe DataSourceGet -- ^ 
-  , dataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionUpdate :: Maybe DataSourceUpdate -- ^ 
-  , dataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionAdministrate :: Maybe DataSourceAdministrate -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON DataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermission where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermission")
-instance ToJSON DataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermission where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermission")
+optionsDataSourceCreate :: Options
+optionsDataSourceCreate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -705,9 +1066,20 @@ data DataSourceDelete = DataSourceDelete
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON DataSourceDelete where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceDelete")
+  parseJSON = genericParseJSON optionsDataSourceDelete
 instance ToJSON DataSourceDelete where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceDelete")
+  toJSON = genericToJSON optionsDataSourceDelete
+
+optionsDataSourceDelete :: Options
+optionsDataSourceDelete =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -716,9 +1088,20 @@ data DataSourceExecute = DataSourceExecute
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON DataSourceExecute where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceExecute")
+  parseJSON = genericParseJSON optionsDataSourceExecute
 instance ToJSON DataSourceExecute where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceExecute")
+  toJSON = genericToJSON optionsDataSourceExecute
+
+optionsDataSourceExecute :: Options
+optionsDataSourceExecute =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -727,44 +1110,69 @@ data DataSourceGet = DataSourceGet
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON DataSourceGet where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceGet")
+  parseJSON = genericParseJSON optionsDataSourceGet
 instance ToJSON DataSourceGet where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceGet")
+  toJSON = genericToJSON optionsDataSourceGet
+
+optionsDataSourceGet :: Options
+optionsDataSourceGet =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-newtype DataSourcePermission = DataSourcePermission { unDataSourcePermission :: DataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermission }
+data DataSourceParameterTypeVM = DataSourceParameterTypeVM
+  { dataSourceParameterTypeVMName :: Maybe Text -- ^ 
+  , dataSourceParameterTypeVMValue :: Maybe Int -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON DataSourceParameterTypeVM where
+  parseJSON = genericParseJSON optionsDataSourceParameterTypeVM
+instance ToJSON DataSourceParameterTypeVM where
+  toJSON = genericToJSON optionsDataSourceParameterTypeVM
+
+optionsDataSourceParameterTypeVM :: Options
+optionsDataSourceParameterTypeVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("dataSourceParameterTypeVMName", "name")
+      , ("dataSourceParameterTypeVMValue", "value")
+      ]
+
+
+-- | 
+newtype DataSourceParameterTypesVM = DataSourceParameterTypesVM { unDataSourceParameterTypesVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data DataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissions = DataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissions
-  { dataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionsOwnerId :: Maybe Text -- ^ 
-  , dataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionsOwner :: Maybe DataSourcePermission -- ^ 
-  , dataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionsGroups :: Maybe (Map.Map String DataSourcePermission) -- ^ 
-  , dataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionsOther :: Maybe DataSourcePermission -- ^ 
-  , dataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissionsAnon :: Maybe DataSourcePermission -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON DataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissions where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissions")
-instance ToJSON DataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissions where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissions")
-
-
--- | 
-newtype DataSourcePermissions = DataSourcePermissions { unDataSourcePermissions :: DataSourcePermissionDataSourceCreateDataSourceGetDataSourceUpdateDataSourceDeleteDataSourceExecuteDataSourceAdministratePermissions }
+newtype DataSourcePermissionCRUDVM = DataSourcePermissionCRUDVM { unDataSourcePermissionCRUDVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data DataSourcePermissionsVM = DataSourcePermissionsVM
-  { dataSourcePermissionsVMPermissions :: Maybe DataSourcePermissions -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype DataSourcePermissionsCRUDVM = DataSourcePermissionsCRUDVM { unDataSourcePermissionsCRUDVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON DataSourcePermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourcePermissionsVM")
-instance ToJSON DataSourcePermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourcePermissionsVM")
+-- | 
+newtype DataSourcePermissionsVM = DataSourcePermissionsVM { unDataSourcePermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
+-- | 
+newtype DataSourceSelectCommandParameterVM = DataSourceSelectCommandParameterVM { unDataSourceSelectCommandParameterVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype DataSourceSelectCommandVM = DataSourceSelectCommandVM { unDataSourceSelectCommandVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data DataSourceSorting = DataSourceSorting
@@ -772,9 +1180,20 @@ data DataSourceSorting = DataSourceSorting
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON DataSourceSorting where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceSorting")
+  parseJSON = genericParseJSON optionsDataSourceSorting
 instance ToJSON DataSourceSorting where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceSorting")
+  toJSON = genericToJSON optionsDataSourceSorting
+
+optionsDataSourceSorting :: Options
+optionsDataSourceSorting =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -783,9 +1202,20 @@ data DataSourceStatus = DataSourceStatus
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON DataSourceStatus where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceStatus")
+  parseJSON = genericParseJSON optionsDataSourceStatus
 instance ToJSON DataSourceStatus where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceStatus")
+  toJSON = genericToJSON optionsDataSourceStatus
+
+optionsDataSourceStatus :: Options
+optionsDataSourceStatus =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -794,71 +1224,37 @@ data DataSourceUpdate = DataSourceUpdate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON DataSourceUpdate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceUpdate")
+  parseJSON = genericParseJSON optionsDataSourceUpdate
 instance ToJSON DataSourceUpdate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceUpdate")
+  toJSON = genericToJSON optionsDataSourceUpdate
+
+optionsDataSourceUpdate :: Options
+optionsDataSourceUpdate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data DataSourceVM = DataSourceVM
-  { dataSourceVMId :: Maybe Text -- ^ 
-  , dataSourceVMName :: Maybe Text -- ^ 
-  , dataSourceVMConnectionType :: Maybe DataSourceConnectionType -- ^ 
-  , dataSourceVMConnectionString :: Maybe Text -- ^ 
-  , dataSourceVMDataStructure :: Maybe Text -- ^ 
-  , dataSourceVMSubscriptionId :: Maybe Text -- ^ 
-  , dataSourceVMEditedTime :: Maybe UTCTime -- ^ 
-  , dataSourceVMEditorUserId :: Maybe Text -- ^ 
-  , dataSourceVMCreatedTime :: Maybe UTCTime -- ^ 
-  , dataSourceVMCreatorUserId :: Maybe Text -- ^ 
-  , dataSourceVMStatus :: Maybe DataSourceStatus -- ^ 
-  , dataSourceVMErrorMessage :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON DataSourceVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourceVM")
-instance ToJSON DataSourceVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourceVM")
-
+newtype DataSourceVM = DataSourceVM { unDataSourceVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data DataSourcesVM = DataSourcesVM
-  { dataSourcesVMDataSources :: Maybe [DataSourceVM] -- ^ 
-  , dataSourcesVMCount :: Maybe Integer -- ^ 
-  , dataSourcesVMSkip :: Maybe Int -- ^ 
-  , dataSourcesVMTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON DataSourcesVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "dataSourcesVM")
-instance ToJSON DataSourcesVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "dataSourcesVM")
-
+newtype DataSourcesVM = DataSourcesVM { unDataSourcesVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data DefaultPermissionsVM = DefaultPermissionsVM
-  { defaultPermissionsVMFilePermissions :: Maybe FilePermissions -- ^ 
-  , defaultPermissionsVMDataSourcePermissions :: Maybe DataSourcePermissions -- ^ 
-  , defaultPermissionsVMGroupPermissions :: Maybe GroupPermissions -- ^ 
-  , defaultPermissionsVMTaskPermissions :: Maybe TaskPermissions -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON DefaultPermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "defaultPermissionsVM")
-instance ToJSON DefaultPermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "defaultPermissionsVM")
-
+newtype DefaultPermissionsVM = DefaultPermissionsVM { unDefaultPermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data DeleteApiKeyVM = DeleteApiKeyVM
-  { deleteApiKeyVMApiKey :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON DeleteApiKeyVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "deleteApiKeyVM")
-instance ToJSON DeleteApiKeyVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "deleteApiKeyVM")
-
+newtype DeleteApiKeyVM = DeleteApiKeyVM { unDeleteApiKeyVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype EmailTaskVM = EmailTaskVM { unEmailTaskVM :: TransportTaskBaseVM }
@@ -870,24 +1266,20 @@ data EntityType = EntityType
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON EntityType where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "entityType")
+  parseJSON = genericParseJSON optionsEntityType
 instance ToJSON EntityType where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "entityType")
+  toJSON = genericToJSON optionsEntityType
 
-
--- | 
-data EntityVM = EntityVM
-  { entityVMId :: Maybe Text -- ^ 
-  , entityVMCreatedTime :: Maybe UTCTime -- ^ 
-  , entityVMCreatorUserId :: Maybe Text -- ^ 
-  , entityVMEditedTime :: Maybe UTCTime -- ^ 
-  , entityVMEditorUserId :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON EntityVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "entityVM")
-instance ToJSON EntityVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "entityVM")
+optionsEntityType :: Options
+optionsEntityType =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -908,9 +1300,20 @@ data ExportFormat = ExportFormat
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON ExportFormat where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "exportFormat")
+  parseJSON = genericParseJSON optionsExportFormat
 instance ToJSON ExportFormat where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "exportFormat")
+  toJSON = genericToJSON optionsExportFormat
+
+optionsExportFormat :: Options
+optionsExportFormat =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -918,62 +1321,23 @@ newtype ExportReportTaskVM = ExportReportTaskVM { unExportReportTaskVM :: Transf
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data ExportReportVM = ExportReportVM
-  { exportReportVMFileName :: Maybe Text -- ^ 
-  , exportReportVMFolderId :: Maybe Text -- ^ 
-  , exportReportVMLocale :: Maybe Text -- ^ 
-  , exportReportVMPagesCount :: Maybe Int -- ^ 
-  , exportReportVMFormat :: Maybe ExportFormat -- ^ 
-  , exportReportVMExportParameters :: Maybe (Map.Map String Text) -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON ExportReportVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "exportReportVM")
-instance ToJSON ExportReportVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "exportReportVM")
-
+newtype ExportReportVM = ExportReportVM { unExportReportVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype ExportTemplateTaskVM = ExportTemplateTaskVM { unExportTemplateTaskVM :: ExportReportTaskVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data ExportTemplateVM = ExportTemplateVM
-  { exportTemplateVMFileName :: Maybe Text -- ^ 
-  , exportTemplateVMFolderId :: Maybe Text -- ^ 
-  , exportTemplateVMLocale :: Maybe Text -- ^ 
-  , exportTemplateVMPagesCount :: Maybe Int -- ^ 
-  , exportTemplateVMFormat :: Maybe ExportFormat -- ^ 
-  , exportTemplateVMExportParameters :: Maybe (Map.Map String Text) -- ^ 
-  , exportTemplateVMReportParameters :: Maybe (Map.Map String Text) -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON ExportTemplateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "exportTemplateVM")
-instance ToJSON ExportTemplateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "exportTemplateVM")
-
+newtype ExportTemplateVM = ExportTemplateVM { unExportTemplateVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype ExportVM = ExportVM { unExportVM :: FileVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data ExportVMFilesVMBase = ExportVMFilesVMBase
-  { exportVMFilesVMBaseFiles :: Maybe [ExportVM] -- ^ 
-  , exportVMFilesVMBaseCount :: Maybe Integer -- ^ 
-  , exportVMFilesVMBaseSkip :: Maybe Int -- ^ 
-  , exportVMFilesVMBaseTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON ExportVMFilesVMBase where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "exportVMFilesVMBase")
-instance ToJSON ExportVMFilesVMBase where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "exportVMFilesVMBase")
-
-
--- | 
-newtype ExportsVM = ExportsVM { unExportsVM :: ExportVMFilesVMBase }
+newtype ExportsVM = ExportsVM { unExportsVM :: FilesVMBase }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
@@ -990,10 +1354,25 @@ data FileAdministrate = FileAdministrate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileAdministrate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileAdministrate")
+  parseJSON = genericParseJSON optionsFileAdministrate
 instance ToJSON FileAdministrate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileAdministrate")
+  toJSON = genericToJSON optionsFileAdministrate
 
+optionsFileAdministrate :: Options
+optionsFileAdministrate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
+
+
+-- | 
+newtype FileContentVM = FileContentVM { unFileContentVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data FileCreate = FileCreate
@@ -1001,40 +1380,29 @@ data FileCreate = FileCreate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileCreate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileCreate")
+  parseJSON = genericParseJSON optionsFileCreate
 instance ToJSON FileCreate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileCreate")
+  toJSON = genericToJSON optionsFileCreate
+
+optionsFileCreate :: Options
+optionsFileCreate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data FileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermission = FileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermission
-  { fileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionCreate :: Maybe FileCreate -- ^ 
-  , fileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionDelete :: Maybe FileDelete -- ^ 
-  , fileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionExecute :: Maybe FileExecute -- ^ 
-  , fileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionGet :: Maybe FileGet -- ^ 
-  , fileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionUpdate :: Maybe FileUpdate -- ^ 
-  , fileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionAdministrate :: Maybe FileAdministrate -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermission where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermission")
-instance ToJSON FileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermission where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermission")
-
+newtype FileCreateFormVM = FileCreateFormVM { unFileCreateFormVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data FileCreateVM = FileCreateVM
-  { fileCreateVMName :: Maybe Text -- ^ 
-  , fileCreateVMTags :: Maybe [Text] -- ^ 
-  , fileCreateVMIcon :: Maybe Text -- ^ 
-  , fileCreateVMContent :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FileCreateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileCreateVM")
-instance ToJSON FileCreateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileCreateVM")
-
+newtype FileCreateVM = FileCreateVM { unFileCreateVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data FileDelete = FileDelete
@@ -1042,9 +1410,20 @@ data FileDelete = FileDelete
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileDelete where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileDelete")
+  parseJSON = genericParseJSON optionsFileDelete
 instance ToJSON FileDelete where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileDelete")
+  toJSON = genericToJSON optionsFileDelete
+
+optionsFileDelete :: Options
+optionsFileDelete =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1053,9 +1432,20 @@ data FileExecute = FileExecute
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileExecute where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileExecute")
+  parseJSON = genericParseJSON optionsFileExecute
 instance ToJSON FileExecute where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileExecute")
+  toJSON = genericToJSON optionsFileExecute
+
+optionsFileExecute :: Options
+optionsFileExecute =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1064,21 +1454,25 @@ data FileGet = FileGet
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileGet where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileGet")
+  parseJSON = genericParseJSON optionsFileGet
 instance ToJSON FileGet where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileGet")
+  toJSON = genericToJSON optionsFileGet
+
+optionsFileGet :: Options
+optionsFileGet =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data FileIconVM = FileIconVM
-  { fileIconVMIcon :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FileIconVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileIconVM")
-instance ToJSON FileIconVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileIconVM")
-
+newtype FileIconVM = FileIconVM { unFileIconVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data FileKind = FileKind
@@ -1086,54 +1480,86 @@ data FileKind = FileKind
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileKind where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileKind")
+  parseJSON = genericParseJSON optionsFileKind
 instance ToJSON FileKind where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileKind")
+  toJSON = genericToJSON optionsFileKind
+
+optionsFileKind :: Options
+optionsFileKind =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-newtype FilePermission = FilePermission { unFilePermission :: FileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermission }
+newtype FilePermissionCRUDVM = FilePermissionCRUDVM { unFilePermissionCRUDVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data FilePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissions = FilePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissions
-  { filePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionsOwnerId :: Maybe Text -- ^ 
-  , filePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionsOwner :: Maybe FilePermission -- ^ 
-  , filePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionsGroups :: Maybe (Map.Map String FilePermission) -- ^ 
-  , filePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionsOther :: Maybe FilePermission -- ^ 
-  , filePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissionsAnon :: Maybe FilePermission -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FilePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissions where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "filePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissions")
-instance ToJSON FilePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissions where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "filePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissions")
-
-
--- | 
-newtype FilePermissions = FilePermissions { unFilePermissions :: FilePermissionFileCreateFileGetFileUpdateFileDeleteFileExecuteFileAdministratePermissions }
+newtype FilePermissionsCRUDVM = FilePermissionsCRUDVM { unFilePermissionsCRUDVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data FilePermissionsVM = FilePermissionsVM
-  { filePermissionsVMPermissions :: Maybe FilePermissions -- ^ 
+newtype FilePermissionsVM = FilePermissionsVM { unFilePermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype FileRenameVM = FileRenameVM { unFileRenameVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+data FileShareVM = FileShareVM
+  { fileShareVMExpires :: Maybe UTCTime -- ^ 
+  , fileShareVMName :: Maybe Text -- ^ 
+  , fileShareVMPermission :: Maybe FilePermissionCRUDVM -- ^ 
+  , fileShareVMKey :: Maybe Text -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
-instance FromJSON FilePermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "filePermissionsVM")
-instance ToJSON FilePermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "filePermissionsVM")
+instance FromJSON FileShareVM where
+  parseJSON = genericParseJSON optionsFileShareVM
+instance ToJSON FileShareVM where
+  toJSON = genericToJSON optionsFileShareVM
+
+optionsFileShareVM :: Options
+optionsFileShareVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("fileShareVMExpires", "expires")
+      , ("fileShareVMName", "name")
+      , ("fileShareVMPermission", "permission")
+      , ("fileShareVMKey", "key")
+      ]
 
 
 -- | 
-data FileRenameVM = FileRenameVM
-  { fileRenameVMName :: Maybe Text -- ^ 
+data FileSharingKeysVM = FileSharingKeysVM
+  { fileSharingKeysVMKeys :: Maybe [FileShareVM] -- ^ 
   } deriving (Show, Eq, Generic, Data)
 
-instance FromJSON FileRenameVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileRenameVM")
-instance ToJSON FileRenameVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileRenameVM")
+instance FromJSON FileSharingKeysVM where
+  parseJSON = genericParseJSON optionsFileSharingKeysVM
+instance ToJSON FileSharingKeysVM where
+  toJSON = genericToJSON optionsFileSharingKeysVM
+
+optionsFileSharingKeysVM :: Options
+optionsFileSharingKeysVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("fileSharingKeysVMKeys", "keys")
+      ]
 
 
 -- | 
@@ -1142,9 +1568,20 @@ data FileSorting = FileSorting
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileSorting where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileSorting")
+  parseJSON = genericParseJSON optionsFileSorting
 instance ToJSON FileSorting where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileSorting")
+  toJSON = genericToJSON optionsFileSorting
+
+optionsFileSorting :: Options
+optionsFileSorting =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1153,9 +1590,20 @@ data FileStatus = FileStatus
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileStatus where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileStatus")
+  parseJSON = genericParseJSON optionsFileStatus
 instance ToJSON FileStatus where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileStatus")
+  toJSON = genericToJSON optionsFileStatus
+
+optionsFileStatus :: Options
+optionsFileStatus =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1164,21 +1612,37 @@ data FileStatusReason = FileStatusReason
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileStatusReason where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileStatusReason")
+  parseJSON = genericParseJSON optionsFileStatusReason
 instance ToJSON FileStatusReason where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileStatusReason")
+  toJSON = genericToJSON optionsFileStatusReason
+
+optionsFileStatusReason :: Options
+optionsFileStatusReason =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data FileTagsUpdateVM = FileTagsUpdateVM
-  { fileTagsUpdateVMTags :: Maybe [Text] -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype FileStatusUpdateInternalVM = FileStatusUpdateInternalVM { unFileStatusUpdateInternalVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON FileTagsUpdateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileTagsUpdateVM")
-instance ToJSON FileTagsUpdateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileTagsUpdateVM")
+-- | 
+newtype FileStatusVM = FileStatusVM { unFileStatusVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
+-- | 
+newtype FileTagsUpdateVM = FileTagsUpdateVM { unFileTagsUpdateVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype FileThumbnailUpdateInternalVM = FileThumbnailUpdateInternalVM { unFileThumbnailUpdateInternalVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data FileType = FileType
@@ -1186,9 +1650,20 @@ data FileType = FileType
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileType where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileType")
+  parseJSON = genericParseJSON optionsFileType
 instance ToJSON FileType where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileType")
+  toJSON = genericToJSON optionsFileType
+
+optionsFileType :: Options
+optionsFileType =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1197,102 +1672,61 @@ data FileUpdate = FileUpdate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON FileUpdate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileUpdate")
+  parseJSON = genericParseJSON optionsFileUpdate
 instance ToJSON FileUpdate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileUpdate")
+  toJSON = genericToJSON optionsFileUpdate
+
+optionsFileUpdate :: Options
+optionsFileUpdate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-newtype FileVM = FileVM { unFileVM :: EntityVM }
+newtype FileUpdateVM = FileUpdateVM { unFileUpdateVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data FileVMFilesVMBase = FileVMFilesVMBase
-  { fileVMFilesVMBaseFiles :: Maybe [FileVM] -- ^ 
-  , fileVMFilesVMBaseCount :: Maybe Integer -- ^ 
-  , fileVMFilesVMBaseSkip :: Maybe Int -- ^ 
-  , fileVMFilesVMBaseTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FileVMFilesVMBase where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "fileVMFilesVMBase")
-instance ToJSON FileVMFilesVMBase where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "fileVMFilesVMBase")
-
-
--- | 
-newtype FilesVM = FilesVM { unFilesVM :: FileVMFilesVMBase }
+newtype FileVM = FileVM { unFileVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data FolderCreateVM = FolderCreateVM
-  { folderCreateVMName :: Maybe Text -- ^ 
-  , folderCreateVMTags :: Maybe [Text] -- ^ 
-  , folderCreateVMIcon :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FolderCreateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "folderCreateVM")
-instance ToJSON FolderCreateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "folderCreateVM")
-
+newtype FilesVM = FilesVM { unFilesVM :: FilesVMBase }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data FolderIconVM = FolderIconVM
-  { folderIconVMIcon :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FolderIconVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "folderIconVM")
-instance ToJSON FolderIconVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "folderIconVM")
-
+newtype FilesVMBase = FilesVMBase { unFilesVMBase :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data FolderRenameVM = FolderRenameVM
-  { folderRenameVMName :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FolderRenameVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "folderRenameVM")
-instance ToJSON FolderRenameVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "folderRenameVM")
-
+newtype FolderCreateVM = FolderCreateVM { unFolderCreateVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data FolderSizeVM = FolderSizeVM
-  { folderSizeVMSize :: Maybe Integer -- ^ 
-  , folderSizeVMRealSize :: Maybe Integer -- ^ 
-  , folderSizeVMDocumentsCount :: Maybe Integer -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FolderSizeVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "folderSizeVM")
-instance ToJSON FolderSizeVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "folderSizeVM")
-
+newtype FolderIconVM = FolderIconVM { unFolderIconVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data FolderTagsUpdateVM = FolderTagsUpdateVM
-  { folderTagsUpdateVMTags :: Maybe [Text] -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON FolderTagsUpdateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "folderTagsUpdateVM")
-instance ToJSON FolderTagsUpdateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "folderTagsUpdateVM")
-
+newtype FolderRenameVM = FolderRenameVM { unFolderRenameVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data FrontendApp = FrontendApp
-  { frontendAppMixins :: Maybe AppMixins -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype FolderSizeVM = FolderSizeVM { unFolderSizeVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON FrontendApp where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "frontendApp")
-instance ToJSON FrontendApp where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "frontendApp")
+-- | 
+newtype FolderTagsUpdateVM = FolderTagsUpdateVM { unFolderTagsUpdateVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
+-- | 
+newtype FrontendAppVM = FrontendAppVM { unFrontendAppVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data GroupAdministrate = GroupAdministrate
@@ -1300,9 +1734,20 @@ data GroupAdministrate = GroupAdministrate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON GroupAdministrate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupAdministrate")
+  parseJSON = genericParseJSON optionsGroupAdministrate
 instance ToJSON GroupAdministrate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupAdministrate")
+  toJSON = genericToJSON optionsGroupAdministrate
+
+optionsGroupAdministrate :: Options
+optionsGroupAdministrate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1311,25 +1756,20 @@ data GroupCreate = GroupCreate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON GroupCreate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupCreate")
+  parseJSON = genericParseJSON optionsGroupCreate
 instance ToJSON GroupCreate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupCreate")
+  toJSON = genericToJSON optionsGroupCreate
 
-
--- | 
-data GroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermission = GroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermission
-  { groupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionCreate :: Maybe GroupCreate -- ^ 
-  , groupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionDelete :: Maybe GroupDelete -- ^ 
-  , groupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionExecute :: Maybe GroupExecute -- ^ 
-  , groupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionGet :: Maybe GroupGet -- ^ 
-  , groupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionUpdate :: Maybe GroupUpdate -- ^ 
-  , groupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionAdministrate :: Maybe GroupAdministrate -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON GroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermission where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermission")
-instance ToJSON GroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermission where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermission")
+optionsGroupCreate :: Options
+optionsGroupCreate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1338,9 +1778,20 @@ data GroupDelete = GroupDelete
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON GroupDelete where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupDelete")
+  parseJSON = genericParseJSON optionsGroupDelete
 instance ToJSON GroupDelete where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupDelete")
+  toJSON = genericToJSON optionsGroupDelete
+
+optionsGroupDelete :: Options
+optionsGroupDelete =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1349,9 +1800,20 @@ data GroupExecute = GroupExecute
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON GroupExecute where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupExecute")
+  parseJSON = genericParseJSON optionsGroupExecute
 instance ToJSON GroupExecute where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupExecute")
+  toJSON = genericToJSON optionsGroupExecute
+
+optionsGroupExecute :: Options
+optionsGroupExecute =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1360,44 +1822,33 @@ data GroupGet = GroupGet
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON GroupGet where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupGet")
+  parseJSON = genericParseJSON optionsGroupGet
 instance ToJSON GroupGet where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupGet")
+  toJSON = genericToJSON optionsGroupGet
+
+optionsGroupGet :: Options
+optionsGroupGet =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-newtype GroupPermission = GroupPermission { unGroupPermission :: GroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermission }
+newtype GroupPermissionCRUDVM = GroupPermissionCRUDVM { unGroupPermissionCRUDVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data GroupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissions = GroupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissions
-  { groupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionsOwnerId :: Maybe Text -- ^ 
-  , groupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionsOwner :: Maybe GroupPermission -- ^ 
-  , groupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionsGroups :: Maybe (Map.Map String GroupPermission) -- ^ 
-  , groupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionsOther :: Maybe GroupPermission -- ^ 
-  , groupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissionsAnon :: Maybe GroupPermission -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON GroupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissions where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissions")
-instance ToJSON GroupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissions where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissions")
-
-
--- | 
-newtype GroupPermissions = GroupPermissions { unGroupPermissions :: GroupPermissionGroupCreateGroupGetGroupUpdateGroupDeleteGroupExecuteGroupAdministratePermissions }
+newtype GroupPermissionsCRUDVM = GroupPermissionsCRUDVM { unGroupPermissionsCRUDVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data GroupPermissionsVM = GroupPermissionsVM
-  { groupPermissionsVMPermissions :: Maybe GroupPermissions -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON GroupPermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupPermissionsVM")
-instance ToJSON GroupPermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupPermissionsVM")
-
+newtype GroupPermissionsVM = GroupPermissionsVM { unGroupPermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data GroupUpdate = GroupUpdate
@@ -1405,78 +1856,45 @@ data GroupUpdate = GroupUpdate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON GroupUpdate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupUpdate")
+  parseJSON = genericParseJSON optionsGroupUpdate
 instance ToJSON GroupUpdate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupUpdate")
+  toJSON = genericToJSON optionsGroupUpdate
+
+optionsGroupUpdate :: Options
+optionsGroupUpdate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data GroupUserVM = GroupUserVM
-  { groupUserVMUserId :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON GroupUserVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupUserVM")
-instance ToJSON GroupUserVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupUserVM")
-
+newtype GroupUserVM = GroupUserVM { unGroupUserVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data GroupUsersVM = GroupUsersVM
-  { groupUsersVMUsers :: Maybe [GroupUserVM] -- ^ 
-  , groupUsersVMCount :: Maybe Integer -- ^ 
-  , groupUsersVMTake :: Maybe Int -- ^ 
-  , groupUsersVMSkip :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON GroupUsersVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupUsersVM")
-instance ToJSON GroupUsersVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupUsersVM")
-
+newtype GroupUsersVM = GroupUsersVM { unGroupUsersVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data GroupVM = GroupVM
-  { groupVMId :: Maybe Text -- ^ 
-  , groupVMName :: Maybe Text -- ^ 
-  , groupVMSubscriptionId :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON GroupVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupVM")
-instance ToJSON GroupVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupVM")
-
+newtype GroupVM = GroupVM { unGroupVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data GroupsVM = GroupsVM
-  { groupsVMGroups :: Maybe [GroupVM] -- ^ 
-  , groupsVMCount :: Maybe Integer -- ^ 
-  , groupsVMSkip :: Maybe Int -- ^ 
-  , groupsVMTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON GroupsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "groupsVM")
-instance ToJSON GroupsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "groupsVM")
-
+newtype GroupsVM = GroupsVM { unGroupsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype HttpValidationProblemDetails = HttpValidationProblemDetails { unHttpValidationProblemDetails :: (Map.Map Text Value) }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data InputFileVM = InputFileVM
-  { inputFileVMEntityId :: Maybe Text -- ^ 
-  , inputFileVMType :: Maybe FileKind -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON InputFileVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "inputFileVM")
-instance ToJSON InputFileVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "inputFileVM")
-
+newtype InputFileVM = InputFileVM { unInputFileVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data InvitedUser = InvitedUser
@@ -1485,87 +1903,94 @@ data InvitedUser = InvitedUser
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON InvitedUser where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "invitedUser")
+  parseJSON = genericParseJSON optionsInvitedUser
 instance ToJSON InvitedUser where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "invitedUser")
+  toJSON = genericToJSON optionsInvitedUser
+
+optionsInvitedUser :: Options
+optionsInvitedUser =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("invitedUserUserId", "userId")
+      , ("invitedUserInvitedAt", "invitedAt")
+      ]
 
 
 -- | 
-data MyPermissionsVM = MyPermissionsVM
-  { myPermissionsVMSubscription :: Maybe SubscriptionPermission -- ^ 
-  , myPermissionsVMFiles :: Maybe FilePermission -- ^ 
-  , myPermissionsVMDatasources :: Maybe DataSourcePermission -- ^ 
-  , myPermissionsVMGroups :: Maybe GroupPermission -- ^ 
-  , myPermissionsVMTasks :: Maybe TaskPermission -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON MyPermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "myPermissionsVM")
-instance ToJSON MyPermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "myPermissionsVM")
-
+newtype MyPermissionsVM = MyPermissionsVM { unMyPermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data OutputFileVM = OutputFileVM
-  { outputFileVMFileName :: Maybe Text -- ^ 
-  , outputFileVMFolderId :: Maybe Text -- ^ 
-  , outputFileVMType :: Maybe FileKind -- ^ 
-  , outputFileVMIsTemporary :: Maybe Bool -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON OutputFileVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "outputFileVM")
-instance ToJSON OutputFileVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "outputFileVM")
-
+newtype OutputFileVM = OutputFileVM { unOutputFileVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype PrepareTemplateTaskVM = PrepareTemplateTaskVM { unPrepareTemplateTaskVM :: TransformTaskBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data PrepareTemplateVM = PrepareTemplateVM
-  { prepareTemplateVMName :: Maybe Text -- ^ 
-  , prepareTemplateVMLocale :: Maybe Text -- ^ 
-  , prepareTemplateVMFolderId :: Maybe Text -- ^ 
-  , prepareTemplateVMPagesCount :: Maybe Int -- ^ 
-  , prepareTemplateVMReportParameters :: Maybe (Map.Map String Text) -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON PrepareTemplateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "prepareTemplateVM")
-instance ToJSON PrepareTemplateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "prepareTemplateVM")
-
+newtype PrepareTemplateVM = PrepareTemplateVM { unPrepareTemplateVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data PreviewReportVM = PreviewReportVM
-  { previewReportVMLocale :: Maybe Text -- ^ 
-  , previewReportVMCacheTolerance :: Maybe Double -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON PreviewReportVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "previewReportVM")
-instance ToJSON PreviewReportVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "previewReportVM")
-
+newtype PreviewReportVM = PreviewReportVM { unPreviewReportVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data PreviewTemplateVM = PreviewTemplateVM
-  { previewTemplateVMLocale :: Maybe Text -- ^ 
-  , previewTemplateVMReportParameters :: Maybe (Map.Map String Text) -- ^ 
-  , previewTemplateVMCacheTolerance :: Maybe Double -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON PreviewTemplateVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "previewTemplateVM")
-instance ToJSON PreviewTemplateVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "previewTemplateVM")
-
+newtype PreviewTemplateVM = PreviewTemplateVM { unPreviewTemplateVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype ProblemDetails = ProblemDetails { unProblemDetails :: (Map.Map Text Value) }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+data ProblemLevel = ProblemLevel
+  { 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON ProblemLevel where
+  parseJSON = genericParseJSON optionsProblemLevel
+instance ToJSON ProblemLevel where
+  toJSON = genericToJSON optionsProblemLevel
+
+optionsProblemLevel :: Options
+optionsProblemLevel =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
+
+
+-- | 
+data ProblemType = ProblemType
+  { 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON ProblemType where
+  parseJSON = genericParseJSON optionsProblemType
+instance ToJSON ProblemType where
+  toJSON = genericToJSON optionsProblemType
+
+optionsProblemType :: Options
+optionsProblemType =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
+
 
 -- | 
 data ProfileVisibility = ProfileVisibility
@@ -1573,46 +1998,44 @@ data ProfileVisibility = ProfileVisibility
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON ProfileVisibility where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "profileVisibility")
+  parseJSON = genericParseJSON optionsProfileVisibility
 instance ToJSON ProfileVisibility where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "profileVisibility")
+  toJSON = genericToJSON optionsProfileVisibility
+
+optionsProfileVisibility :: Options
+optionsProfileVisibility =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data RenameDataSourceVM = RenameDataSourceVM
-  { renameDataSourceVMName :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON RenameDataSourceVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "renameDataSourceVM")
-instance ToJSON RenameDataSourceVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "renameDataSourceVM")
-
+newtype RegisterUserVM = RegisterUserVM { unRegisterUserVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data RenameGroupVM = RenameGroupVM
-  { renameGroupVMName :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON RenameGroupVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "renameGroupVM")
-instance ToJSON RenameGroupVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "renameGroupVM")
-
+newtype RenameDataSourceVM = RenameDataSourceVM { unRenameDataSourceVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data RenameSubscriptionVM = RenameSubscriptionVM
-  { renameSubscriptionVMName :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype RenameGroupVM = RenameGroupVM { unRenameGroupVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON RenameSubscriptionVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "renameSubscriptionVM")
-instance ToJSON RenameSubscriptionVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "renameSubscriptionVM")
-
+-- | 
+newtype RenameSubscriptionVM = RenameSubscriptionVM { unRenameSubscriptionVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype ReportCreateAdminVM = ReportCreateAdminVM { unReportCreateAdminVM :: ReportCreateVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype ReportCreateFormVM = ReportCreateFormVM { unReportCreateFormVM :: FileCreateFormVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
@@ -1640,9 +2063,31 @@ data ReportInfo = ReportInfo
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON ReportInfo where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "reportInfo")
+  parseJSON = genericParseJSON optionsReportInfo
 instance ToJSON ReportInfo where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "reportInfo")
+  toJSON = genericToJSON optionsReportInfo
+
+optionsReportInfo :: Options
+optionsReportInfo =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("reportInfoAuthor", "author")
+      , ("reportInfoCreated", "created")
+      , ("reportInfoCreatorVersion", "creatorVersion")
+      , ("reportInfoDescription", "description")
+      , ("reportInfoModified", "modified")
+      , ("reportInfoName", "name")
+      , ("reportInfoPicture", "picture")
+      , ("reportInfoPreviewPictureRatio", "previewPictureRatio")
+      , ("reportInfoSaveMode", "saveMode")
+      , ("reportInfoSavePreviewPicture", "savePreviewPicture")
+      , ("reportInfoTag", "tag")
+      , ("reportInfoVersion", "version")
+      ]
 
 
 -- | 
@@ -1650,21 +2095,11 @@ newtype ReportVM = ReportVM { unReportVM :: FileVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data ReportVMFilesVMBase = ReportVMFilesVMBase
-  { reportVMFilesVMBaseFiles :: Maybe [ReportVM] -- ^ 
-  , reportVMFilesVMBaseCount :: Maybe Integer -- ^ 
-  , reportVMFilesVMBaseSkip :: Maybe Int -- ^ 
-  , reportVMFilesVMBaseTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON ReportVMFilesVMBase where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "reportVMFilesVMBase")
-instance ToJSON ReportVMFilesVMBase where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "reportVMFilesVMBase")
-
+newtype ReportsVM = ReportsVM { unReportsVM :: FilesVMBase }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-newtype ReportsVM = ReportsVM { unReportsVM :: ReportVMFilesVMBase }
+newtype RestOfSpaceVM = RestOfSpaceVM { unRestOfSpaceVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
@@ -1696,16 +2131,8 @@ newtype RunPrepareTemplateTaskVM = RunPrepareTemplateTaskVM { unRunPrepareTempla
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data RunTaskBaseVM = RunTaskBaseVM
-  { runTaskBaseVMSubscriptionId :: Maybe Text -- ^ 
-  , runTaskBaseVMDollart :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON RunTaskBaseVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "runTaskBaseVM")
-instance ToJSON RunTaskBaseVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "runTaskBaseVM")
-
+newtype RunTaskBaseVM = RunTaskBaseVM { unRunTaskBaseVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype RunThumbnailReportTaskVM = RunThumbnailReportTaskVM { unRunThumbnailReportTaskVM :: RunTaskBaseVM }
@@ -1733,53 +2160,33 @@ data SaveMode = SaveMode
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON SaveMode where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "saveMode")
+  parseJSON = genericParseJSON optionsSaveMode
 instance ToJSON SaveMode where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "saveMode")
+  toJSON = genericToJSON optionsSaveMode
+
+optionsSaveMode :: Options
+optionsSaveMode =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-newtype SelectedFilesForDeletingVM = SelectedFilesForDeletingVM { unSelectedFilesForDeletingVM :: SelectedFilesVM }
+newtype SelectedFilesVM = SelectedFilesVM { unSelectedFilesVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data SelectedFilesVM = SelectedFilesVM
-  { selectedFilesVMIsAllSelected :: Maybe Bool -- ^ 
-  , selectedFilesVMFiles :: Maybe [Text] -- ^ 
-  , selectedFilesVMFolders :: Maybe [Text] -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SelectedFilesVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "selectedFilesVM")
-instance ToJSON SelectedFilesVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "selectedFilesVM")
-
+newtype ServerConfigurationVM = ServerConfigurationVM { unServerConfigurationVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data ServerConfigurationVM = ServerConfigurationVM
-  { serverConfigurationVMTitle :: Maybe Text -- ^ 
-  , serverConfigurationVMLogoLink :: Maybe Text -- ^ 
-  , serverConfigurationVMCopyright :: Maybe Text -- ^ 
-  , serverConfigurationVMCorporateServerMode :: Maybe Bool -- ^ 
-  , serverConfigurationVMLastSLAVersion :: Maybe UTCTime -- ^ 
-  , serverConfigurationVMIsDisabled :: Maybe Bool -- ^ 
-  , serverConfigurationVMFrontend :: Maybe FrontendApp -- ^ 
-  , serverConfigurationVMInvariantLocale :: Maybe Text -- ^ 
-  , serverConfigurationVMAuth :: Maybe AuthConfigVM -- ^ 
-  , serverConfigurationVMDesignerForAnons :: Maybe Bool -- ^ 
-  , serverConfigurationVMSlaLink :: Maybe Text -- ^ 
-  , serverConfigurationVMFirstStepsVideoLink :: Maybe Text -- ^ 
-  , serverConfigurationVMAboutLink :: Maybe Text -- ^ 
-  , serverConfigurationVMHomePageLink :: Maybe Text -- ^ 
-  , serverConfigurationVMAuthServerName :: Maybe Text -- ^ 
-  , serverConfigurationVMUpdateWorkspaceLink :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON ServerConfigurationVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "serverConfigurationVM")
-instance ToJSON ServerConfigurationVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "serverConfigurationVM")
-
+newtype SolvationReportVM = SolvationReportVM { unSolvationReportVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data SubscriptionAdministrate = SubscriptionAdministrate
@@ -1787,9 +2194,20 @@ data SubscriptionAdministrate = SubscriptionAdministrate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON SubscriptionAdministrate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionAdministrate")
+  parseJSON = genericParseJSON optionsSubscriptionAdministrate
 instance ToJSON SubscriptionAdministrate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionAdministrate")
+  toJSON = genericToJSON optionsSubscriptionAdministrate
+
+optionsSubscriptionAdministrate :: Options
+optionsSubscriptionAdministrate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1798,25 +2216,20 @@ data SubscriptionCreate = SubscriptionCreate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON SubscriptionCreate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionCreate")
+  parseJSON = genericParseJSON optionsSubscriptionCreate
 instance ToJSON SubscriptionCreate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionCreate")
+  toJSON = genericToJSON optionsSubscriptionCreate
 
-
--- | 
-data SubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermission = SubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermission
-  { subscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionCreate :: Maybe SubscriptionCreate -- ^ 
-  , subscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionDelete :: Maybe SubscriptionDelete -- ^ 
-  , subscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionExecute :: Maybe SubscriptionExecute -- ^ 
-  , subscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionGet :: Maybe SubscriptionGet -- ^ 
-  , subscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionUpdate :: Maybe SubscriptionUpdate -- ^ 
-  , subscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionAdministrate :: Maybe SubscriptionAdministrate -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermission where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermission")
-instance ToJSON SubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermission where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermission")
+optionsSubscriptionCreate :: Options
+optionsSubscriptionCreate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1825,9 +2238,20 @@ data SubscriptionDelete = SubscriptionDelete
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON SubscriptionDelete where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionDelete")
+  parseJSON = genericParseJSON optionsSubscriptionDelete
 instance ToJSON SubscriptionDelete where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionDelete")
+  toJSON = genericToJSON optionsSubscriptionDelete
+
+optionsSubscriptionDelete :: Options
+optionsSubscriptionDelete =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1836,9 +2260,20 @@ data SubscriptionExecute = SubscriptionExecute
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON SubscriptionExecute where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionExecute")
+  parseJSON = genericParseJSON optionsSubscriptionExecute
 instance ToJSON SubscriptionExecute where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionExecute")
+  toJSON = genericToJSON optionsSubscriptionExecute
+
+optionsSubscriptionExecute :: Options
+optionsSubscriptionExecute =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -1848,9 +2283,21 @@ data SubscriptionFolder = SubscriptionFolder
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON SubscriptionFolder where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionFolder")
+  parseJSON = genericParseJSON optionsSubscriptionFolder
 instance ToJSON SubscriptionFolder where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionFolder")
+  toJSON = genericToJSON optionsSubscriptionFolder
+
+optionsSubscriptionFolder :: Options
+optionsSubscriptionFolder =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("subscriptionFolderFolderId", "folderId")
+      , ("subscriptionFolderBytesUsed", "bytesUsed")
+      ]
 
 
 -- | 
@@ -1859,129 +2306,53 @@ data SubscriptionGet = SubscriptionGet
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON SubscriptionGet where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionGet")
+  parseJSON = genericParseJSON optionsSubscriptionGet
 instance ToJSON SubscriptionGet where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionGet")
+  toJSON = genericToJSON optionsSubscriptionGet
+
+optionsSubscriptionGet :: Options
+optionsSubscriptionGet =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data SubscriptionInviteVM = SubscriptionInviteVM
-  { subscriptionInviteVMUsages :: Maybe Integer -- ^ 
-  , subscriptionInviteVMDurable :: Maybe Bool -- ^ 
-  , subscriptionInviteVMAccessToken :: Maybe Text -- ^ 
-  , subscriptionInviteVMExpiredDate :: Maybe UTCTime -- ^ 
-  , subscriptionInviteVMAddedUsers :: Maybe [InvitedUser] -- ^ 
-  , subscriptionInviteVMCreatorUserId :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionInviteVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionInviteVM")
-instance ToJSON SubscriptionInviteVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionInviteVM")
-
-
--- | 
-data SubscriptionInvitesVM = SubscriptionInvitesVM
-  { subscriptionInvitesVMInvites :: Maybe [SubscriptionInviteVM] -- ^ 
-  , subscriptionInvitesVMCount :: Maybe Integer -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionInvitesVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionInvitesVM")
-instance ToJSON SubscriptionInvitesVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionInvitesVM")
-
-
--- | 
-data SubscriptionPeriodVM = SubscriptionPeriodVM
-  { subscriptionPeriodVMStartTime :: Maybe UTCTime -- ^ 
-  , subscriptionPeriodVMEndTime :: Maybe UTCTime -- ^ 
-  , subscriptionPeriodVMPlan :: Maybe SubscriptionPlanVM -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionPeriodVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPeriodVM")
-instance ToJSON SubscriptionPeriodVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPeriodVM")
-
-
--- | 
-newtype SubscriptionPermission = SubscriptionPermission { unSubscriptionPermission :: SubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermission }
+newtype SubscriptionInviteVM = SubscriptionInviteVM { unSubscriptionInviteVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data SubscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissions = SubscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissions
-  { subscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionsOwnerId :: Maybe Text -- ^ 
-  , subscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionsOwner :: Maybe SubscriptionPermission -- ^ 
-  , subscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionsGroups :: Maybe (Map.Map String SubscriptionPermission) -- ^ 
-  , subscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionsOther :: Maybe SubscriptionPermission -- ^ 
-  , subscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissionsAnon :: Maybe SubscriptionPermission -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissions where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissions")
-instance ToJSON SubscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissions where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissions")
-
-
--- | 
-newtype SubscriptionPermissions = SubscriptionPermissions { unSubscriptionPermissions :: SubscriptionPermissionSubscriptionCreateSubscriptionGetSubscriptionUpdateSubscriptionDeleteSubscriptionExecuteSubscriptionAdministratePermissions }
+newtype SubscriptionInvitesVM = SubscriptionInvitesVM { unSubscriptionInvitesVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data SubscriptionPermissionsVM = SubscriptionPermissionsVM
-  { subscriptionPermissionsVMPermissions :: Maybe SubscriptionPermissions -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionPermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPermissionsVM")
-instance ToJSON SubscriptionPermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPermissionsVM")
-
+newtype SubscriptionPeriodVM = SubscriptionPeriodVM { unSubscriptionPeriodVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data SubscriptionPlanVM = SubscriptionPlanVM
-  { subscriptionPlanVMId :: Maybe Text -- ^ 
-  , subscriptionPlanVMIsActive :: Maybe Bool -- ^ 
-  , subscriptionPlanVMDisplayName :: Maybe Text -- ^ 
-  , subscriptionPlanVMTimePeriodType :: Maybe TimePeriodType -- ^ 
-  , subscriptionPlanVMTimePeriod :: Maybe Int -- ^ 
-  , subscriptionPlanVMReadonlyTimeLimitType :: Maybe TimePeriodType -- ^ 
-  , subscriptionPlanVMReadonlyTimeLimit :: Maybe Int -- ^ 
-  , subscriptionPlanVMTemplatesSpaceLimit :: Maybe Integer -- ^ 
-  , subscriptionPlanVMReportsSpaceLimit :: Maybe Integer -- ^ 
-  , subscriptionPlanVMExportsSpaceLimit :: Maybe Integer -- ^ 
-  , subscriptionPlanVMFileUploadSizeLimit :: Maybe Integer -- ^ 
-  , subscriptionPlanVMDataSourceLimit :: Maybe Int -- ^ 
-  , subscriptionPlanVMMaxUsersCount :: Maybe Int -- ^ 
-  , subscriptionPlanVMGroupLimit :: Maybe Int -- ^ 
-  , subscriptionPlanVMOnlineDesigner :: Maybe Bool -- ^ 
-  , subscriptionPlanVMIsDemo :: Maybe Bool -- ^ 
-  , subscriptionPlanVMUrlToBuy :: Maybe Text -- ^ 
-  , subscriptionPlanVMUnlimitedPage :: Maybe Bool -- ^ 
-  , subscriptionPlanVMPageLimit :: Maybe Int -- ^ 
-  , subscriptionPlanVMTasks :: Maybe TaskSettingsVM -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionPlanVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPlanVM")
-instance ToJSON SubscriptionPlanVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPlanVM")
-
+newtype SubscriptionPermissionCRUDVM = SubscriptionPermissionCRUDVM { unSubscriptionPermissionCRUDVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data SubscriptionPlansVM = SubscriptionPlansVM
-  { subscriptionPlansVMSubscriptionPlans :: Maybe [SubscriptionPlanVM] -- ^ 
-  , subscriptionPlansVMCount :: Maybe Integer -- ^ 
-  , subscriptionPlansVMSkip :: Maybe Int -- ^ 
-  , subscriptionPlansVMTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype SubscriptionPermissionsCRUDVM = SubscriptionPermissionsCRUDVM { unSubscriptionPermissionsCRUDVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON SubscriptionPlansVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionPlansVM")
-instance ToJSON SubscriptionPlansVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionPlansVM")
+-- | 
+newtype SubscriptionPermissionsVM = SubscriptionPermissionsVM { unSubscriptionPermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
+-- | 
+newtype SubscriptionPlanVM = SubscriptionPlanVM { unSubscriptionPlanVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype SubscriptionPlansVM = SubscriptionPlansVM { unSubscriptionPlansVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data SubscriptionUpdate = SubscriptionUpdate
@@ -1989,68 +2360,37 @@ data SubscriptionUpdate = SubscriptionUpdate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON SubscriptionUpdate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionUpdate")
+  parseJSON = genericParseJSON optionsSubscriptionUpdate
 instance ToJSON SubscriptionUpdate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionUpdate")
+  toJSON = genericToJSON optionsSubscriptionUpdate
+
+optionsSubscriptionUpdate :: Options
+optionsSubscriptionUpdate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data SubscriptionUserVM = SubscriptionUserVM
-  { subscriptionUserVMUserId :: Maybe Text -- ^ 
-  , subscriptionUserVMGroups :: Maybe [GroupVM] -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionUserVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionUserVM")
-instance ToJSON SubscriptionUserVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionUserVM")
-
+newtype SubscriptionUserVM = SubscriptionUserVM { unSubscriptionUserVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data SubscriptionUsersVM = SubscriptionUsersVM
-  { subscriptionUsersVMUsers :: Maybe [SubscriptionUserVM] -- ^ 
-  , subscriptionUsersVMCount :: Maybe Integer -- ^ 
-  , subscriptionUsersVMTake :: Maybe Int -- ^ 
-  , subscriptionUsersVMSkip :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionUsersVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionUsersVM")
-instance ToJSON SubscriptionUsersVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionUsersVM")
-
+newtype SubscriptionUsersVM = SubscriptionUsersVM { unSubscriptionUsersVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data SubscriptionVM = SubscriptionVM
-  { subscriptionVMId :: Maybe Text -- ^ 
-  , subscriptionVMName :: Maybe Text -- ^ 
-  , subscriptionVMLocale :: Maybe Text -- ^ 
-  , subscriptionVMCurrent :: Maybe SubscriptionPeriodVM -- ^ 
-  , subscriptionVMOld :: Maybe [SubscriptionPeriodVM] -- ^ 
-  , subscriptionVMTemplatesFolder :: Maybe SubscriptionFolder -- ^ 
-  , subscriptionVMReportsFolder :: Maybe SubscriptionFolder -- ^ 
-  , subscriptionVMExportsFolder :: Maybe SubscriptionFolder -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionVM")
-instance ToJSON SubscriptionVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionVM")
-
+newtype SubscriptionVM = SubscriptionVM { unSubscriptionVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data SubscriptionsVM = SubscriptionsVM
-  { subscriptionsVMSubscriptions :: Maybe [SubscriptionVM] -- ^ 
-  , subscriptionsVMCount :: Maybe Integer -- ^ 
-  , subscriptionsVMSkip :: Maybe Int -- ^ 
-  , subscriptionsVMTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON SubscriptionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "subscriptionsVM")
-instance ToJSON SubscriptionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "subscriptionsVM")
-
+newtype SubscriptionsVM = SubscriptionsVM { unSubscriptionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data TaskAdministrate = TaskAdministrate
@@ -2058,29 +2398,25 @@ data TaskAdministrate = TaskAdministrate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON TaskAdministrate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskAdministrate")
+  parseJSON = genericParseJSON optionsTaskAdministrate
 instance ToJSON TaskAdministrate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskAdministrate")
+  toJSON = genericToJSON optionsTaskAdministrate
+
+optionsTaskAdministrate :: Options
+optionsTaskAdministrate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data TaskBaseVM = TaskBaseVM
-  { taskBaseVMCronExpression :: Maybe Text -- ^ 
-  , taskBaseVMDelayedRunTime :: Maybe UTCTime -- ^ 
-  , taskBaseVMDelayedWasRunTime :: Maybe UTCTime -- ^ 
-  , taskBaseVMId :: Maybe Text -- ^ 
-  , taskBaseVMName :: Maybe Text -- ^ 
-  , taskBaseVMRecurrentRunTime :: Maybe UTCTime -- ^ 
-  , taskBaseVMRecurrentWasRunTime :: Maybe UTCTime -- ^ 
-  , taskBaseVMSubscriptionId :: Maybe Text -- ^ 
-  , taskBaseVMDollart :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON TaskBaseVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskBaseVM")
-instance ToJSON TaskBaseVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskBaseVM")
-
+newtype TaskBaseVM = TaskBaseVM { unTaskBaseVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data TaskCreate = TaskCreate
@@ -2088,25 +2424,20 @@ data TaskCreate = TaskCreate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON TaskCreate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskCreate")
+  parseJSON = genericParseJSON optionsTaskCreate
 instance ToJSON TaskCreate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskCreate")
+  toJSON = genericToJSON optionsTaskCreate
 
-
--- | 
-data TaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermission = TaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermission
-  { taskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionCreate :: Maybe TaskCreate -- ^ 
-  , taskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionDelete :: Maybe TaskDelete -- ^ 
-  , taskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionExecute :: Maybe TaskExecute -- ^ 
-  , taskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionGet :: Maybe TaskGet -- ^ 
-  , taskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionUpdate :: Maybe TaskUpdate -- ^ 
-  , taskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionAdministrate :: Maybe TaskAdministrate -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON TaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermission where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermission")
-instance ToJSON TaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermission where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermission")
+optionsTaskCreate :: Options
+optionsTaskCreate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -2115,9 +2446,44 @@ data TaskDelete = TaskDelete
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON TaskDelete where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskDelete")
+  parseJSON = genericParseJSON optionsTaskDelete
 instance ToJSON TaskDelete where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskDelete")
+  toJSON = genericToJSON optionsTaskDelete
+
+optionsTaskDelete :: Options
+optionsTaskDelete =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
+
+
+-- | 
+data TaskEnd = TaskEnd
+  { taskEndAfter :: Maybe Int -- ^ 
+  , taskEndOn :: Maybe UTCTime -- ^ 
+  } deriving (Show, Eq, Generic, Data)
+
+instance FromJSON TaskEnd where
+  parseJSON = genericParseJSON optionsTaskEnd
+instance ToJSON TaskEnd where
+  toJSON = genericToJSON optionsTaskEnd
+
+optionsTaskEnd :: Options
+optionsTaskEnd =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("taskEndAfter", "after")
+      , ("taskEndOn", "on")
+      ]
 
 
 -- | 
@@ -2126,9 +2492,20 @@ data TaskExecute = TaskExecute
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON TaskExecute where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskExecute")
+  parseJSON = genericParseJSON optionsTaskExecute
 instance ToJSON TaskExecute where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskExecute")
+  toJSON = genericToJSON optionsTaskExecute
+
+optionsTaskExecute :: Options
+optionsTaskExecute =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -2137,63 +2514,45 @@ data TaskGet = TaskGet
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON TaskGet where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskGet")
+  parseJSON = genericParseJSON optionsTaskGet
 instance ToJSON TaskGet where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskGet")
+  toJSON = genericToJSON optionsTaskGet
+
+optionsTaskGet :: Options
+optionsTaskGet =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-newtype TaskPermission = TaskPermission { unTaskPermission :: TaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermission }
+newtype TaskIdsVM = TaskIdsVM { unTaskIdsVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data TaskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissions = TaskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissions
-  { taskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionsOwnerId :: Maybe Text -- ^ 
-  , taskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionsOwner :: Maybe TaskPermission -- ^ 
-  , taskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionsGroups :: Maybe (Map.Map String TaskPermission) -- ^ 
-  , taskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionsOther :: Maybe TaskPermission -- ^ 
-  , taskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissionsAnon :: Maybe TaskPermission -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON TaskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissions where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissions")
-instance ToJSON TaskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissions where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissions")
-
-
--- | 
-newtype TaskPermissions = TaskPermissions { unTaskPermissions :: TaskPermissionTaskCreateTaskGetTaskUpdateTaskDeleteTaskExecuteTaskAdministratePermissions }
+newtype TaskMessageIdVM = TaskMessageIdVM { unTaskMessageIdVM :: CloudBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data TaskPermissionsVM = TaskPermissionsVM
-  { taskPermissionsVMPermissions :: Maybe TaskPermissions -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON TaskPermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskPermissionsVM")
-instance ToJSON TaskPermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskPermissionsVM")
-
+newtype TaskPermissionCRUDVM = TaskPermissionCRUDVM { unTaskPermissionCRUDVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data TaskSettingsVM = TaskSettingsVM
-  { taskSettingsVMPrepare :: Maybe Bool -- ^ 
-  , taskSettingsVMExportTemplate :: Maybe Bool -- ^ 
-  , taskSettingsVMExportReport :: Maybe Bool -- ^ 
-  , taskSettingsVMSendViaEmail :: Maybe Bool -- ^ 
-  , taskSettingsVMUploadToFTP :: Maybe Bool -- ^ 
-  , taskSettingsVMSendViaWebhook :: Maybe Bool -- ^ 
-  , taskSettingsVMFetchData :: Maybe Bool -- ^ 
-  , taskSettingsVMThumbnailReport :: Maybe Bool -- ^ 
-  , taskSettingsVMThumbnailTemplate :: Maybe Bool -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype TaskPermissionsCRUDVM = TaskPermissionsCRUDVM { unTaskPermissionsCRUDVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON TaskSettingsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskSettingsVM")
-instance ToJSON TaskSettingsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskSettingsVM")
+-- | 
+newtype TaskPermissionsVM = TaskPermissionsVM { unTaskPermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
+-- | 
+newtype TaskSettingsVM = TaskSettingsVM { unTaskSettingsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 data TaskUpdate = TaskUpdate
@@ -2201,27 +2560,36 @@ data TaskUpdate = TaskUpdate
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON TaskUpdate where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "taskUpdate")
+  parseJSON = genericParseJSON optionsTaskUpdate
 instance ToJSON TaskUpdate where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "taskUpdate")
+  toJSON = genericToJSON optionsTaskUpdate
+
+optionsTaskUpdate :: Options
+optionsTaskUpdate =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
-data TasksVM = TasksVM
-  { tasksVMCount :: Maybe Integer -- ^ 
-  , tasksVMSkip :: Maybe Int -- ^ 
-  , tasksVMTake :: Maybe Int -- ^ 
-  , tasksVMTasks :: Maybe [TaskBaseVM] -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype TasksVM = TasksVM { unTasksVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON TasksVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "tasksVM")
-instance ToJSON TasksVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "tasksVM")
-
+-- | 
+newtype TemplateContentVM = TemplateContentVM { unTemplateContentVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype TemplateCreateAdminVM = TemplateCreateAdminVM { unTemplateCreateAdminVM :: TemplateCreateVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype TemplateCreateFormVM = TemplateCreateFormVM { unTemplateCreateFormVM :: FileCreateFormVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
@@ -2237,21 +2605,7 @@ newtype TemplateVM = TemplateVM { unTemplateVM :: FileVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data TemplateVMFilesVMBase = TemplateVMFilesVMBase
-  { templateVMFilesVMBaseFiles :: Maybe [TemplateVM] -- ^ 
-  , templateVMFilesVMBaseCount :: Maybe Integer -- ^ 
-  , templateVMFilesVMBaseSkip :: Maybe Int -- ^ 
-  , templateVMFilesVMBaseTake :: Maybe Int -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON TemplateVMFilesVMBase where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "templateVMFilesVMBase")
-instance ToJSON TemplateVMFilesVMBase where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "templateVMFilesVMBase")
-
-
--- | 
-newtype TemplatesVM = TemplatesVM { unTemplatesVM :: TemplateVMFilesVMBase }
+newtype TemplatesVM = TemplatesVM { unTemplatesVM :: FilesVMBase }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
@@ -2268,9 +2622,20 @@ data TimePeriodType = TimePeriodType
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON TimePeriodType where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "timePeriodType")
+  parseJSON = genericParseJSON optionsTimePeriodType
 instance ToJSON TimePeriodType where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "timePeriodType")
+  toJSON = genericToJSON optionsTimePeriodType
+
+optionsTimePeriodType :: Options
+optionsTimePeriodType =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ 
+      ]
 
 
 -- | 
@@ -2288,9 +2653,21 @@ data UpdateContactGroupVM = UpdateContactGroupVM
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON UpdateContactGroupVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateContactGroupVM")
+  parseJSON = genericParseJSON optionsUpdateContactGroupVM
 instance ToJSON UpdateContactGroupVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateContactGroupVM")
+  toJSON = genericToJSON optionsUpdateContactGroupVM
+
+optionsUpdateContactGroupVM :: Options
+optionsUpdateContactGroupVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("updateContactGroupVMName", "name")
+      , ("updateContactGroupVMSubscriptionId", "subscriptionId")
+      ]
 
 
 -- | 
@@ -2302,58 +2679,56 @@ data UpdateContactVM = UpdateContactVM
   } deriving (Show, Eq, Generic, Data)
 
 instance FromJSON UpdateContactVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateContactVM")
+  parseJSON = genericParseJSON optionsUpdateContactVM
 instance ToJSON UpdateContactVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateContactVM")
+  toJSON = genericToJSON optionsUpdateContactVM
+
+optionsUpdateContactVM :: Options
+optionsUpdateContactVM =
+  defaultOptions
+    { omitNothingFields  = True
+    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ lookup s table
+    }
+  where
+    table =
+      [ ("updateContactVMName", "name")
+      , ("updateContactVMEmail", "email")
+      , ("updateContactVMGroups", "groups")
+      , ("updateContactVMSubscriptionId", "subscriptionId")
+      ]
 
 
 -- | 
-data UpdateDataSourceConnectionStringVM = UpdateDataSourceConnectionStringVM
-  { updateDataSourceConnectionStringVMConnectionString :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateDataSourceConnectionStringVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateDataSourceConnectionStringVM")
-instance ToJSON UpdateDataSourceConnectionStringVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateDataSourceConnectionStringVM")
-
+newtype UpdateContentInternalVM = UpdateContentInternalVM { unUpdateContentInternalVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateDataSourcePermissionsVM = UpdateDataSourcePermissionsVM
-  { updateDataSourcePermissionsVMNewPermissions :: DataSourcePermissions -- ^ 
-  , updateDataSourcePermissionsVMAdministrate :: DataSourceAdministrate -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateDataSourcePermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateDataSourcePermissionsVM")
-instance ToJSON UpdateDataSourcePermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateDataSourcePermissionsVM")
-
+newtype UpdateDataSourceConnectionStringVM = UpdateDataSourceConnectionStringVM { unUpdateDataSourceConnectionStringVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateDataSourceSubscriptionVM = UpdateDataSourceSubscriptionVM
-  { updateDataSourceSubscriptionVMSubscriptionId :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateDataSourceSubscriptionVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateDataSourceSubscriptionVM")
-instance ToJSON UpdateDataSourceSubscriptionVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateDataSourceSubscriptionVM")
-
+newtype UpdateDataSourcePermissionsVM = UpdateDataSourcePermissionsVM { unUpdateDataSourcePermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateDefaultPermissionsVM = UpdateDefaultPermissionsVM
-  { updateDefaultPermissionsVMFilePermissions :: Maybe UpdateFilePermissionsVM -- ^ 
-  , updateDefaultPermissionsVMGroupPermissions :: Maybe UpdateGroupPermissionsVM -- ^ 
-  , updateDefaultPermissionsVMDataSourcePermissions :: Maybe UpdateDataSourcePermissionsVM -- ^ 
-  , updateDefaultPermissionsVMTaskPermissions :: Maybe UpdateTaskPermissionsVM -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype UpdateDataSourceSelectCommandsVM = UpdateDataSourceSelectCommandsVM { unUpdateDataSourceSelectCommandsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON UpdateDefaultPermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateDefaultPermissionsVM")
-instance ToJSON UpdateDefaultPermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateDefaultPermissionsVM")
+-- | 
+newtype UpdateDataSourceSubscriptionVM = UpdateDataSourceSubscriptionVM { unUpdateDataSourceSubscriptionVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
+-- | 
+newtype UpdateDataSourceVM = UpdateDataSourceVM { unUpdateDataSourceVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype UpdateDataVM = UpdateDataVM { unUpdateDataVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype UpdateDefaultPermissionsVM = UpdateDefaultPermissionsVM { unUpdateDefaultPermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype UpdateEmailTaskVM = UpdateEmailTaskVM { unUpdateEmailTaskVM :: UpdateTransportTaskBaseVM }
@@ -2376,92 +2751,56 @@ newtype UpdateFetchTaskVM = UpdateFetchTaskVM { unUpdateFetchTaskVM :: UpdateTas
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateFileContentVM = UpdateFileContentVM
-  { updateFileContentVMContent :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateFileContentVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateFileContentVM")
-instance ToJSON UpdateFileContentVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateFileContentVM")
-
+newtype UpdateFileContentFormVM = UpdateFileContentFormVM { unUpdateFileContentFormVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateFilePermissionsVM = UpdateFilePermissionsVM
-  { updateFilePermissionsVMNewPermissions :: FilePermissions -- ^ 
-  , updateFilePermissionsVMAdministrate :: FileAdministrate -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateFilePermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateFilePermissionsVM")
-instance ToJSON UpdateFilePermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateFilePermissionsVM")
-
+newtype UpdateFileContentInternalVM = UpdateFileContentInternalVM { unUpdateFileContentInternalVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateGroupPermissionsVM = UpdateGroupPermissionsVM
-  { updateGroupPermissionsVMNewPermissions :: GroupPermissions -- ^ 
-  , updateGroupPermissionsVMAdministrate :: GroupAdministrate -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype UpdateFileContentVM = UpdateFileContentVM { unUpdateFileContentVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON UpdateGroupPermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateGroupPermissionsVM")
-instance ToJSON UpdateGroupPermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateGroupPermissionsVM")
+-- | 
+newtype UpdateFilePermissionsVM = UpdateFilePermissionsVM { unUpdateFilePermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
+-- | 
+newtype UpdateGroupPermissionsVM = UpdateGroupPermissionsVM { unUpdateGroupPermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype UpdateGroupVM = UpdateGroupVM { unUpdateGroupVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype UpdatePrepareTemplateTaskVM = UpdatePrepareTemplateTaskVM { unUpdatePrepareTemplateTaskVM :: UpdateTransformTaskBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateSubscriptionLocaleVM = UpdateSubscriptionLocaleVM
-  { updateSubscriptionLocaleVMLocale :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateSubscriptionLocaleVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateSubscriptionLocaleVM")
-instance ToJSON UpdateSubscriptionLocaleVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateSubscriptionLocaleVM")
-
+newtype UpdateSubscriptionLocaleVM = UpdateSubscriptionLocaleVM { unUpdateSubscriptionLocaleVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateSubscriptionPermissionsVM = UpdateSubscriptionPermissionsVM
-  { updateSubscriptionPermissionsVMNewPermissions :: SubscriptionPermissions -- ^ 
-  , updateSubscriptionPermissionsVMAdministrate :: SubscriptionAdministrate -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateSubscriptionPermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateSubscriptionPermissionsVM")
-instance ToJSON UpdateSubscriptionPermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateSubscriptionPermissionsVM")
-
+newtype UpdateSubscriptionPermissionsVM = UpdateSubscriptionPermissionsVM { unUpdateSubscriptionPermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateTaskBaseVM = UpdateTaskBaseVM
-  { updateTaskBaseVMCronExpression :: Maybe Text -- ^ 
-  , updateTaskBaseVMDelayedRunTime :: Maybe UTCTime -- ^ 
-  , updateTaskBaseVMName :: Maybe Text -- ^ 
-  , updateTaskBaseVMDollart :: Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateTaskBaseVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateTaskBaseVM")
-instance ToJSON UpdateTaskBaseVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateTaskBaseVM")
-
+newtype UpdateSubscriptionPlanVM = UpdateSubscriptionPlanVM { unUpdateSubscriptionPlanVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateTaskPermissionsVM = UpdateTaskPermissionsVM
-  { updateTaskPermissionsVMAdministrate :: TaskAdministrate -- ^ 
-  , updateTaskPermissionsVMNewPermissions :: TaskPermissions -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype UpdateSubscriptionVM = UpdateSubscriptionVM { unUpdateSubscriptionVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON UpdateTaskPermissionsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateTaskPermissionsVM")
-instance ToJSON UpdateTaskPermissionsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateTaskPermissionsVM")
+-- | 
+newtype UpdateTaskBaseVM = UpdateTaskBaseVM { unUpdateTaskBaseVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
+-- | 
+newtype UpdateTaskPermissionsVM = UpdateTaskPermissionsVM { unUpdateTaskPermissionsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype UpdateThumbnailReportTaskVM = UpdateThumbnailReportTaskVM { unUpdateThumbnailReportTaskVM :: UpdateTaskBaseVM }
@@ -2480,131 +2819,45 @@ newtype UpdateTransportTaskBaseVM = UpdateTransportTaskBaseVM { unUpdateTranspor
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateUserProfileVM = UpdateUserProfileVM
-  { updateUserProfileVMName :: Maybe Text -- ^ 
-  , updateUserProfileVMUsername :: Maybe Text -- ^ 
-  , updateUserProfileVMEmail :: Maybe Text -- ^ 
-  , updateUserProfileVMPasswordNew :: Maybe Text -- ^ 
-  , updateUserProfileVMPasswordNew2 :: Maybe Text -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UpdateUserProfileVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateUserProfileVM")
-instance ToJSON UpdateUserProfileVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateUserProfileVM")
-
+newtype UpdateUserProfileVM = UpdateUserProfileVM { unUpdateUserProfileVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UpdateUserSettingsVM = UpdateUserSettingsVM
-  { updateUserSettingsVMProfileVisibility :: Maybe ProfileVisibility -- ^ 
-  , updateUserSettingsVMDefaultSubscription :: Maybe Text -- ^ 
-  , updateUserSettingsVMShowHiddenFilesAndFolders :: Maybe Bool -- ^ 
-  , updateUserSettingsVMSubscribedNotifications :: Maybe [AuditType] -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype UpdateUserSettingsVM = UpdateUserSettingsVM { unUpdateUserSettingsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON UpdateUserSettingsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "updateUserSettingsVM")
-instance ToJSON UpdateUserSettingsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "updateUserSettingsVM")
-
+-- | 
+newtype UpdateUserVM = UpdateUserVM { unUpdateUserVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype UpdateWebhookTaskVM = UpdateWebhookTaskVM { unUpdateWebhookTaskVM :: UpdateTransportTaskBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UserProfileVM = UserProfileVM
-  { userProfileVMId :: Maybe Text -- ^ 
-  , userProfileVMName :: Maybe Text -- ^ 
-  , userProfileVMUsername :: Maybe Text -- ^ 
-  , userProfileVMEmail :: Maybe Text -- ^ 
-  , userProfileVMIsReadOnly :: Maybe Bool -- ^ 
-  } deriving (Show, Eq, Generic, Data)
-
-instance FromJSON UserProfileVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "userProfileVM")
-instance ToJSON UserProfileVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "userProfileVM")
-
+newtype UserIsAdminVM = UserIsAdminVM { unUserIsAdminVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
-data UserSettingsVM = UserSettingsVM
-  { userSettingsVMProfileVisibility :: Maybe ProfileVisibility -- ^ 
-  , userSettingsVMDefaultSubscription :: Maybe Text -- ^ 
-  , userSettingsVMShowHiddenFilesAndFolders :: Maybe Bool -- ^ 
-  , userSettingsVMSlaAcceptedDateTime :: Maybe UTCTime -- ^ 
-  , userSettingsVMSubscribedNotifications :: Maybe [AuditType] -- ^ 
-  } deriving (Show, Eq, Generic, Data)
+newtype UserProfileVM = UserProfileVM { unUserProfileVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
-instance FromJSON UserSettingsVM where
-  parseJSON = genericParseJSON (removeFieldLabelPrefix True "userSettingsVM")
-instance ToJSON UserSettingsVM where
-  toJSON = genericToJSON (removeFieldLabelPrefix False "userSettingsVM")
+-- | 
+newtype UserResultVM = UserResultVM { unUserResultVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
+-- | 
+newtype UserSettingsVM = UserSettingsVM { unUserSettingsVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype UserVM = UserVM { unUserVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
+
+-- | 
+newtype UsersVM = UsersVM { unUsersVM :: CloudBaseVM }
+  deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
 
 -- | 
 newtype WebhookTaskVM = WebhookTaskVM { unWebhookTaskVM :: TransportTaskBaseVM }
   deriving (Show, Eq, FromJSON, ToJSON, Generic, Data)
-
-uncapitalize :: String -> String
-uncapitalize (first:rest) = Char.toLower first : rest
-uncapitalize [] = []
-
--- | Remove a field label prefix during JSON parsing.
---   Also perform any replacements for special characters.
---   The @forParsing@ parameter is to distinguish between the cases in which we're using this
---   to power a @FromJSON@ or a @ToJSON@ instance. In the first case we're parsing, and we want
---   to replace special characters with their quoted equivalents (because we cannot have special
---   chars in identifier names), while we want to do vice versa when sending data instead.
-removeFieldLabelPrefix :: Bool -> String -> Options
-removeFieldLabelPrefix forParsing prefix =
-  defaultOptions
-    { omitNothingFields  = True
-    , fieldLabelModifier = uncapitalize . fromMaybe (error ("did not find prefix " ++ prefix)) . stripPrefix prefix . replaceSpecialChars
-    }
-  where
-    replaceSpecialChars field = foldl (&) field (map mkCharReplacement specialChars)
-    specialChars =
-      [ ("$", "'Dollar")
-      , ("^", "'Caret")
-      , ("|", "'Pipe")
-      , ("=", "'Equal")
-      , ("*", "'Star")
-      , ("-", "'Dash")
-      , ("&", "'Ampersand")
-      , ("%", "'Percent")
-      , ("#", "'Hash")
-      , ("@", "'At")
-      , ("!", "'Exclamation")
-      , ("+", "'Plus")
-      , (":", "'Colon")
-      , (";", "'Semicolon")
-      , (">", "'GreaterThan")
-      , ("<", "'LessThan")
-      , (".", "'Period")
-      , ("_", "'Underscore")
-      , ("?", "'Question_Mark")
-      , (",", "'Comma")
-      , ("'", "'Quote")
-      , ("/", "'Slash")
-      , ("(", "'Left_Parenthesis")
-      , (")", "'Right_Parenthesis")
-      , ("{", "'Left_Curly_Bracket")
-      , ("}", "'Right_Curly_Bracket")
-      , ("[", "'Left_Square_Bracket")
-      , ("]", "'Right_Square_Bracket")
-      , ("~", "'Tilde")
-      , ("`", "'Backtick")
-      , ("<=", "'Less_Than_Or_Equal_To")
-      , (">=", "'Greater_Than_Or_Equal_To")
-      , ("!=", "'Not_Equal")
-      , ("<>", "'Not_Equal")
-      , ("~=", "'Tilde_Equal")
-      , ("\\", "'Back_Slash")
-      , ("\"", "'Double_Quote")
-      ]
-    mkCharReplacement (replaceStr, searchStr) = T.unpack . replacer (T.pack searchStr) (T.pack replaceStr) . T.pack
-    replacer =
-      if forParsing
-        then flip T.replace
-        else T.replace
